@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MANOJ-ADMIN-PROJECT-STORY-008 — Figma mapping review</title>
+<!-- App nav: none — this is a Figma-to-component mapping review page for a single marketing landing page, not an application screen -->
+<style>
+  :root {
+    --bg: #FCFAF6;
+    --surface: #FFFFFF;
+    --border: #EBE7DF;
+    --fg: #151212;
+    --muted: #6B6661;
+    --brand: #C82D25;
+    --accent-green: #2A7043;
+    --dark: #151212;
+    --tint: #F3EFE9;
+    --font-serif: 'Fraunces', Georgia, serif;
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3 { font-family: var(--font-serif); color: var(--fg); margin: 0 0 8px; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; margin-top: 0; }
+  h3 { font-size: 15px; }
+  p { margin: 0 0 10px; color: var(--muted); }
+  a { color: var(--brand); }
+  code { font-family: var(--font-mono); font-size: 12px; background: var(--tint); padding: 1px 5px; border-radius: 4px; }
+
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 24px 24px 80px;
+  }
+
+  .banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+  .banner strong { color: var(--brand); }
+
+  section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+
+  .frame-render img {
+    max-width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: block;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  .status-existing { color: var(--accent-green); font-weight: 600; }
+  .status-new { color: var(--brand); font-weight: 600; }
+
+  .group-title {
+    margin-top: 28px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border);
+  }
+  .group-title:first-of-type { margin-top: 0; }
+  .group-title .badge {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .footer-focus {
+    border: 2px solid var(--brand);
+  }
+  .footer-focus .group-title { border-bottom-color: var(--brand); }
+
+  .swatches { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; }
+  .swatch { width: 132px; }
+  .swatch-color { height: 48px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 4px; }
+  .swatch small { display: block; color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+
+  .type-ramp-row { display: flex; align-items: baseline; gap: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+  .type-ramp-row:last-child { border-bottom: none; }
+  .type-ramp-row .sample { font-family: var(--font-serif); }
+  .type-ramp-row .meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+  .token-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; }
+  .token-chip { background: var(--tint); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; text-align: center; font-family: var(--font-mono); font-size: 12px; }
+
+  ul.clean { margin: 0; padding-left: 18px; }
+  ul.clean li { margin-bottom: 6px; }
+
+  .q {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+  }
+  .q.blocking { border-color: var(--brand); background: color-mix(in srgb, var(--brand) 4%, var(--surface)); }
+  .q-title { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .q-flag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+  .q-flag.blocking { background: var(--brand); color: var(--surface); }
+  .q-flag.nonblocking { background: var(--tint); color: var(--muted); }
+  .assumption { font-family: var(--font-mono); font-size: 12px; background: var(--tint); border-radius: 6px; padding: 6px 10px; margin-top: 6px; }
+  .assumption b { color: var(--fg); }
+  .options { margin-top: 8px; font-size: 13px; }
+  .options .opt { padding: 4px 0 4px 12px; border-left: 2px solid var(--border); margin-bottom: 4px; }
+  .options .opt.assumed { border-left-color: var(--brand); }
+  .options .opt code.id { background: transparent; padding: 0; }
+</style>
+</head>
+<body>
+
+<!-- Reviewer bar -->
+<div id="review-bar" style="position:fixed;top:0;left:0;right:0;z-index:9999;
+  display:flex;align-items:center;gap:10px;padding:8px 16px;
+  background:var(--surface);border-bottom:1px solid var(--border);font-size:13px;font-family:var(--font-sans)">
+  <span style="font-family:var(--font-mono);color:var(--muted)">MANOJ-ADMIN-PROJECT-STORY-008</span>
+  <button id="prev-btn" style="background:none;border:none;color:var(--brand);cursor:pointer;font-family:var(--font-sans);font-size:13px">← Prev</button>
+  <span id="screen-label" style="flex:1;text-align:center;font-weight:600;color:var(--fg)"></span>
+  <button id="next-btn" style="background:none;border:none;color:var(--brand);cursor:pointer;font-family:var(--font-sans);font-size:13px">Next →</button>
+</div>
+<div style="height:46px"></div><!-- spacer -->
+
+<div id="screens">
+<!-- Screen: Figma mapping review
+     Notes:
+       - This is a mapping REVIEW surface, not a redrawn prototype. figma-frame.png is authoritative for visuals.
+       - The frame is one "home-page" artboard (not a multi-artboard canvas); sections are shown in reading order.
+       - The footer (business info) section is outlined in red — that's this story's scope.
+-->
+<div class="screen" data-name="Mapping review">
+
+<main>
+  <div class="banner">
+    <h1>Figma → component mapping review</h1>
+    <p>
+      This page shows <strong>how arc read</strong> the Figma frame for
+      <code>MANOJ-ADMIN-PROJECT-STORY-008 (footer-business-info)</code> — it does not redraw the
+      design. <strong>The rendered PNG below is authoritative for visuals</strong>; this page's job is to show
+      the proposed structure/component mapping, the distilled tokens, and open questions for a human to confirm.
+      This project has no existing design system yet (greenfield), so every mapped component below is
+      <span class="status-new">proposed_new</span>.
+    </p>
+  </div>
+
+  <section>
+    <h2>Frame &amp; artboard</h2>
+    <table>
+      <thead><tr><th>Node</th><th>Name</th><th>Figma type</th><th>Kind</th><th>Bounds</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>6:6</code></td>
+          <td>home-page</td>
+          <td>FRAME</td>
+          <td>screen</td>
+          <td>1440 × 2786</td>
+          <td>Single desktop landing-page screen. Header → Hero → Delivery banner → Featured pizzas → Story → <strong>Footer</strong> (this story's focus) stacked as one frame, not separate artboards.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="frame-render">
+    <h2>Rendered frame (authoritative for visuals)</h2>
+    <img src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-008/figma-frame.png?AWSAccessKeyId=ASIA256MLQMTKYXEZS7X&Signature=f0L6NfuvXtCAhbyq3WwhH3GXS3I%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCmFwLXNvdXRoLTEiRzBFAiA0OqK3u7sdd7Fh3zbrOIndAQWlR5P%2BgRRYt2SCxA%2B4jQIhAIcJDSm%2Fn5atd8%2Bw9kld4g1pVaXXBW%2BnYRAK1O%2FcTM%2BhKr0FCCEQABoMNzUxNTEwOTc5MzY2IgzRQ8OyBCS5dLsUFkQqmgUSngk9E1NRKIS2IE59Jok1RiQG%2FCa0tmSfLJSODQZztul7otilCGtdWCTP6cyFWPvroaQPQKO%2Fdsldv9KbLjIzu1pkklZ9f6rw4QVgbeWAR64tjxVOfGMdpd9nnV0u5jVGXu8wULEY1%2FJGtgaE%2FmWGnkGGwXg%2BeD92Z6eiNH1milVFKhIlMEjOdIenvzrIJiNQSwwYYoeWmAaMud98DiV%2FDYHVnGpKfsSHVHcYy1uyZ3lG7MjdY3tPfqLzDnGSNB0rw3tNOZHHB6yHaUe04gpDEp9iw3OeN11yzFTg7e1LU7Bkgi2LhSRpZyOnQtCzoD%2F0uJqW6c6emGJVajdGhKdvoLiBWGkPnq0il8ygIfdymBDlEcEmQslWEZAXFOI3b8a1VBHxxyCYtjgyVWuUP%2FB6x7jRnX6Vjhr9qwlU5NDChuNwwwbPTXS2maE8pyxY1WcHk7zUMOxY6Bxk3LIWIuvquJrS5vKuw4S8r7HWR31BTiDw03V%2BGSLtxZ1nE%2BZLVgalpjqeDcJ7%2FvNTskVyMSMA7G7%2FeDoiuO6KuTWOaKGwCj9F%2Frse9WxQ9Osjoya8wtUbYD7FVP7EdVFADr3MVhGPBJMy7zb28h5eHr%2BxlL8JKk7D8pOcZ0Ed%2FCZidnLA9dONjn2EUfgC%2B5VUwoxRB9ZJigl983FC1gM%2FKCTUZOkuWhqiUJSHGrI61J5%2FrJh0lt3%2BcUB7WWrs3j4x%2FlAZc6bIpDsxX1mLOxTGT9c4DVaxlAj%2FrQoZaFg3x6Y0ySLNecbmn1ZQGwZdaFPyNJUAofBSQtD%2F6YC2eL2LE6GMckaLbKPAXIDIZ0Cgg1PV1L%2FTJTyIKnRKZLCVwynsGMdkipHd3noaNkRXDpWxyRJeRiwphwEJk8WkGK7gbUowwKC81AY6sQEc%2FbEIlX0KZIX6sTi8bhWgh4995vRplI75ZITgqReMLva6IfXQ7eIqUlcfWIv%2FD3AlPYYs8A6duRBCvpvPcbXRYEvc6IIGJZOIiYGRa8edH54vgRzDPsQbuQf1Gd3HZ0MUgH9eNn7LYMrDlI9FKsQL1osclgIQiJwSMta4YJ5YPyogUw2vKoC8bAFQG9euwggOw6MsmXYJASEMFfbIHpphK%2BrRuAm2VsCtBzMDB7UNa18%3D&Expires=1788367863" alt="Forno Rosso home page — full rendered Figma frame">
+  </section>
+
+  <section>
+    <h2>Distilled tokens</h2>
+    <h3>Color</h3>
+    <div class="swatches">
+      <div class="swatch"><div class="swatch-color" style="background:var(--bg)"></div>Page bg<br><small>#FCFAF6</small></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--dark)"></div>Dark sections<br><small>#151212</small></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--tint)"></div>Story section tint<br><small>#F3EFE9</small></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--surface); border:1px solid var(--border)"></div>Card surface<br><small>#FFFFFF</small></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--border)"></div>Card border<br><small>#EBE7DF</small></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--brand)"></div>Brand red<br><small>#C82D25</small></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--accent-green)"></div>Banner green<br><small>#2A7043</small></div>
+      <div class="swatch"><div class="swatch-color" style="background:var(--muted)"></div>Muted text<br><small>#6B6661</small></div>
+    </div>
+
+    <h3>Type</h3>
+    <div class="type-ramp-row"><span class="sample" style="font-size:40px;font-weight:700">Fraunces 700</span><span class="meta">heading / 40px / featured section H2</span></div>
+    <div class="type-ramp-row"><span class="sample" style="font-size:24px;font-weight:600">Fraunces 600</span><span class="meta">wordmark / 24px</span></div>
+    <div class="type-ramp-row"><span class="sample" style="font-size:20px;font-weight:600">Fraunces 600</span><span class="meta">card title / 20px</span></div>
+    <div class="type-ramp-row"><span class="sample" style="font-family:var(--font-sans);font-size:18px;font-weight:400">Geist 400</span><span class="meta">hero paragraph / 18px</span></div>
+    <div class="type-ramp-row"><span class="sample" style="font-family:var(--font-sans);font-size:15px;font-weight:600">Geist 600</span><span class="meta">nav / active label / 15px</span></div>
+    <div class="type-ramp-row"><span class="sample" style="font-family:var(--font-sans);font-size:14px;text-transform:uppercase;font-weight:600;letter-spacing:0.03em">Geist 600 upper</span><span class="meta">eyebrow labels ("Chef Recommendations", "Kitchen Hours") / 14–16px</span></div>
+    <div class="type-ramp-row"><span class="sample" style="font-family:var(--font-sans);font-size:12px">Geist 400</span><span class="meta">footer legal / copyright / 12px, 60% opacity on dark</span></div>
+
+    <h3>Spacing / radii scale</h3>
+    <div class="token-grid">
+      <div class="token-chip">4 / 8 / 12</div>
+      <div class="token-chip">16 / 20 / 24</div>
+      <div class="token-chip">32 / 40 / 48</div>
+      <div class="token-chip">64 / 80 / 96</div>
+      <div class="token-chip">radius 8</div>
+      <div class="token-chip">radius 16</div>
+      <div class="token-chip">radius 18–24</div>
+      <div class="token-chip">radius 100 (pill)</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Component map — grouped by section</h2>
+    <p>Every row below maps a Figma node in artboard <code>6:6</code> to a proposed React component. No existing UI component catalogue exists yet, so <span class="status-new">proposed_new</span> applies to all rows without exception; "reuses X" in Notes flags a component already proposed earlier in this same map, not something already built.</p>
+
+    <h3 class="group-title">Header <span class="badge">node 6:7</span></h3>
+    <table>
+      <thead><tr><th>Figma node</th><th>Component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>6:7</code></td><td>SiteHeader</td><td class="status-new">proposed_new</td><td><code>eta, cartCount</code></td><td>Fixed dark top bar.</td></tr>
+        <tr><td><code>6:8</code></td><td>BrandLogo</td><td class="status-new">proposed_new</td><td><code>label</code></td><td>Red badge + wordmark; reused (smaller) in footer.</td></tr>
+        <tr><td><code>6:12</code></td><td>PrimaryNav</td><td class="status-new">proposed_new</td><td><code>items, activeItem</code></td><td>Active item = brand-red + red underline bar.</td></tr>
+        <tr><td><code>6:20</code></td><td>HeaderStatusCart</td><td class="status-new">proposed_new</td><td><code>etaLabel, cartCount</code></td><td>Pill cart button, 10% white fill.</td></tr>
+        <tr><td><code>6:568</code></td><td>Icon</td><td class="status-new">proposed_new</td><td><code>name="shopping-cart"</code></td><td>Inside HeaderStatusCart.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="group-title">Hero <span class="badge">node 6:25</span></h3>
+    <table>
+      <thead><tr><th>Figma node</th><th>Component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>6:25</code></td><td>HeroSection</td><td class="status-new">proposed_new</td><td><code>eyebrow, heading, description, image</code></td><td>Two-tone H1: line 2 ("Delivered Hot") in brand-red.</td></tr>
+        <tr><td><code>6:27</code></td><td>Badge</td><td class="status-new">proposed_new</td><td><code>icon, label</code></td><td>Dark translucent pill.</td></tr>
+        <tr><td><code>6:679</code></td><td>Icon</td><td class="status-new">proposed_new</td><td><code>name="fire-extinguisher"</code></td><td>Reuses Icon proposed for 6:568.</td></tr>
+        <tr><td><code>6:33</code></td><td>Button</td><td class="status-new">proposed_new</td><td><code>variant="primary", label, icon</code></td><td>Brand-red fill, radius 8.</td></tr>
+        <tr><td><code>6:574</code></td><td>Icon</td><td class="status-new">proposed_new</td><td><code>name="arrow-right"</code></td><td>Inside primary Button.</td></tr>
+        <tr><td><code>6:36</code></td><td>Button</td><td class="status-new">proposed_new</td><td><code>variant="outline", label</code></td><td>Reuses Button proposed for 6:33.</td></tr>
+        <tr><td><code>6:38</code></td><td>HeroImage</td><td class="status-new">proposed_new</td><td><code>src, alt</code></td><td>Asset: <code>figma-asset-6-39-hero-image-wrapper.png</code>, object-fit: cover.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="group-title">Delivery banner <span class="badge">node 6:40</span></h3>
+    <table>
+      <thead><tr><th>Figma node</th><th>Component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>6:40</code></td><td>DeliveryBanner</td><td class="status-new">proposed_new</td><td>—</td><td>Full-width green strip.</td></tr>
+        <tr><td><code>6:41</code></td><td>BannerHighlight</td><td class="status-new">proposed_new</td><td><code>icon, title, description</code></td><td>Circular translucent-white icon chip.</td></tr>
+        <tr><td><code>6:571</code></td><td>Icon</td><td class="status-new">proposed_new</td><td><code>name="truck"</code></td><td>Inside BannerHighlight.</td></tr>
+        <tr><td><code>6:48</code></td><td>StatItem</td><td class="status-new">proposed_new</td><td><code>label="Average ETA", value="25 - 35 Min"</code></td><td>—</td></tr>
+        <tr><td><code>6:51</code></td><td>StatItem</td><td class="status-new">proposed_new</td><td><code>label="Pizza Temperature", value="Piping Hot Guaranteed"</code></td><td>Reuses StatItem proposed for 6:48.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="group-title">Featured section <span class="badge">node 6:54</span></h3>
+    <table>
+      <thead><tr><th>Figma node</th><th>Component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>6:54</code></td><td>FeaturedSection</td><td class="status-new">proposed_new</td><td>—</td><td>Centered heading + 4-col grid.</td></tr>
+        <tr><td><code>6:55</code></td><td>SectionHeading</td><td class="status-new">proposed_new</td><td><code>eyebrow, heading, align="center", rule=true</code></td><td>Reused (left/no-rule variant) in Story section.</td></tr>
+        <tr><td><code>6:60</code></td><td>PizzaCard</td><td class="status-new">proposed_new</td><td><code>name="Diavola", price="$16.50", description, image</code></td><td>Image: <code>figma-asset-6-62-featured-grid.png</code>.</td></tr>
+        <tr><td><code>6:72</code></td><td>PizzaCard</td><td class="status-new">proposed_new</td><td><code>name="Funghi Selvatici & Tartufo", price="$18.00"</code></td><td>Reuses PizzaCard proposed for 6:60. Image: <code>figma-asset-6-74-featured-grid.png</code>.</td></tr>
+        <tr><td><code>6:84</code></td><td>PizzaCard</td><td class="status-new">proposed_new</td><td><code>name="Classic Margherita", price="$14.50"</code></td><td>Reuses PizzaCard proposed for 6:60. Image: <code>figma-asset-6-86-featured-grid.png</code>.</td></tr>
+        <tr><td><code>6:96</code></td><td>PizzaCard</td><td class="status-new">proposed_new</td><td><code>name="Prosciutto Crudo e Rucola", price="$19.00"</code></td><td>Reuses PizzaCard proposed for 6:60 (taller variant). Image: <code>figma-asset-6-98-featured-grid.png</code>.</td></tr>
+        <tr><td><code>6:577</code></td><td>Icon</td><td class="status-new">proposed_new</td><td><code>name="plus"</code></td><td>Also at 6:580, 6:583, 6:586 — one per card's Add to Order button.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="group-title">Story section <span class="badge">node 6:108</span></h3>
+    <table>
+      <thead><tr><th>Figma node</th><th>Component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>6:108</code></td><td>StorySection</td><td class="status-new">proposed_new</td><td>—</td><td>Tinted (#F3EFE9) two-column band.</td></tr>
+        <tr><td><code>6:110</code></td><td>SectionHeading</td><td class="status-new">proposed_new</td><td><code>eyebrow="The Sourdough Secret", align="left", rule=false</code></td><td>Reuses SectionHeading proposed for 6:55.</td></tr>
+        <tr><td><code>6:115</code></td><td>IconFeatureItem</td><td class="status-new">proposed_new</td><td><code>icon="star", title, description</code></td><td>First of 3 in feature list.</td></tr>
+        <tr><td><code>6:121</code></td><td>IconFeatureItem</td><td class="status-new">proposed_new</td><td><code>icon="shield", ...</code></td><td>Reuses IconFeatureItem proposed for 6:115.</td></tr>
+        <tr><td><code>6:127</code></td><td>IconFeatureItem</td><td class="status-new">proposed_new</td><td><code>icon="compass", ...</code></td><td>Reuses IconFeatureItem proposed for 6:115.</td></tr>
+        <tr><td><code>6:133</code></td><td>ImageCollage</td><td class="status-new">proposed_new</td><td><code>images[2]</code></td><td>Assets: <code>figma-asset-6-134-story-img-collage.png</code>, <code>figma-asset-6-135-story-img-collage.png</code>.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="group-title footer-focus" style="padding:10px 14px;border-radius:8px">Footer — STORY FOCUS (business info) <span class="badge">node 6:136</span></h3>
+    <table>
+      <thead><tr><th>Figma node</th><th>Component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>6:136</code></td><td>SiteFooter</td><td class="status-new">proposed_new</td><td>—</td><td>Dark 3-column business-info row + divider + bottom bar.</td></tr>
+        <tr><td><code>6:138</code></td><td>FooterBrandColumn</td><td class="status-new">proposed_new</td><td><code>description</code></td><td>Reuses BrandLogo proposed for 6:8 (compact) + tagline + SocialRow.</td></tr>
+        <tr><td><code>6:144</code></td><td>SocialRow</td><td class="status-new">proposed_new</td><td>—</td><td>Row of 3 circular chips.</td></tr>
+        <tr><td><code>6:145</code></td><td>SocialIconButton</td><td class="status-new">proposed_new</td><td><code>icon="instagram", href</code></td><td>36px circle, 7% white fill.</td></tr>
+        <tr><td><code>6:147</code></td><td>SocialIconButton</td><td class="status-new">proposed_new</td><td><code>icon="facebook", href</code></td><td>Reuses SocialIconButton proposed for 6:145.</td></tr>
+        <tr><td><code>6:149</code></td><td>SocialIconButton</td><td class="status-new">proposed_new</td><td><code>icon="twitter", href</code></td><td>Reuses SocialIconButton proposed for 6:145.</td></tr>
+        <tr><td><code>6:151</code></td><td>FooterInfoColumn</td><td class="status-new">proposed_new</td><td><code>title="Kitchen Hours"</code></td><td>Uppercase Fraunces title + FooterScheduleRow children.</td></tr>
+        <tr><td><code>6:154</code></td><td>FooterScheduleRow</td><td class="status-new">proposed_new</td><td><code>day="Monday - Thursday", hours="12:00 PM - 10:00 PM"</code></td><td>—</td></tr>
+        <tr><td><code>6:157</code></td><td>FooterScheduleRow</td><td class="status-new">proposed_new</td><td><code>day="Friday - Saturday", hours="12:00 PM - 11:30 PM"</code></td><td>Reuses FooterScheduleRow proposed for 6:154.</td></tr>
+        <tr><td><code>6:160</code></td><td>FooterScheduleRow</td><td class="status-new">proposed_new</td><td><code>day="Sunday", hours="1:00 PM - 9:30 PM"</code></td><td>Reuses FooterScheduleRow proposed for 6:154.</td></tr>
+        <tr><td><code>6:163</code></td><td>FooterInfoColumn</td><td class="status-new">proposed_new</td><td><code>title="Pizzeria Location"</code></td><td>Reuses FooterInfoColumn proposed for 6:151; holds address + contact instead of schedule rows.</td></tr>
+        <tr><td><code>6:166</code></td><td>FooterAddressBlock</td><td class="status-new">proposed_new</td><td><code>address</code></td><td>"842 Rione Monti, Sourdough Avenue, Suite 100", 60% opacity white.</td></tr>
+        <tr><td><code>6:167</code></td><td>FooterContactLines</td><td class="status-new">proposed_new</td><td><code>delivery, email</code></td><td>Delivery line full-opacity, Email line 60% opacity.</td></tr>
+        <tr><td><code>6:170</code></td><td>Divider</td><td class="status-new">proposed_new</td><td>—</td><td>1px hairline, 12% opacity white.</td></tr>
+        <tr><td><code>6:171</code></td><td>FooterBottomBar</td><td class="status-new">proposed_new</td><td><code>copyright</code></td><td>Copyright (left) + FooterLegalLinks (right).</td></tr>
+        <tr><td><code>6:173</code></td><td>FooterLegalLinks</td><td class="status-new">proposed_new</td><td><code>links=["Privacy Policy","Delivery Terms"]</code></td><td>No destination URL in the design — see open questions.</td></tr>
+        <tr><td><code>6:598 / 6:601 / 6:604</code></td><td>Icon</td><td class="status-new">proposed_new</td><td><code>name="instagram" | "facebook" | "twitter"</code></td><td>Reuse Icon proposed for 6:568; inside each SocialIconButton.</td></tr>
+        <tr><td><code>6:589 / 6:592 / 6:595</code></td><td>Icon</td><td class="status-new">proposed_new</td><td><code>name="star" | "shield" | "compass"</code></td><td>Reuse Icon proposed for 6:568; inside each IconFeatureItem (story section).</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Excluded (OS/device chrome, mockup scaffolding)</h2>
+    <p><strong>None found.</strong> The frame is a plain 1440px web composition with no simulated browser chrome, mobile status bar, notch, or home indicator to strip out — the header sits flush at the frame's top edge.</p>
+  </section>
+
+  <section>
+    <h2>Open questions</h2>
+    <p>Blocking items first — these need a human answer before the mapping can be trusted end-to-end. Non-blocking items are safe to proceed on with the stated assumption.</p>
+
+    <div class="q blocking">
+      <div class="q-title"><span class="q-flag blocking">Blocking</span><strong>Footer business info data source</strong></div>
+      <p>Kitchen hours, address, delivery phone, email, and social links (nodes 6:151–6:169, 6:144) are plain static text/vectors in Figma with no CMS/config binding shown — exactly the content this story is about, so how it's sourced changes the component design.</p>
+      <div class="assumption"><b>arc assumption:</b> modeled all footer business-info components as prop-driven and hardcoded the copy 1:1 from the frame (static-props), not a CMS-backed data model.</div>
+      <div class="options">
+        <div class="opt assumed"><code class="id">static-props</code> — Static props/constants; footer copy ships hardcoded in code, matching the Figma text exactly. <em>(assumed)</em></div>
+        <div class="opt"><code class="id">cms-driven</code> — CMS/admin-configurable; hours, address, contact info and social links are fetched from a backend so staff can edit them without a deploy.</div>
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="q-title"><span class="q-flag nonblocking">Non-blocking</span><strong>Icon implementation source</strong></div>
+      <p>All icons (fire-extinguisher, truck, star, shield, compass, plus, arrow-right, shopping-cart, instagram, facebook, twitter) are raw Figma vector paths whose layer names match an existing open-source icon set (Lucide) exactly.</p>
+      <div class="assumption"><b>arc assumption:</b> implement via the shared <code>Icon</code> component backed by Lucide (name-matched), rather than hand-tracing each vector's path data.</div>
+    </div>
+
+    <div class="q">
+      <div class="q-title"><span class="q-flag nonblocking">Non-blocking</span><strong>Footer legal link destinations</strong></div>
+      <p>"Privacy Policy" and "Delivery Terms" (6:174, 6:175) are styled as links with no destination page/URL defined.</p>
+      <div class="assumption"><b>arc assumption:</b> render as anchors with placeholder <code>href="#"</code> until real destination pages exist.</div>
+    </div>
+
+    <div class="q">
+      <div class="q-title"><span class="q-flag nonblocking">Non-blocking</span><strong>Social icon link destinations</strong></div>
+      <p>Instagram/Facebook/Twitter icon buttons (6:145, 6:147, 6:149) have no attached profile URLs in the Figma file.</p>
+      <div class="assumption"><b>arc assumption:</b> modeled <code>href</code> as a required prop on <code>SocialIconButton</code>, defaulted to placeholder <code>#</code> until real URLs are supplied.</div>
+    </div>
+
+    <div class="q">
+      <div class="q-title"><span class="q-flag nonblocking">Non-blocking</span><strong>Footer responsive / mobile layout</strong></div>
+      <p>The frame is a single fixed 1440px desktop composition; no tablet/mobile variant of the 3-column footer is provided.</p>
+      <div class="assumption"><b>arc assumption:</b> the 3 footer columns stack vertically below a standard tablet breakpoint; the bottom bar's copyright/legal-links row stacks to two centered lines on narrow viewports.</div>
+    </div>
+
+    <div class="q">
+      <div class="q-title"><span class="q-flag nonblocking">Non-blocking</span><strong>Hover / focus states not drawn</strong></div>
+      <p>Footer links, social icons, and nav items only show one static visual state in the frame; no hover/focus/pressed state is drawn anywhere.</p>
+      <div class="assumption"><b>arc assumption:</b> conventional web affordances — opacity/underline shift on hover, visible focus ring for keyboard nav — consistent with the page's minimal styling.</div>
+    </div>
+  </section>
+</main>
+
+</div>
+</div>
+
+<script>
+const screens = Array.from(document.querySelectorAll('.screen'));
+let cur = 0;
+function show(i) {
+  cur = Math.max(0, Math.min(screens.length - 1, i));
+  screens.forEach((s, j) => s.style.display = j === cur ? 'block' : 'none');
+  document.getElementById('screen-label').textContent =
+    `${cur + 1} / ${screens.length}: ${screens[cur].dataset.name}`;
+  document.getElementById('prev-btn').disabled = cur === 0;
+  document.getElementById('next-btn').disabled = cur === screens.length - 1;
+}
+document.getElementById('prev-btn').onclick = () => show(cur - 1);
+document.getElementById('next-btn').onclick = () => show(cur + 1);
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') show(cur + 1);
+  if (e.key === 'ArrowLeft') show(cur - 1);
+});
+show(0);
+</script>
+
+</body>
+</html>
+
+<!-- arc:css-inlined -->
