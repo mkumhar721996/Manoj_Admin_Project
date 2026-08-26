@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { addExpense } from "./expenseStore";
+import { addExpense, deleteExpense, getExpenses } from "./expenseStore";
 
 describe("expenseStore", () => {
   beforeEach(() => {
@@ -27,5 +27,31 @@ describe("expenseStore", () => {
 
     const stored = JSON.parse(localStorage.getItem("expenses") ?? "[]");
     expect(stored).toHaveLength(2);
+  });
+
+  it("returns all stored expenses in insertion order", () => {
+    const first = addExpense({ amount: 10, date: "2026-08-26", category: "Food", notes: "" });
+    const second = addExpense({ amount: 20, date: "2026-08-27", category: "Transport", notes: "cab" });
+
+    expect(getExpenses()).toEqual([first, second]);
+  });
+
+  it("removes the matching expense from localStorage", () => {
+    const first = addExpense({ amount: 10, date: "2026-08-26", category: "Food", notes: "" });
+    const second = addExpense({ amount: 20, date: "2026-08-27", category: "Transport", notes: "cab" });
+
+    deleteExpense(first.id);
+
+    expect(getExpenses()).toEqual([second]);
+    const stored = JSON.parse(localStorage.getItem("expenses") ?? "[]");
+    expect(stored.some((expense: { id: string }) => expense.id === first.id)).toBe(false);
+  });
+
+  it("does nothing when deleting an id that does not exist", () => {
+    const first = addExpense({ amount: 10, date: "2026-08-26", category: "Food", notes: "" });
+
+    deleteExpense("nonexistent-id");
+
+    expect(getExpenses()).toEqual([first]);
   });
 });
