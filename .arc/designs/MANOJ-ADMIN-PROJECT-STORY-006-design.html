@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<!--
+  Figma → component mapping REVIEW page for MANOJ-ADMIN-PROJECT-STORY-006
+  (featured menu grid).
+
+  This is NOT a from-scratch UI prototype and NOT a design system proposal.
+  It shows how arc read the ingested Figma frame (figma-frame.json) and
+  figma-frame.png: which code components each Figma node maps to, the
+  tokens distilled from the frame, and the open questions raised along the
+  way. The rendered PNG embedded below is authoritative for visuals; this
+  page explains the mapping, it does not redraw the design.
+
+  This project's stated component catalogue is empty (greenfield) — every
+  row in the component map below is proposed_new, with no exceptions. This
+  page defines its own minimal, neutral review styling below, sourced only
+  from the tokens distilled from the Figma frame — no arc branding, no
+  external stylesheet.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MANOJ-ADMIN-PROJECT-STORY-006 — Figma Mapping Review</title>
+<style>
+  :root {
+    /* Tokens distilled from figma-frame.json -> tokens.colors / stroke_colors / font_families */
+    --bg: #FCFAF6;              /* surface-warm-white — page background */
+    --surface: #FFFFFF;          /* surface-white — cards/tables */
+    --border: #EBE7DF;           /* card-border stroke color */
+    --fg: #151212;               /* ink — primary text */
+    --muted: #6B6661;            /* muted body/secondary text */
+    --brand: #C82D25;            /* brand-red — accents, links, primary badges */
+    --brand-green: #2A7043;      /* brand-green — secondary accent */
+    --bg-dark: #151212;          /* ink surface, used for the header/footer preview chip */
+    --font-sans: Geist, -apple-system, Segoe UI, Roboto, sans-serif;
+    --font-serif: Fraunces, Georgia, 'Times New Roman', serif;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-pill: 100px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Reviewer bar (per UI-GUIDELINES §11 scaffold, adapted: single static
+     mapping-review page, so no prev/next screen switcher is needed) */
+  #review-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    font-family: var(--font-sans);
+  }
+  #review-bar .story-id {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+  #review-bar .bar-title {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  #review-bar .bar-tag {
+    color: var(--brand);
+    border: 1px solid var(--brand);
+    border-radius: var(--radius-pill);
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .bar-spacer { height: 46px; }
+
+  main {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-5) var(--space-7);
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    margin: 0 0 var(--space-2);
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    margin: var(--space-7) 0 var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 700;
+    margin: var(--space-5) 0 var(--space-2);
+  }
+  p { margin: 0 0 var(--space-3); }
+  .lede {
+    color: var(--muted);
+    max-width: 78ch;
+  }
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--brand);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    margin-bottom: var(--space-5);
+    color: var(--fg);
+  }
+  .callout strong { color: var(--brand); }
+
+  figure { margin: 0 0 var(--space-5); }
+  figure img {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+  }
+  figcaption {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: var(--space-2);
+  }
+
+  .section-shot { max-width: 640px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    font-size: 13px;
+  }
+  th, td {
+    text-align: left;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  tr:last-child td { border-bottom: none; }
+  code, .mono {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+  .props-cell code { display: block; white-space: pre-wrap; margin-bottom: 2px; }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 2px 9px;
+    border-radius: var(--radius-pill);
+  }
+  .pill-existing { background: rgba(42,112,67,0.12); color: var(--brand-green); }
+  .pill-new { background: rgba(200,45,37,0.10); color: var(--brand); }
+  .pill-scope { background: rgba(21,18,18,0.08); color: var(--fg); margin-left: 6px; }
+
+  .artboard-block { margin-bottom: var(--space-7); }
+  .artboard-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: var(--space-3);
+  }
+  .artboard-meta b { color: var(--fg); }
+
+  .token-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+  .swatch {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .swatch-color { height: 44px; }
+  .swatch-body { padding: var(--space-2) var(--space-3); font-size: 12px; }
+  .swatch-body .hex { font-weight: 700; }
+  .swatch-body .usage { color: var(--muted); margin-top: 2px; }
+
+  .type-ramp-row { display: flex; align-items: baseline; gap: var(--space-4); padding: var(--space-2) 0; border-bottom: 1px solid var(--border); }
+  .type-ramp-row:last-child { border-bottom: none; }
+  .type-ramp-sample { font-family: var(--font-serif); }
+  .type-ramp-meta { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  .question {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    margin-bottom: var(--space-3);
+  }
+  .question.blocking { border-left: 4px solid var(--brand); }
+  .question.non-blocking { border-left: 4px solid var(--border); }
+  .q-head { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); flex-wrap: wrap; }
+  .q-topic { font-weight: 700; }
+  .q-flag { font-size: 11px; font-weight: 700; letter-spacing: 0.03em; padding: 2px 8px; border-radius: var(--radius-pill); }
+  .q-flag.blocking { background: rgba(200,45,37,0.12); color: var(--brand); }
+  .q-flag.non-blocking { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+  .q-detail { margin-bottom: var(--space-2); }
+  .q-assumption {
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: var(--space-2) var(--space-3);
+    font-size: 13px;
+  }
+  .q-assumption b { color: var(--brand); text-transform: uppercase; font-size: 11px; letter-spacing: 0.04em; display: block; margin-bottom: 2px; }
+  .q-options { margin: var(--space-2) 0 0; padding-left: var(--space-4); font-size: 13px; color: var(--muted); }
+  .q-options li.assumed { color: var(--fg); font-weight: 600; }
+  .q-options li.assumed::after { content: " — assumed"; color: var(--brand); font-weight: 700; }
+
+  .excluded-empty { color: var(--muted); font-style: italic; }
+
+  footer.page-footer { color: var(--muted); font-size: 12px; margin-top: var(--space-7); border-top: 1px solid var(--border); padding-top: var(--space-3); }
+</style>
+</head>
+<body>
+
+<!-- Reviewer bar -->
+<div id="review-bar">
+  <span class="story-id mono">MANOJ-ADMIN-PROJECT-STORY-006</span>
+  <span class="bar-title">Figma → Component Mapping Review</span>
+  <span class="bar-tag">source of truth: figma-frame.png</span>
+</div>
+<div class="bar-spacer"></div>
+
+<main>
+  <h1>Featured Menu Grid — Figma Mapping Review</h1>
+  <p class="lede">
+    This page is a review surface, not a redesign: it shows how arc read the ingested Figma
+    frame (<code>figma-frame.json</code> / <code>figma-frame.png</code>) for the Forno Rosso
+    home page and mapped its nodes onto proposed code components. The stated component catalogue
+    for this project is empty (greenfield), so every row below is
+    <span class="pill pill-new">proposed_new</span> — nothing is marked as already existing. The
+    rendered PNG is authoritative for visuals; this page explains structure and mapping
+    decisions, it does not redraw the design.
+  </p>
+
+  <div class="callout">
+    <strong>Single artboard, one section in scope.</strong> The linked Figma node
+    (<code>6:6</code>, &quot;home-page&quot;) is already a single FRAME, not a CANVAS containing
+    several artboards, so this frame is one screen, mapped in full below. This story's
+    implementation scope is <strong>featured-section / featured-grid</strong> (the &quot;Popular
+    Sourdough Pizzas&quot; menu grid); the header / hero / delivery banner / story section /
+    footer are mapped for context, not as in-scope work for this story. Some header nodes note in
+    their Notes column that matching code already lives in this repo from a prior story — see
+    open question <code>catalogue-vs-repo-mismatch</code> — but per the stated catalogue every
+    row is still <span class="pill pill-new">proposed_new</span>.
+  </div>
+
+  <h2>Rendered frame</h2>
+  <figure>
+    <img src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-006/figma-frame.png?AWSAccessKeyId=ASIA256MLQMTKUUI3QOF&Signature=7lcsRlpuNO7Xw5Usf78FdEyZOh4%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFUaCmFwLXNvdXRoLTEiRzBFAiEAreQgoLSO1BjagYf77DFsNWB6586GIVs29%2BD0DnnkRBYCIHD7dDkjT6tLMKZvk4FfCe5upMJsHpoVerxxLR1KVnqsKr0FCB4QABoMNzUxNTEwOTc5MzY2IgzExtHzUJVdaJ26OHkqmgWt%2BtbIcWJxk%2FJVCOJLS8k9KJtblYryDD1KJfQ%2FvpUyfO8gdCElWTBBpO9xYjfFZXJ7uqZPPHQYEHqgx2RVbw10ge82jYkYxs0xnaYxDYyFJHN2ASocgb42jpEbtH08QakPrfyvYGNtvVq6GmzQOjPsdp3hZr7D5gL6G4XOCTqdTlop9CEY04Gh6Gy%2B1Uo0xhYF%2BL9YlQea4URn%2FFzh4MT6mvI%2FmWgbYu8Xjc1haGuJ9aA1el%2FdZP%2FfZ14S%2Bw9cVhjEBUk%2FS1ywDEG30KLBGQutE1RVJKhcNF8vzAjpWd9ZWZ7aUkDelVoI6KUaszg6bOWPPHXJ3vUFGlAqmEe0L9ZmuVPm2HXczxkbcG%2BrTJ3amXnSeHqBTkKXcTO%2ByV%2B0d0kdiJUQxJKs7fs0V9fP7WbZNikCp6r8voH2q3uFpy%2F3exPUidDtxVo22CzXapvaYtLz7elkZBNKchNfXBCSUCDRvt%2BLmFIAL2Ts3b7%2FnzlDHfmUrMTXVlQ7DVUb8ZUggTInsbwFYKy2ktFBihISpD5xqufCgi7XIP6zwH2ALGOt%2FC6tFFZYltYFw%2BvDECvJ41eKROuZ1TZ0ai4AUxfrvy3E%2BPfPl5EQmrXblZALQkNHZRV7bcOcY9lhb9SlV3yXuS%2FrC45rpB2dhlLT%2BVzPmjz6GlJJNSYoSzUd%2BxDyy2I71IFQFouqLvQHOHsBht%2Frn%2Fthrpx%2FhBHXPVuPBc%2FZhSIWD2MT5YcgvGqHyb0b4ZDut2Gn0GYH7o2NtffckVtrk%2FjP4XnNfZt8Gz%2FgwLJxiRI4iMdczbFXA5uGIG0M6hQHUgLEjPV18UvIEkd3nOZ8Ta%2BPhB8GGz6DdOVp2Qe4M25yLwxBHDFGA6bqAyrYfg3RfPa%2Fctr550deLHsw6My71AY6sQHn%2FM2XWZZz3Xux4e%2F61P3r%2BBoNosgsAZGiMxVW%2FiO%2BODG0QjDXIyAd4ioqh3ymtdGEKyWnn0J6o1pJ1q3ua0oL8IoS8jKhv1gghK2fTB4clvuZx%2FJ89Jxz6ZnTAYpv4FJ8DyrCPW9o%2Bs1iHR3RiOOHecnaZ9dacs%2FFdvxyN2sMzBA47Jc2Do4sRZcLO9c82PiOpRilP8KBgcb%2BPgHGB1TNuAFo8aU5xntnIFFqxiEMup0%3D&Expires=1788357726" alt="Forno Rosso home page — rendered Figma frame" />
+    <figcaption>figma-frame.png — full home-page frame, 1440×2786. Authoritative for all visual detail (color, spacing, type) not called out explicitly below.</figcaption>
+  </figure>
+
+  <h2>Artboards</h2>
+  <table>
+    <thead>
+      <tr><th>Figma node</th><th>Name</th><th>Figma type</th><th>Kind</th><th>Bounds</th><th>Role</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>6:6</code></td>
+        <td>home-page</td>
+        <td>FRAME</td>
+        <td><span class="pill pill-scope">screen</span></td>
+        <td class="mono">1440 × 2786<br/>x −692, y −450</td>
+        <td>Forno Rosso marketing home page — header/nav shell, hero, delivery banner, featured menu grid, brand-story section, footer.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Component map</h2>
+  <p class="lede">Grouped by artboard (one artboard: <code>home-page</code> / <code>6:6</code>), then by page section. Rows marked &quot;reuses…&quot; in Notes share a component with another row in this same map. Every row is <span class="pill pill-new">proposed_new</span> per the stated catalogue; a few Notes flag where matching code already lives in this repo from a prior story, for the implementer's awareness only.</p>
+
+  <div class="artboard-block">
+    <h3 id="artboard-6-6">home-page (6:6) — full component map</h3>
+
+    <h3 style="margin-top:var(--space-5)">Header / navigation shell</h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-006/figma-section-6-7-header.png?AWSAccessKeyId=ASIA256MLQMTKUUI3QOF&Signature=6EJGj928PCuuRPF9LvGDG4%2BHiJ8%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFUaCmFwLXNvdXRoLTEiRzBFAiEAreQgoLSO1BjagYf77DFsNWB6586GIVs29%2BD0DnnkRBYCIHD7dDkjT6tLMKZvk4FfCe5upMJsHpoVerxxLR1KVnqsKr0FCB4QABoMNzUxNTEwOTc5MzY2IgzExtHzUJVdaJ26OHkqmgWt%2BtbIcWJxk%2FJVCOJLS8k9KJtblYryDD1KJfQ%2FvpUyfO8gdCElWTBBpO9xYjfFZXJ7uqZPPHQYEHqgx2RVbw10ge82jYkYxs0xnaYxDYyFJHN2ASocgb42jpEbtH08QakPrfyvYGNtvVq6GmzQOjPsdp3hZr7D5gL6G4XOCTqdTlop9CEY04Gh6Gy%2B1Uo0xhYF%2BL9YlQea4URn%2FFzh4MT6mvI%2FmWgbYu8Xjc1haGuJ9aA1el%2FdZP%2FfZ14S%2Bw9cVhjEBUk%2FS1ywDEG30KLBGQutE1RVJKhcNF8vzAjpWd9ZWZ7aUkDelVoI6KUaszg6bOWPPHXJ3vUFGlAqmEe0L9ZmuVPm2HXczxkbcG%2BrTJ3amXnSeHqBTkKXcTO%2ByV%2B0d0kdiJUQxJKs7fs0V9fP7WbZNikCp6r8voH2q3uFpy%2F3exPUidDtxVo22CzXapvaYtLz7elkZBNKchNfXBCSUCDRvt%2BLmFIAL2Ts3b7%2FnzlDHfmUrMTXVlQ7DVUb8ZUggTInsbwFYKy2ktFBihISpD5xqufCgi7XIP6zwH2ALGOt%2FC6tFFZYltYFw%2BvDECvJ41eKROuZ1TZ0ai4AUxfrvy3E%2BPfPl5EQmrXblZALQkNHZRV7bcOcY9lhb9SlV3yXuS%2FrC45rpB2dhlLT%2BVzPmjz6GlJJNSYoSzUd%2BxDyy2I71IFQFouqLvQHOHsBht%2Frn%2Fthrpx%2FhBHXPVuPBc%2FZhSIWD2MT5YcgvGqHyb0b4ZDut2Gn0GYH7o2NtffckVtrk%2FjP4XnNfZt8Gz%2FgwLJxiRI4iMdczbFXA5uGIG0M6hQHUgLEjPV18UvIEkd3nOZ8Ta%2BPhB8GGz6DdOVp2Qe4M25yLwxBHDFGA6bqAyrYfg3RfPa%2Fctr550deLHsw6My71AY6sQHn%2FM2XWZZz3Xux4e%2F61P3r%2BBoNosgsAZGiMxVW%2FiO%2BODG0QjDXIyAd4ioqh3ymtdGEKyWnn0J6o1pJ1q3ua0oL8IoS8jKhv1gghK2fTB4clvuZx%2FJ89Jxz6ZnTAYpv4FJ8DyrCPW9o%2Bs1iHR3RiOOHecnaZ9dacs%2FFdvxyN2sMzBA47Jc2Do4sRZcLO9c82PiOpRilP8KBgcb%2BPgHGB1TNuAFo8aU5xntnIFFqxiEMup0%3D&Expires=1788357726" alt="header section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-header"></tbody>
+    </table>
+
+    <h3>Hero</h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-006/figma-section-6-25-hero.png?AWSAccessKeyId=ASIA256MLQMTKUUI3QOF&Signature=6jk%2BqpsVPMbxvaMLUsu%2F%2BScJkm0%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFUaCmFwLXNvdXRoLTEiRzBFAiEAreQgoLSO1BjagYf77DFsNWB6586GIVs29%2BD0DnnkRBYCIHD7dDkjT6tLMKZvk4FfCe5upMJsHpoVerxxLR1KVnqsKr0FCB4QABoMNzUxNTEwOTc5MzY2IgzExtHzUJVdaJ26OHkqmgWt%2BtbIcWJxk%2FJVCOJLS8k9KJtblYryDD1KJfQ%2FvpUyfO8gdCElWTBBpO9xYjfFZXJ7uqZPPHQYEHqgx2RVbw10ge82jYkYxs0xnaYxDYyFJHN2ASocgb42jpEbtH08QakPrfyvYGNtvVq6GmzQOjPsdp3hZr7D5gL6G4XOCTqdTlop9CEY04Gh6Gy%2B1Uo0xhYF%2BL9YlQea4URn%2FFzh4MT6mvI%2FmWgbYu8Xjc1haGuJ9aA1el%2FdZP%2FfZ14S%2Bw9cVhjEBUk%2FS1ywDEG30KLBGQutE1RVJKhcNF8vzAjpWd9ZWZ7aUkDelVoI6KUaszg6bOWPPHXJ3vUFGlAqmEe0L9ZmuVPm2HXczxkbcG%2BrTJ3amXnSeHqBTkKXcTO%2ByV%2B0d0kdiJUQxJKs7fs0V9fP7WbZNikCp6r8voH2q3uFpy%2F3exPUidDtxVo22CzXapvaYtLz7elkZBNKchNfXBCSUCDRvt%2BLmFIAL2Ts3b7%2FnzlDHfmUrMTXVlQ7DVUb8ZUggTInsbwFYKy2ktFBihISpD5xqufCgi7XIP6zwH2ALGOt%2FC6tFFZYltYFw%2BvDECvJ41eKROuZ1TZ0ai4AUxfrvy3E%2BPfPl5EQmrXblZALQkNHZRV7bcOcY9lhb9SlV3yXuS%2FrC45rpB2dhlLT%2BVzPmjz6GlJJNSYoSzUd%2BxDyy2I71IFQFouqLvQHOHsBht%2Frn%2Fthrpx%2FhBHXPVuPBc%2FZhSIWD2MT5YcgvGqHyb0b4ZDut2Gn0GYH7o2NtffckVtrk%2FjP4XnNfZt8Gz%2FgwLJxiRI4iMdczbFXA5uGIG0M6hQHUgLEjPV18UvIEkd3nOZ8Ta%2BPhB8GGz6DdOVp2Qe4M25yLwxBHDFGA6bqAyrYfg3RfPa%2Fctr550deLHsw6My71AY6sQHn%2FM2XWZZz3Xux4e%2F61P3r%2BBoNosgsAZGiMxVW%2FiO%2BODG0QjDXIyAd4ioqh3ymtdGEKyWnn0J6o1pJ1q3ua0oL8IoS8jKhv1gghK2fTB4clvuZx%2FJ89Jxz6ZnTAYpv4FJ8DyrCPW9o%2Bs1iHR3RiOOHecnaZ9dacs%2FFdvxyN2sMzBA47Jc2Do4sRZcLO9c82PiOpRilP8KBgcb%2BPgHGB1TNuAFo8aU5xntnIFFqxiEMup0%3D&Expires=1788357726" alt="hero section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-hero"></tbody>
+    </table>
+
+    <h3>Delivery banner</h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-006/figma-section-6-40-delivery-banner.png?AWSAccessKeyId=ASIA256MLQMTKUUI3QOF&Signature=ImQC33N1LIBfuYQbp3YLPr4Aiyg%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFUaCmFwLXNvdXRoLTEiRzBFAiEAreQgoLSO1BjagYf77DFsNWB6586GIVs29%2BD0DnnkRBYCIHD7dDkjT6tLMKZvk4FfCe5upMJsHpoVerxxLR1KVnqsKr0FCB4QABoMNzUxNTEwOTc5MzY2IgzExtHzUJVdaJ26OHkqmgWt%2BtbIcWJxk%2FJVCOJLS8k9KJtblYryDD1KJfQ%2FvpUyfO8gdCElWTBBpO9xYjfFZXJ7uqZPPHQYEHqgx2RVbw10ge82jYkYxs0xnaYxDYyFJHN2ASocgb42jpEbtH08QakPrfyvYGNtvVq6GmzQOjPsdp3hZr7D5gL6G4XOCTqdTlop9CEY04Gh6Gy%2B1Uo0xhYF%2BL9YlQea4URn%2FFzh4MT6mvI%2FmWgbYu8Xjc1haGuJ9aA1el%2FdZP%2FfZ14S%2Bw9cVhjEBUk%2FS1ywDEG30KLBGQutE1RVJKhcNF8vzAjpWd9ZWZ7aUkDelVoI6KUaszg6bOWPPHXJ3vUFGlAqmEe0L9ZmuVPm2HXczxkbcG%2BrTJ3amXnSeHqBTkKXcTO%2ByV%2B0d0kdiJUQxJKs7fs0V9fP7WbZNikCp6r8voH2q3uFpy%2F3exPUidDtxVo22CzXapvaYtLz7elkZBNKchNfXBCSUCDRvt%2BLmFIAL2Ts3b7%2FnzlDHfmUrMTXVlQ7DVUb8ZUggTInsbwFYKy2ktFBihISpD5xqufCgi7XIP6zwH2ALGOt%2FC6tFFZYltYFw%2BvDECvJ41eKROuZ1TZ0ai4AUxfrvy3E%2BPfPl5EQmrXblZALQkNHZRV7bcOcY9lhb9SlV3yXuS%2FrC45rpB2dhlLT%2BVzPmjz6GlJJNSYoSzUd%2BxDyy2I71IFQFouqLvQHOHsBht%2Frn%2Fthrpx%2FhBHXPVuPBc%2FZhSIWD2MT5YcgvGqHyb0b4ZDut2Gn0GYH7o2NtffckVtrk%2FjP4XnNfZt8Gz%2FgwLJxiRI4iMdczbFXA5uGIG0M6hQHUgLEjPV18UvIEkd3nOZ8Ta%2BPhB8GGz6DdOVp2Qe4M25yLwxBHDFGA6bqAyrYfg3RfPa%2Fctr550deLHsw6My71AY6sQHn%2FM2XWZZz3Xux4e%2F61P3r%2BBoNosgsAZGiMxVW%2FiO%2BODG0QjDXIyAd4ioqh3ymtdGEKyWnn0J6o1pJ1q3ua0oL8IoS8jKhv1gghK2fTB4clvuZx%2FJ89Jxz6ZnTAYpv4FJ8DyrCPW9o%2Bs1iHR3RiOOHecnaZ9dacs%2FFdvxyN2sMzBA47Jc2Do4sRZcLO9c82PiOpRilP8KBgcb%2BPgHGB1TNuAFo8aU5xntnIFFqxiEMup0%3D&Expires=1788357726" alt="delivery banner section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-delivery"></tbody>
+    </table>
+
+    <h3>Featured section (menu grid) <span class="pill pill-new">this story's scope</span></h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-006/figma-section-6-54-featured-section.png?AWSAccessKeyId=ASIA256MLQMTKUUI3QOF&Signature=aXBFIxT6PszTC3JAphgyM0P5dtA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFUaCmFwLXNvdXRoLTEiRzBFAiEAreQgoLSO1BjagYf77DFsNWB6586GIVs29%2BD0DnnkRBYCIHD7dDkjT6tLMKZvk4FfCe5upMJsHpoVerxxLR1KVnqsKr0FCB4QABoMNzUxNTEwOTc5MzY2IgzExtHzUJVdaJ26OHkqmgWt%2BtbIcWJxk%2FJVCOJLS8k9KJtblYryDD1KJfQ%2FvpUyfO8gdCElWTBBpO9xYjfFZXJ7uqZPPHQYEHqgx2RVbw10ge82jYkYxs0xnaYxDYyFJHN2ASocgb42jpEbtH08QakPrfyvYGNtvVq6GmzQOjPsdp3hZr7D5gL6G4XOCTqdTlop9CEY04Gh6Gy%2B1Uo0xhYF%2BL9YlQea4URn%2FFzh4MT6mvI%2FmWgbYu8Xjc1haGuJ9aA1el%2FdZP%2FfZ14S%2Bw9cVhjEBUk%2FS1ywDEG30KLBGQutE1RVJKhcNF8vzAjpWd9ZWZ7aUkDelVoI6KUaszg6bOWPPHXJ3vUFGlAqmEe0L9ZmuVPm2HXczxkbcG%2BrTJ3amXnSeHqBTkKXcTO%2ByV%2B0d0kdiJUQxJKs7fs0V9fP7WbZNikCp6r8voH2q3uFpy%2F3exPUidDtxVo22CzXapvaYtLz7elkZBNKchNfXBCSUCDRvt%2BLmFIAL2Ts3b7%2FnzlDHfmUrMTXVlQ7DVUb8ZUggTInsbwFYKy2ktFBihISpD5xqufCgi7XIP6zwH2ALGOt%2FC6tFFZYltYFw%2BvDECvJ41eKROuZ1TZ0ai4AUxfrvy3E%2BPfPl5EQmrXblZALQkNHZRV7bcOcY9lhb9SlV3yXuS%2FrC45rpB2dhlLT%2BVzPmjz6GlJJNSYoSzUd%2BxDyy2I71IFQFouqLvQHOHsBht%2Frn%2Fthrpx%2FhBHXPVuPBc%2FZhSIWD2MT5YcgvGqHyb0b4ZDut2Gn0GYH7o2NtffckVtrk%2FjP4XnNfZt8Gz%2FgwLJxiRI4iMdczbFXA5uGIG0M6hQHUgLEjPV18UvIEkd3nOZ8Ta%2BPhB8GGz6DdOVp2Qe4M25yLwxBHDFGA6bqAyrYfg3RfPa%2Fctr550deLHsw6My71AY6sQHn%2FM2XWZZz3Xux4e%2F61P3r%2BBoNosgsAZGiMxVW%2FiO%2BODG0QjDXIyAd4ioqh3ymtdGEKyWnn0J6o1pJ1q3ua0oL8IoS8jKhv1gghK2fTB4clvuZx%2FJ89Jxz6ZnTAYpv4FJ8DyrCPW9o%2Bs1iHR3RiOOHecnaZ9dacs%2FFdvxyN2sMzBA47Jc2Do4sRZcLO9c82PiOpRilP8KBgcb%2BPgHGB1TNuAFo8aU5xntnIFFqxiEMup0%3D&Expires=1788357726" alt="featured section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-featured"></tbody>
+    </table>
+
+    <h3>Story section</h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-006/figma-section-6-108-story-section.png?AWSAccessKeyId=ASIA256MLQMTKUUI3QOF&Signature=Ggylgub8hQj7tx%2B0QsPGfNhCKDw%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFUaCmFwLXNvdXRoLTEiRzBFAiEAreQgoLSO1BjagYf77DFsNWB6586GIVs29%2BD0DnnkRBYCIHD7dDkjT6tLMKZvk4FfCe5upMJsHpoVerxxLR1KVnqsKr0FCB4QABoMNzUxNTEwOTc5MzY2IgzExtHzUJVdaJ26OHkqmgWt%2BtbIcWJxk%2FJVCOJLS8k9KJtblYryDD1KJfQ%2FvpUyfO8gdCElWTBBpO9xYjfFZXJ7uqZPPHQYEHqgx2RVbw10ge82jYkYxs0xnaYxDYyFJHN2ASocgb42jpEbtH08QakPrfyvYGNtvVq6GmzQOjPsdp3hZr7D5gL6G4XOCTqdTlop9CEY04Gh6Gy%2B1Uo0xhYF%2BL9YlQea4URn%2FFzh4MT6mvI%2FmWgbYu8Xjc1haGuJ9aA1el%2FdZP%2FfZ14S%2Bw9cVhjEBUk%2FS1ywDEG30KLBGQutE1RVJKhcNF8vzAjpWd9ZWZ7aUkDelVoI6KUaszg6bOWPPHXJ3vUFGlAqmEe0L9ZmuVPm2HXczxkbcG%2BrTJ3amXnSeHqBTkKXcTO%2ByV%2B0d0kdiJUQxJKs7fs0V9fP7WbZNikCp6r8voH2q3uFpy%2F3exPUidDtxVo22CzXapvaYtLz7elkZBNKchNfXBCSUCDRvt%2BLmFIAL2Ts3b7%2FnzlDHfmUrMTXVlQ7DVUb8ZUggTInsbwFYKy2ktFBihISpD5xqufCgi7XIP6zwH2ALGOt%2FC6tFFZYltYFw%2BvDECvJ41eKROuZ1TZ0ai4AUxfrvy3E%2BPfPl5EQmrXblZALQkNHZRV7bcOcY9lhb9SlV3yXuS%2FrC45rpB2dhlLT%2BVzPmjz6GlJJNSYoSzUd%2BxDyy2I71IFQFouqLvQHOHsBht%2Frn%2Fthrpx%2FhBHXPVuPBc%2FZhSIWD2MT5YcgvGqHyb0b4ZDut2Gn0GYH7o2NtffckVtrk%2FjP4XnNfZt8Gz%2FgwLJxiRI4iMdczbFXA5uGIG0M6hQHUgLEjPV18UvIEkd3nOZ8Ta%2BPhB8GGz6DdOVp2Qe4M25yLwxBHDFGA6bqAyrYfg3RfPa%2Fctr550deLHsw6My71AY6sQHn%2FM2XWZZz3Xux4e%2F61P3r%2BBoNosgsAZGiMxVW%2FiO%2BODG0QjDXIyAd4ioqh3ymtdGEKyWnn0J6o1pJ1q3ua0oL8IoS8jKhv1gghK2fTB4clvuZx%2FJ89Jxz6ZnTAYpv4FJ8DyrCPW9o%2Bs1iHR3RiOOHecnaZ9dacs%2FFdvxyN2sMzBA47Jc2Do4sRZcLO9c82PiOpRilP8KBgcb%2BPgHGB1TNuAFo8aU5xntnIFFqxiEMup0%3D&Expires=1788357726" alt="story section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-story"></tbody>
+    </table>
+
+    <h3>Footer</h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-006/figma-section-6-136-footer.png?AWSAccessKeyId=ASIA256MLQMTKUUI3QOF&Signature=XjHeKH8nAem9%2FjSy%2BTjC4%2BCBpFs%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFUaCmFwLXNvdXRoLTEiRzBFAiEAreQgoLSO1BjagYf77DFsNWB6586GIVs29%2BD0DnnkRBYCIHD7dDkjT6tLMKZvk4FfCe5upMJsHpoVerxxLR1KVnqsKr0FCB4QABoMNzUxNTEwOTc5MzY2IgzExtHzUJVdaJ26OHkqmgWt%2BtbIcWJxk%2FJVCOJLS8k9KJtblYryDD1KJfQ%2FvpUyfO8gdCElWTBBpO9xYjfFZXJ7uqZPPHQYEHqgx2RVbw10ge82jYkYxs0xnaYxDYyFJHN2ASocgb42jpEbtH08QakPrfyvYGNtvVq6GmzQOjPsdp3hZr7D5gL6G4XOCTqdTlop9CEY04Gh6Gy%2B1Uo0xhYF%2BL9YlQea4URn%2FFzh4MT6mvI%2FmWgbYu8Xjc1haGuJ9aA1el%2FdZP%2FfZ14S%2Bw9cVhjEBUk%2FS1ywDEG30KLBGQutE1RVJKhcNF8vzAjpWd9ZWZ7aUkDelVoI6KUaszg6bOWPPHXJ3vUFGlAqmEe0L9ZmuVPm2HXczxkbcG%2BrTJ3amXnSeHqBTkKXcTO%2ByV%2B0d0kdiJUQxJKs7fs0V9fP7WbZNikCp6r8voH2q3uFpy%2F3exPUidDtxVo22CzXapvaYtLz7elkZBNKchNfXBCSUCDRvt%2BLmFIAL2Ts3b7%2FnzlDHfmUrMTXVlQ7DVUb8ZUggTInsbwFYKy2ktFBihISpD5xqufCgi7XIP6zwH2ALGOt%2FC6tFFZYltYFw%2BvDECvJ41eKROuZ1TZ0ai4AUxfrvy3E%2BPfPl5EQmrXblZALQkNHZRV7bcOcY9lhb9SlV3yXuS%2FrC45rpB2dhlLT%2BVzPmjz6GlJJNSYoSzUd%2BxDyy2I71IFQFouqLvQHOHsBht%2Frn%2Fthrpx%2FhBHXPVuPBc%2FZhSIWD2MT5YcgvGqHyb0b4ZDut2Gn0GYH7o2NtffckVtrk%2FjP4XnNfZt8Gz%2FgwLJxiRI4iMdczbFXA5uGIG0M6hQHUgLEjPV18UvIEkd3nOZ8Ta%2BPhB8GGz6DdOVp2Qe4M25yLwxBHDFGA6bqAyrYfg3RfPa%2Fctr550deLHsw6My71AY6sQHn%2FM2XWZZz3Xux4e%2F61P3r%2BBoNosgsAZGiMxVW%2FiO%2BODG0QjDXIyAd4ioqh3ymtdGEKyWnn0J6o1pJ1q3ua0oL8IoS8jKhv1gghK2fTB4clvuZx%2FJ89Jxz6ZnTAYpv4FJ8DyrCPW9o%2Bs1iHR3RiOOHecnaZ9dacs%2FFdvxyN2sMzBA47Jc2Do4sRZcLO9c82PiOpRilP8KBgcb%2BPgHGB1TNuAFo8aU5xntnIFFqxiEMup0%3D&Expires=1788357726" alt="footer section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-footer"></tbody>
+    </table>
+  </div>
+
+  <h2>Tokens distilled from the frame</h2>
+
+  <h3>Color</h3>
+  <div class="token-grid" id="color-swatches"></div>
+
+  <h3>Type ramp</h3>
+  <div id="type-ramp" style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding: 0 var(--space-4);"></div>
+
+  <h3>Spacing &amp; radii</h3>
+  <table>
+    <thead><tr><th>Token set</th><th>Values (px)</th></tr></thead>
+    <tbody>
+      <tr><td>Spacing scale</td><td class="mono">2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 120</td></tr>
+      <tr><td>Corner radii</td><td class="mono">1, 1.5, 8, 16, 18, 20, 24, 100 (pill)</td></tr>
+      <tr><td>Stroke weights</td><td class="mono">1, 2</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Excluded (OS / device chrome, mockup scaffolding)</h2>
+  <p class="excluded-empty">None found. The frame is a fixed 1440px desktop web frame with no simulated browser chrome, mobile status bar, notch, or home indicator to exclude.</p>
+
+  <h2>Open questions</h2>
+  <p class="lede">Blocking questions first — these are judgement calls that would make the implementation wrong if answered differently. Each shows the assumption arc made in the absence of an answer.</p>
+  <div id="questions"></div>
+
+  <footer class="page-footer">
+    Generated from <code>figma-frame.json</code> / <code>figma-frame.png</code> for MANOJ-ADMIN-PROJECT-STORY-006. See <code>design-context.json</code> in this same directory for the machine-readable version of this map.
+  </footer>
+</main>
+
+<script>
+const colorTokens = [{"hex": "#151212", "usage": "header / hero / footer background, dark surfaces (Add to Order button, CartButton)"}, {"hex": "#C82D25", "usage": "logo badge, primary CTA, active nav underline/text, card price, chef-recommendations eyebrow"}, {"hex": "#2A7043", "usage": "delivery banner background, '30 mins' highlight, story-section eyebrow"}, {"hex": "#6B6661", "usage": "secondary/description copy on light surfaces"}, {"hex": "#F3EFE9", "usage": "story-section background"}, {"hex": "#FCFAF6", "usage": "featured-section background"}, {"hex": "#FFFFFF", "usage": "menu-item card background, text on dark backgrounds"}, {"hex": "#EBE7DF", "usage": "menu-item card hairline border (stroke color)"}];
+
+const colorGrid = document.getElementById('color-swatches');
+colorTokens.forEach(t => {
+  const el = document.createElement('div');
+  el.className = 'swatch';
+  el.innerHTML = `
+    <div class="swatch-color" style="background:${t.hex}; border-bottom:1px solid var(--border);"></div>
+    <div class="swatch-body">
+      <div class="hex">${t.hex}</div>
+      <div class="usage">${t.usage}</div>
+    </div>`;
+  colorGrid.appendChild(el);
+});
+
+const typeRamp = [{"sample": "Wood-Fired Pizza,", "meta": "Fraunces 700 · 64/70.4 — hero heading"}, {"sample": "Popular Sourdough Pizzas", "meta": "Fraunces 700 · 40/46 — section headings"}, {"sample": "Diavola", "meta": "Fraunces 600 · 18/22.19 — menu card title"}, {"sample": "CHEF RECOMMENDATIONS", "meta": "Geist 600 · 13/16.9 uppercase — eyebrow labels"}, {"sample": "Our Menu", "meta": "Geist 500–600 · 15/19.5 — nav links"}, {"sample": "Spicy calabrian salami, house-pulled fresh mozzarella…", "meta": "Geist 400 · 14/18.2 — menu card description"}, {"sample": "Add to Order", "meta": "Geist 600 · 15/19.5 — button labels"}];
+const rampEl = document.getElementById('type-ramp');
+typeRamp.forEach(r => {
+  const row = document.createElement('div');
+  row.className = 'type-ramp-row';
+  row.innerHTML = `<span class="type-ramp-sample">${r.sample}</span><span class="type-ramp-meta">${r.meta}</span>`;
+  rampEl.appendChild(row);
+});
+
+function statusPill(status) {
+  return status === 'existing'
+    ? '<span class="pill pill-existing">existing</span>'
+    : '<span class="pill pill-new">proposed_new</span>';
+}
+function propsCell(props) {
+  if (!props || Object.keys(props).length === 0) return '<span style="color:var(--muted)">—</span>';
+  return Object.entries(props).map(([k,v]) => `<code>${k}: ${JSON.stringify(v)}</code>`).join('');
+}
+function renderRows(targetId, rows) {
+  const tbody = document.getElementById(targetId);
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td class="mono">${r.figma_node}</td>
+      <td><strong>${r.code_component}</strong></td>
+      <td>${statusPill(r.status)}</td>
+      <td class="props-cell">${propsCell(r.props)}</td>
+      <td>${r.notes || ''}</td>
+    </tr>`).join('');
+}
+
+const headerRows = [{"figma_node": "6:7 header", "artboard_id": "6:6", "code_component": "SiteHeader", "status": "proposed_new", "notes": "proposed_new per the stated catalogue (this project has no existing UI components). For context: code shaped like this already lives at src/features/site/SiteHeader.tsx from MANOJ-ADMIN-PROJECT-STORY-004 and renders BrandLogo + PrimaryNav + DeliveryIndicator on a #151212 bar, but it does not render a cart icon button yet — see open questions catalogue-vs-repo-mismatch and header-cart-gap."}, {"figma_node": "6:8 logo-group", "artboard_id": "6:6", "code_component": "BrandLogo", "status": "proposed_new", "notes": "proposed_new per the stated catalogue. Reuses the same mark proposed for the footer's mini logo (6:139 below) at header scale: red circular badge with italic 'F' + 'Forno Rosso' wordmark. For context, a component of this shape already lives at src/features/site/BrandLogo.tsx (STORY-004) — see open question catalogue-vs-repo-mismatch."}, {"figma_node": "6:12 nav-links", "artboard_id": "6:6", "code_component": "PrimaryNav", "status": "proposed_new", "notes": "proposed_new per the stated catalogue. Reuses the NavLink proposed below for each item. For context, a component of this shape already lives at src/features/site/PrimaryNav.tsx (STORY-004), wiring Home and Our Menu — see open question catalogue-vs-repo-mismatch. The frame also shows a third 'Cart' link not yet wired up anywhere — see open question header-cart-gap."}, {"figma_node": "6:13 Frame (Home link)", "artboard_id": "6:6", "code_component": "NavLink", "status": "proposed_new", "props": {"to": "/", "label": "Home", "end": true}, "notes": "proposed_new per the stated catalogue. Active state: brand-red label + 12x2 underline bar."}, {"figma_node": "6:16 Frame (Our Menu link)", "artboard_id": "6:6", "code_component": "NavLink", "status": "proposed_new", "props": {"to": "/menu", "label": "Our Menu"}, "notes": "proposed_new per the stated catalogue. Reuses the NavLink proposed for the Home link (6:13)."}, {"figma_node": "6:18 Frame (Cart link)", "artboard_id": "6:6", "code_component": "NavLink", "status": "proposed_new", "props": {"to": "/cart", "label": "Cart"}, "notes": "proposed_new per the stated catalogue. Reuses the NavLink proposed for the Home link (6:13); no /cart route exists yet for it to point to — see open question header-cart-gap."}, {"figma_node": "6:20 header-cart", "artboard_id": "6:6", "code_component": "SiteHeader", "status": "proposed_new", "notes": "proposed_new per the stated catalogue. Layout region inside SiteHeader (6:7) pairing the DeliveryIndicator proposed below with the CartButton proposed further down."}, {"figma_node": "6:21 'Estimated delivery: 30 mins'", "artboard_id": "6:6", "code_component": "DeliveryIndicator", "status": "proposed_new", "props": {"prefix": "Estimated delivery:", "value": "30 mins"}, "notes": "proposed_new per the stated catalogue. Copy value differs from the delivery-banner's 'Average ETA: 25 - 35 Min' (6:50) — see open question delivery-eta-copy-mismatch."}, {"figma_node": "6:22 cart-icon-btn", "artboard_id": "6:6", "code_component": "CartButton", "status": "proposed_new", "notes": "Dark circular button: shopping-cart Icon + numeric badge (count prop, shown as 3). Not built yet — see open question header-cart-gap."}];
+const heroRows = [{"figma_node": "6:25 hero", "artboard_id": "6:6", "code_component": "Hero", "status": "proposed_new", "notes": "Full-bleed dark (#151212) band containing the text column and the pizza photo."}, {"figma_node": "6:27 Frame (eyebrow badge)", "artboard_id": "6:6", "code_component": "EyebrowBadge", "status": "proposed_new", "props": {"icon": "flame", "label": "Authentic Neapolitan Woodfired"}}, {"figma_node": "6:30 'Wood-Fired Pizza, Delivered Hot'", "artboard_id": "6:6", "code_component": "Hero", "status": "proposed_new", "notes": "Two-line Fraunces 64/700 heading; second line ('Delivered Hot') in brand red (#C82D25), first line in white."}, {"figma_node": "6:31 hero paragraph", "artboard_id": "6:6", "code_component": "Hero", "status": "proposed_new"}, {"figma_node": "6:33 Frame ('Order Online Now')", "artboard_id": "6:6", "code_component": "Button", "status": "proposed_new", "props": {"variant": "primary", "label": "Order Online Now", "icon": "arrow-right", "iconPosition": "trailing"}}, {"figma_node": "6:36 Frame ('Explore Full Menu')", "artboard_id": "6:6", "code_component": "Button", "status": "proposed_new", "props": {"variant": "outline", "label": "Explore Full Menu"}}, {"figma_node": "6:38 hero-image-wrapper", "artboard_id": "6:6", "code_component": "HeroImage", "status": "proposed_new", "props": {"objectFit": "cover"}, "notes": "Asset: ./.arc/designs/figma-asset-6-39-hero-image-wrapper.png, css_object_fit: cover."}];
+const deliveryRows = [{"figma_node": "6:40 delivery-banner", "artboard_id": "6:6", "code_component": "DeliveryBanner", "status": "proposed_new", "notes": "Full-width brand-green (#2A7043) band between hero and featured section."}, {"figma_node": "6:41 Frame (free delivery copy)", "artboard_id": "6:6", "code_component": "IconTextBlock", "status": "proposed_new", "props": {"icon": "truck", "title": "Free Delivery On Orders Over $35", "subtitle": "Craving quality? Skip the delivery fee entirely inside our active zones."}}, {"figma_node": "6:48 Frame ('Average ETA')", "artboard_id": "6:6", "code_component": "StatBlock", "status": "proposed_new", "props": {"label": "Average ETA", "value": "25 - 35 Min"}}, {"figma_node": "6:51 Frame ('Pizza Temperature')", "artboard_id": "6:6", "code_component": "StatBlock", "status": "proposed_new", "props": {"label": "Pizza Temperature", "value": "Piping Hot Guaranteed"}, "notes": "Reuses the StatBlock proposed for Average ETA."}];
+const featuredRows = [{"figma_node": "6:54 featured-section", "artboard_id": "6:6", "code_component": "FeaturedSection", "status": "proposed_new", "notes": "Off-white (#FCFAF6) section wrapping the SectionHeading and the FeaturedGrid — the main deliverable of MANOJ-ADMIN-PROJECT-STORY-006."}, {"figma_node": "6:55 Frame (section heading)", "artboard_id": "6:6", "code_component": "SectionHeading", "status": "proposed_new", "props": {"eyebrow": "Chef Recommendations", "eyebrowTone": "accent", "heading": "Popular Sourdough Pizzas", "showRule": true}, "notes": "Centered eyebrow (brand red) + Fraunces heading + 48x3 red rule underneath."}, {"figma_node": "6:59 featured-grid", "artboard_id": "6:6", "code_component": "FeaturedGrid", "status": "proposed_new", "notes": "4-column grid (302px cards, 24px gutter) of MenuItemCard — the component this story is named for. See open question featured-grid-responsive-breakpoints: the frame only specifies a fixed 1440px, 4-column layout."}, {"figma_node": "6:60 Frame (Diavola card)", "artboard_id": "6:6", "code_component": "MenuItemCard", "status": "proposed_new", "props": {"name": "Diavola", "price": "$16.50", "description": "Spicy calabrian salami, house-pulled fresh mozzarella, san marzano tomato base, organic chili oil, fresh basil leaves.", "image": "./.arc/designs/figma-asset-6-62-featured-grid.png"}, "notes": "Image asset node 6:62, css_object_fit: cover."}, {"figma_node": "6:72 Frame (Funghi Selvatici & Tartufo card)", "artboard_id": "6:6", "code_component": "MenuItemCard", "status": "proposed_new", "props": {"name": "Funghi Selvatici & Tartufo", "price": "$18.00", "description": "Roasted wild porcini and cremini mushrooms, truffle-infused olive oil, white mozzarella base, shaved pecorino.", "image": "./.arc/designs/figma-asset-6-74-featured-grid.png"}, "notes": "Reuses the MenuItemCard proposed for the Diavola card. Image asset node 6:74, css_object_fit: cover. Title clips to 'Funghi Selvatici &...' in the PNG at 302px width — see open question menu-card-title-truncation."}, {"figma_node": "6:84 Frame (Classic Margherita card)", "artboard_id": "6:6", "code_component": "MenuItemCard", "status": "proposed_new", "props": {"name": "Classic Margherita", "price": "$14.50", "description": "Imported San Marzano tomato sauce, fresh buffalo mozzarella, fragrant fresh basil, extra virgin olive oil.", "image": "./.arc/designs/figma-asset-6-86-featured-grid.png"}, "notes": "Reuses the MenuItemCard proposed for the Diavola card. Image asset node 6:86, css_object_fit: cover."}, {"figma_node": "6:96 Frame (Prosciutto Crudo e Rucola card)", "artboard_id": "6:6", "code_component": "MenuItemCard", "status": "proposed_new", "props": {"name": "Prosciutto Crudo e Rucola", "price": "$19.00", "description": "Prosciutto di Parma cured ham, fresh peppery wild arugula, shaved parmigiano-reggiano, balsamic glaze reduction.", "image": "./.arc/designs/figma-asset-6-98-featured-grid.png"}, "notes": "Reuses the MenuItemCard proposed for the Diavola card. Image asset node 6:98, css_object_fit: cover. This card's description block is 84px tall vs 63px for its siblings, yet the outer card is still 441px like the others — see open question menu-card-variable-height."}, {"figma_node": "6:69 Frame ('Add to Order')", "artboard_id": "6:6", "code_component": "Button", "status": "proposed_new", "props": {"variant": "dark", "label": "Add to Order", "icon": "plus", "iconPosition": "leading"}, "notes": "Reused once per MenuItemCard (nodes 6:69, 6:81, 6:93, 6:105) — near-black full-width pill button with a leading plus icon. Reuses the same Button component proposed for the hero CTAs — see open question shared-button-component."}];
+const storyRows = [{"figma_node": "6:108 story-section", "artboard_id": "6:6", "code_component": "StorySection", "status": "proposed_new", "notes": "Cream (#F3EFE9) band: text column on the left, two stacked photos on the right."}, {"figma_node": "6:110 Frame (story heading)", "artboard_id": "6:6", "code_component": "SectionHeading", "status": "proposed_new", "props": {"eyebrow": "The Sourdough Secret", "eyebrowTone": "brand", "heading": "Our Passion for the Perfect Crust", "showRule": false}, "notes": "Reuses the SectionHeading proposed for the featured-section header — brand-green eyebrow, no rule. See open question shared-section-heading-component."}, {"figma_node": "6:113 story paragraph", "artboard_id": "6:6", "code_component": "StorySection", "status": "proposed_new"}, {"figma_node": "6:114 Frame (feature list)", "artboard_id": "6:6", "code_component": "FeatureList", "status": "proposed_new", "notes": "Vertical stack of 3 FeatureListItem rows."}, {"figma_node": "6:115 Frame (San Marzano feature)", "artboard_id": "6:6", "code_component": "FeatureListItem", "status": "proposed_new", "props": {"icon": "star", "title": "100% Imported San Marzano Tomatoes", "description": "Sourced directly from fertile Campania volcano soils for a sweet, low-acid base."}}, {"figma_node": "6:121 Frame (mozzarella feature)", "artboard_id": "6:6", "code_component": "FeatureListItem", "status": "proposed_new", "props": {"icon": "shield", "title": "Fior di Latte & Fresh Mozzarella", "description": "Hand-stretched daily, creating the classic pool texture that blends beautifully under high fire."}, "notes": "Reuses the FeatureListItem proposed for the San Marzano row."}, {"figma_node": "6:127 Frame (oven feature)", "artboard_id": "6:6", "code_component": "FeatureListItem", "status": "proposed_new", "props": {"icon": "compass", "title": "900°F Stone Hearth Wood Oven", "description": "Powered by seasoned hickory and oak to lock in flavors and produce perfect crust blistering in 90 seconds."}, "notes": "Reuses the FeatureListItem proposed for the San Marzano row. 'compass' has no obvious semantic link to a wood oven — see open question story-icon-mismatch."}, {"figma_node": "6:133 story-img-collage", "artboard_id": "6:6", "code_component": "StoryImageCollage", "status": "proposed_new", "notes": "Two side-by-side portrait photos, 292x520 each, 16px gap. Assets: node 6:134 -> ./.arc/designs/figma-asset-6-134-story-img-collage.png; node 6:135 -> ./.arc/designs/figma-asset-6-135-story-img-collage.png. Both css_object_fit: cover."}];
+const footerRows = [{"figma_node": "6:679, 6:574/6:575 (arrow-right), 6:571/6:572 (truck), 6:577/6:578 x4 (plus), 6:568/6:569 (shopping-cart), 6:589 (star), 6:592 (shield), 6:595 (compass), 6:598 (instagram), 6:601 (facebook), 6:604 (twitter)", "artboard_id": "6:6", "code_component": "Icon", "status": "proposed_new", "notes": "Every vector glyph in this frame is a FRAME-wrapped VECTOR whose layer name matches a lucide-react icon id exactly (fire-extinguisher, arrow-right, truck, plus, shopping-cart, star, shield, compass, instagram, facebook, twitter). Proposing one thin Icon(name) wrapper around lucide-react rather than 11 hand-authored SVGs — see open question icon-library-choice. Node 6:679 ('fire-extinguisher') renders as a flame glyph in the PNG — see open question hero-badge-icon-name."}, {"figma_node": "6:136 footer", "artboard_id": "6:6", "code_component": "SiteFooter", "status": "proposed_new", "notes": "Full-width dark (#151212) footer."}, {"figma_node": "6:138 footer-brand", "artboard_id": "6:6", "code_component": "FooterBrand", "status": "proposed_new", "notes": "Compact logo lockup + description paragraph + social icon row."}, {"figma_node": "6:139 Frame (mini logo)", "artboard_id": "6:6", "code_component": "BrandLogo", "status": "proposed_new", "props": {"compact": true}, "notes": "proposed_new per the stated catalogue. Reuses the BrandLogo proposed for the header (6:8) at a smaller/compact scale rather than a new component."}, {"figma_node": "6:144 social-row", "artboard_id": "6:6", "code_component": "SocialRow", "status": "proposed_new", "notes": "Wraps 3 SocialIconLink instances."}, {"figma_node": "6:145 Frame (instagram)", "artboard_id": "6:6", "code_component": "SocialIconLink", "status": "proposed_new", "props": {"icon": "instagram"}}, {"figma_node": "6:147 Frame (facebook)", "artboard_id": "6:6", "code_component": "SocialIconLink", "status": "proposed_new", "props": {"icon": "facebook"}, "notes": "Reuses the SocialIconLink proposed for instagram."}, {"figma_node": "6:149 Frame (twitter)", "artboard_id": "6:6", "code_component": "SocialIconLink", "status": "proposed_new", "props": {"icon": "twitter"}, "notes": "Reuses the SocialIconLink proposed for instagram."}, {"figma_node": "6:151 footer-col (Kitchen Hours)", "artboard_id": "6:6", "code_component": "FooterColumn", "status": "proposed_new", "props": {"title": "Kitchen Hours"}, "notes": "Contains 3 ScheduleRow rows."}, {"figma_node": "6:154 Frame (Monday - Thursday row)", "artboard_id": "6:6", "code_component": "ScheduleRow", "status": "proposed_new", "props": {"days": "Monday - Thursday", "hours": "12:00 PM - 10:00 PM"}}, {"figma_node": "6:157 Frame (Friday - Saturday row)", "artboard_id": "6:6", "code_component": "ScheduleRow", "status": "proposed_new", "props": {"days": "Friday - Saturday", "hours": "12:00 PM - 11:30 PM"}, "notes": "Reuses the ScheduleRow proposed above."}, {"figma_node": "6:160 Frame (Sunday row)", "artboard_id": "6:6", "code_component": "ScheduleRow", "status": "proposed_new", "props": {"days": "Sunday", "hours": "1:00 PM - 9:30 PM"}, "notes": "Reuses the ScheduleRow proposed above."}, {"figma_node": "6:163 footer-col (Pizzeria Location)", "artboard_id": "6:6", "code_component": "FooterColumn", "status": "proposed_new", "props": {"title": "Pizzeria Location"}, "notes": "Reuses the FooterColumn proposed for Kitchen Hours; content is address + delivery phone + email instead of schedule rows."}, {"figma_node": "6:170 Line", "artboard_id": "6:6", "code_component": "Divider", "status": "proposed_new", "notes": "1px full-width hairline above the copyright bar."}, {"figma_node": "6:171 footer-bottom", "artboard_id": "6:6", "code_component": "FooterLegalRow", "status": "proposed_new", "notes": "Copyright text plus 'Privacy Policy' / 'Delivery Terms' links."}];
+
+renderRows('tbl-header', headerRows);
+renderRows('tbl-hero', heroRows);
+renderRows('tbl-delivery', deliveryRows);
+renderRows('tbl-featured', featuredRows);
+renderRows('tbl-story', storyRows);
+renderRows('tbl-footer', footerRows);
+
+const questions = [{"id": "featured-grid-responsive-breakpoints", "topic": "FeaturedGrid has no responsive design below 1440px", "detail": "The frame fixes featured-grid (6:59) at exactly 4 columns x 302px cards for a 1440px canvas; no tablet or mobile column count is drawn anywhere. This story is specifically about shipping this grid, so the gap is now directly in scope (STORY-004 deferred the equivalent question for the header).", "assumption": "Reuse the app's existing useIsMobileViewport hook/pattern (src/features/site/useIsMobileViewport.ts, 640px breakpoint) and lay the grid out with CSS grid auto-fit, collapsing from 4 columns at desktop widths to 2 columns on tablet and 1 column at/below 640px, rather than shipping a fixed 1280px-wide grid that would overflow on smaller viewports.", "blocking": true, "options": [{"id": "responsive-reflow", "label": "Responsive grid: 4 cols desktop, 2 cols tablet, 1 col mobile (≤640px) — extrapolated from the app's existing mobile breakpoint, not drawn in the frame", "assumed": true}, {"id": "desktop-fixed", "label": "Ship the grid fixed at the designed 1280px/4-column layout only, matching the frame pixel-for-pixel with no reflow below it", "assumed": false}]}, {"id": "menu-card-title-truncation", "topic": "Two menu card titles are truncated or near the edge of the 302px card width", "detail": "'Funghi Selvatici & Tartufo' (6:77) renders as 'Funghi Selvatici &...' in the PNG, and 'Prosciutto Crudo e Rucola' (6:101) is close to the same limit — the design does not show what a graceful 2-line wrap or smaller font-size fallback should look like.", "assumption": "Let MenuItemCard's title wrap to 2 lines instead of truncating, since clipping a dish name mid-word is a worse outcome for a menu than a slightly taller title block.", "blocking": true, "options": [{"id": "wrap-2-lines", "label": "Wrap the title to 2 lines and let that row grow — a visible departure from the single-line PNG for long names", "assumed": true}, {"id": "truncate-ellipsis", "label": "Keep the single-line ellipsis truncation exactly as rendered (6:77 crops to 'Funghi Selvatici &...')", "assumed": false}, {"id": "shrink-font", "label": "Auto-shrink the title font-size until it fits one line, keeping the row height fixed", "assumed": false}]}, {"id": "shared-button-component", "topic": "Whether hero CTAs and card 'Add to Order' buttons share one Button component", "detail": "Hero has a primary red-fill button with a trailing arrow icon and an outline button with no icon; each MenuItemCard has a dark-fill button with a leading plus icon. All three share size, radius (8px), and type style but differ in fill/border/icon placement.", "assumption": "Model all three as one shared Button component with variant ('primary' | 'outline' | 'dark') and icon/iconPosition props, instead of near-duplicate components. Carried over from STORY-004's mapping of the same frame.", "blocking": false}, {"id": "shared-section-heading-component", "topic": "Whether featured-section and story-section headings share one SectionHeading component", "detail": "featured-section uses a brand-red uppercase eyebrow with a short rule under the title; story-section uses a brand-green uppercase eyebrow with no rule. Layout (eyebrow above serif title) is otherwise identical.", "assumption": "Model both as one shared SectionHeading component with eyebrowTone ('accent' | 'brand') and showRule props. Carried over from STORY-004's mapping of the same frame.", "blocking": false}, {"id": "menu-card-variable-height", "topic": "MenuItemCard's internal proportions vary across instances despite equal outer card height", "detail": "All 4 cards are 441px tall, but the Prosciutto card's description block is 84px vs 63px for the other three (6:103 vs 6:67/6:79/6:91), and its content wrapper (6:97) is 377px vs 356px — real menu copy will not always be this evenly sized.", "assumption": "Build MenuItemCard as a fixed-width, auto-height flex column (image, then a content block that grows with description length, then the Add to Order button) rather than a hard-coded 441px card height, so longer copy doesn't clip or force artificial truncation.", "blocking": false}, {"id": "header-cart-gap", "topic": "Header still has a designed 'Cart' affordance that isn't built", "detail": "The frame shows both a plain 'Cart' nav link (6:18) and a separate cart icon button with a live-count badge (6:22) in the header. STORY-004 shipped SiteHeader with only Home/Our Menu (matching the two routes that exist today) and no CartButton at all.", "assumption": "Leave this gap for whichever story adds a cart/checkout flow: it needs a /cart route before the NavLink instance and CartButton (icon + count prop) can be wired in. Not part of this story's scope, noted here only because the featured-grid's 'Add to Order' buttons imply a cart will exist soon.", "blocking": false}, {"id": "hero-badge-icon-name", "topic": "Hero eyebrow badge's icon layer is misnamed relative to its glyph", "detail": "Node 6:679 is named 'fire-extinguisher' but the rendered PNG shows a flame glyph, and 'Authentic Neapolitan Woodfired' pairs naturally with fire/flame, not an extinguisher.", "assumption": "Render lucide's 'flame' icon here rather than 'fire-extinguisher', treating the Figma layer name as a mislabeled instance swap rather than an intentional choice.", "blocking": false}, {"id": "story-icon-mismatch", "topic": "'900°F Stone Hearth Wood Oven' feature uses a compass icon", "detail": "FeatureListItem icons are star (tomatoes), shield (mozzarella), and compass (wood oven, 6:595) — compass has no obvious semantic link to an oven or fire, unlike the other two pairings.", "assumption": "Render the icon exactly as designed (lucide 'compass') rather than substituting a flame/oven icon; unlike hero-badge-icon-name this isn't an obvious mislabel, just an unusual pairing, so the frame is trusted as authoritative.", "blocking": false}, {"id": "icon-library-choice", "topic": "No icon assets are exported for the ~11 vector icons in this frame", "detail": "figma-assets.json only lists photographic fills (hero, 4 menu cards, 2 story photos); fire-extinguisher, arrow-right, truck, plus, star, shield, compass, instagram, facebook, twitter and shopping-cart are all vector node names that match lucide-react icon ids exactly.", "assumption": "Introduce lucide-react as the icon source and wrap it in a local Icon(name) component rather than hand-authoring 11 new SVGs, since the naming match is too exact to be coincidental.", "blocking": false}, {"id": "delivery-eta-copy-mismatch", "topic": "Delivery time shown twice with different values", "detail": "Header shows 'Estimated delivery: 30 mins' (6:21) while the delivery banner states 'Average ETA: 25 - 35 Min' (6:50). These may be an intentional live-order-estimate vs. site-wide-average split, or just inconsistent placeholder copy.", "assumption": "Implement both strings literally as authored, as two independent copy sources with no shared data binding, and flag the discrepancy for content review. Carried over from STORY-004's mapping of the same frame.", "blocking": false}, {"id": "catalogue-vs-repo-mismatch", "topic": "Supplied component catalogue said greenfield, but the repo already has site components from STORY-004", "detail": "The task prompt states 'no existing UI components in this project', but src/features/site already contains SiteHeader, PrimaryNav, NavLink, BrandLogo, and DeliveryIndicator, built for MANOJ-ADMIN-PROJECT-STORY-004.", "assumption": "Follow the stated catalogue literally: every node in component_map above is marked status: proposed_new, with no exceptions, since the catalogue says no UI components exist yet. Where matching code already lives in src/features/site (SiteHeader, PrimaryNav, NavLink, BrandLogo, DeliveryIndicator, from STORY-004), that is called out in the relevant entry's notes so an implementer reuses/extends it instead of duplicating it — but status itself is not overridden.", "blocking": false}];
+
+const qContainer = document.getElementById('questions');
+questions.sort((a,b) => (b.blocking - a.blocking));
+qContainer.innerHTML = questions.map(q => `
+  <div class="question ${q.blocking ? 'blocking' : 'non-blocking'}">
+    <div class="q-head">
+      <span class="q-topic">${q.topic}</span>
+      <span class="q-flag ${q.blocking ? 'blocking' : 'non-blocking'}">${q.blocking ? 'BLOCKING' : 'non-blocking'}</span>
+      <span class="mono" style="color:var(--muted); font-size:11px;">${q.id}</span>
+    </div>
+    <p class="q-detail">${q.detail}</p>
+    <div class="q-assumption"><b>arc's assumption (awaiting confirmation)</b>${q.assumption}</div>
+    ${q.options ? `<ul class="q-options">${q.options.map(o => `<li class="${o.assumed ? 'assumed' : ''}">${o.label}</li>`).join('')}</ul>` : ''}
+  </div>
+`).join('');
+</script>
+
+</body>
+</html>
+
+<!-- arc:css-inlined -->
