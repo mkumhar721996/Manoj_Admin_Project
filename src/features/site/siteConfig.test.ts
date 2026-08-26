@@ -3,17 +3,25 @@ import { DEFAULT_SITE_CONFIG, loadSiteConfig } from "./siteConfig";
 
 describe("DEFAULT_SITE_CONFIG", () => {
   it("includes the footer's kitchen hours, address, contact, and social link fields", () => {
-    expect(DEFAULT_SITE_CONFIG.kitchenHours).toEqual([
+    const {
+      kitchenHours,
+      pizzeriaAddress,
+      deliveryPhone,
+      contactEmail,
+      socialLinks,
+    } = DEFAULT_SITE_CONFIG;
+
+    expect(kitchenHours).toEqual([
       { day: "Monday - Thursday", hours: "12:00 PM - 10:00 PM" },
       { day: "Friday - Saturday", hours: "12:00 PM - 11:30 PM" },
       { day: "Sunday", hours: "1:00 PM - 9:30 PM" },
     ]);
-    expect(DEFAULT_SITE_CONFIG.pizzeriaAddress).toBe(
+    expect(pizzeriaAddress).toBe(
       "842 Rione Monti, Sourdough Avenue, Suite 100",
     );
-    expect(DEFAULT_SITE_CONFIG.deliveryPhone).toBe("(555) 392-7677");
-    expect(DEFAULT_SITE_CONFIG.contactEmail).toBe("ciao@fornorosso.pizza");
-    expect(DEFAULT_SITE_CONFIG.socialLinks).toEqual({
+    expect(deliveryPhone).toBe("(555) 392-7677");
+    expect(contactEmail).toBe("ciao@fornorosso.pizza");
+    expect(socialLinks).toEqual({
       instagram: "#",
       facebook: "#",
       twitter: "#",
