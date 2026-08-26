@@ -75,13 +75,21 @@
         "font_size": 12.0,
         "line_height": 15.6,
         "letter_spacing": 0.0,
-        "text_case": "UPPER"
+        "text_case": null
       },
       {
         "font_family": "Geist",
         "font_weight": 400.0,
         "font_size": 12.0,
         "line_height": 15.6,
+        "letter_spacing": 0.0,
+        "text_case": "UPPER"
+      },
+      {
+        "font_family": "Geist",
+        "font_weight": 400.0,
+        "font_size": 13.0,
+        "line_height": 16.9,
         "letter_spacing": 0.0,
         "text_case": null
       },
@@ -90,14 +98,6 @@
         "font_weight": 400.0,
         "font_size": 13.0,
         "line_height": 18.2,
-        "letter_spacing": 0.0,
-        "text_case": null
-      },
-      {
-        "font_family": "Geist",
-        "font_weight": 400.0,
-        "font_size": 13.0,
-        "line_height": 16.9,
         "letter_spacing": 0.0,
         "text_case": null
       },
@@ -113,14 +113,6 @@
         "font_family": "Geist",
         "font_weight": 400.0,
         "font_size": 14.0,
-        "line_height": 19.6,
-        "letter_spacing": 0.0,
-        "text_case": null
-      },
-      {
-        "font_family": "Geist",
-        "font_weight": 400.0,
-        "font_size": 14.0,
         "line_height": 21.0,
         "letter_spacing": 0.0,
         "text_case": null
@@ -130,6 +122,14 @@
         "font_weight": 400.0,
         "font_size": 14.0,
         "line_height": 18.2,
+        "letter_spacing": 0.0,
+        "text_case": null
+      },
+      {
+        "font_family": "Geist",
+        "font_weight": 400.0,
+        "font_size": 14.0,
+        "line_height": 19.6,
         "letter_spacing": 0.0,
         "text_case": null
       },

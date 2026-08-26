@@ -17,7 +17,7 @@
         "width": 1440.0,
         "height": 2786.0
       },
-      "role": "Forno Rosso pizzeria marketing home page: header/nav, hero, delivery promo banner, featured (Chef Recommendations) menu grid, brand-story section, footer. The linked node is a single FRAME, not a CANVAS of several artboards, so there is only one screen to review. This story's scope is the featured-menu grid (featured-section / featured-grid); the rest of the page is mapped for continuity with MANOJ-ADMIN-PROJECT-STORY-004, which already shipped the header."
+      "role": "Forno Rosso pizzeria marketing home page: header/nav, hero, delivery promo banner, featured (Chef Recommendations) menu grid, brand-story/trust-content section, footer. The linked node is a single FRAME, not a CANVAS of several artboards, so there is only one screen to review. This story's scope is the brand-story section (story-section / 'Our Passion for the Perfect Crust', its 3-item trust/feature list, and its two-photo image collage) — the rest of the page is mapped for continuity with MANOJ-ADMIN-PROJECT-STORY-004 (header/hero/delivery-banner shipped) and MANOJ-ADMIN-PROJECT-STORY-006 (featured-grid shipped)."
     }
   ],
   "resolved_decisions": [],
@@ -40,131 +40,26 @@
       "display": "Fraunces",
       "body": "Geist"
     },
-    "font_sizes": [
-      12,
-      13,
-      14,
-      15,
-      16,
-      18,
-      20,
-      22,
-      24,
-      40,
-      64
-    ],
-    "font_weights": [
-      400,
-      500,
-      600,
-      700
-    ],
+    "font_sizes": [12, 13, 14, 15, 16, 18, 20, 22, 24, 40, 64],
+    "font_weights": [400, 500, 600, 700],
     "type_ramp": [
-      {
-        "role": "eyebrow-label",
-        "font_family": "Geist",
-        "font_weight": 600,
-        "font_size": 13,
-        "line_height": 16.9,
-        "text_case": "UPPER"
-      },
-      {
-        "role": "badge-label",
-        "font_family": "Geist",
-        "font_weight": 400,
-        "font_size": 12,
-        "line_height": 15.6,
-        "text_case": "UPPER"
-      },
-      {
-        "role": "nav-link",
-        "font_family": "Geist",
-        "font_weight": 500,
-        "font_size": 15,
-        "line_height": 19.5
-      },
-      {
-        "role": "nav-link-active",
-        "font_family": "Geist",
-        "font_weight": 600,
-        "font_size": 15,
-        "line_height": 19.5
-      },
-      {
-        "role": "body",
-        "font_family": "Geist",
-        "font_weight": 400,
-        "font_size": 16,
-        "line_height": 25.6
-      },
-      {
-        "role": "body-sm",
-        "font_family": "Geist",
-        "font_weight": 400,
-        "font_size": 14,
-        "line_height": 19.6
-      },
-      {
-        "role": "button-label",
-        "font_family": "Geist",
-        "font_weight": 600,
-        "font_size": 15,
-        "line_height": 19.5
-      },
-      {
-        "role": "card-title",
-        "font_family": "Fraunces",
-        "font_weight": 600,
-        "font_size": 18,
-        "line_height": 22.19
-      },
-      {
-        "role": "card-price",
-        "font_family": "Fraunces",
-        "font_weight": 700,
-        "font_size": 18,
-        "line_height": 22.19
-      },
-      {
-        "role": "feature-title",
-        "font_family": "Fraunces",
-        "font_weight": 600,
-        "font_size": 16,
-        "line_height": 19.73
-      },
-      {
-        "role": "section-heading",
-        "font_family": "Fraunces",
-        "font_weight": 700,
-        "font_size": 40,
-        "line_height": 46.0
-      },
-      {
-        "role": "hero-heading",
-        "font_family": "Fraunces",
-        "font_weight": 700,
-        "font_size": 64,
-        "line_height": 70.4
-      }
+      { "role": "eyebrow-label", "font_family": "Geist", "font_weight": 600, "font_size": 13, "line_height": 16.9, "text_case": "UPPER" },
+      { "role": "badge-label", "font_family": "Geist", "font_weight": 400, "font_size": 12, "line_height": 15.6, "text_case": "UPPER" },
+      { "role": "nav-link", "font_family": "Geist", "font_weight": 500, "font_size": 15, "line_height": 19.5 },
+      { "role": "nav-link-active", "font_family": "Geist", "font_weight": 600, "font_size": 15, "line_height": 19.5 },
+      { "role": "body", "font_family": "Geist", "font_weight": 400, "font_size": 16, "line_height": 25.6 },
+      { "role": "body-sm", "font_family": "Geist", "font_weight": 400, "font_size": 14, "line_height": 19.6 },
+      { "role": "body-xs", "font_family": "Geist", "font_weight": 400, "font_size": 13, "line_height": 18.2 },
+      { "role": "button-label", "font_family": "Geist", "font_weight": 600, "font_size": 15, "line_height": 19.5 },
+      { "role": "card-title", "font_family": "Fraunces", "font_weight": 600, "font_size": 18, "line_height": 22.19 },
+      { "role": "card-price", "font_family": "Fraunces", "font_weight": 700, "font_size": 18, "line_height": 22.19 },
+      { "role": "feature-title", "font_family": "Fraunces", "font_weight": 600, "font_size": 16, "line_height": 19.73 },
+      { "role": "stat-value", "font_family": "Fraunces", "font_weight": 700, "font_size": 20, "line_height": 24.66 },
+      { "role": "wordmark", "font_family": "Fraunces", "font_weight": 600, "font_size": 24, "line_height": 29.59 },
+      { "role": "section-heading", "font_family": "Fraunces", "font_weight": 700, "font_size": 40, "line_height": 46.0 },
+      { "role": "hero-heading", "font_family": "Fraunces", "font_weight": 700, "font_size": 64, "line_height": 70.4 }
     ],
-    "spacing": [
-      2,
-      4,
-      6,
-      8,
-      10,
-      12,
-      16,
-      20,
-      24,
-      32,
-      40,
-      48,
-      64,
-      80,
-      96,
-      120
-    ],
+    "spacing": [2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 120],
     "radii": {
       "sm": 1.0,
       "chip_border": 1.5,
@@ -175,10 +70,7 @@
       "section_media": 24.0,
       "pill_full": 100.0
     },
-    "stroke_weights": [
-      1.0,
-      2.0
-    ]
+    "stroke_weights": [1.0, 2.0]
   },
   "component_map": [
     {
@@ -186,208 +78,99 @@
       "artboard_id": "6:6",
       "code_component": "SiteHeader",
       "status": "proposed_new",
-      "notes": "proposed_new per the stated catalogue (this project has no existing UI components). For context: code shaped like this already lives at src/features/site/SiteHeader.tsx from MANOJ-ADMIN-PROJECT-STORY-004 and renders BrandLogo + PrimaryNav + DeliveryIndicator on a #151212 bar, but it does not render a cart icon button yet \u2014 see open questions catalogue-vs-repo-mismatch and header-cart-gap."
-    },
-    {
-      "figma_node": "6:8 logo-group",
-      "artboard_id": "6:6",
-      "code_component": "BrandLogo",
-      "status": "proposed_new",
-      "notes": "proposed_new per the stated catalogue. Reuses the same mark proposed for the footer's mini logo (6:139 below) at header scale: red circular badge with italic 'F' + 'Forno Rosso' wordmark. For context, a component of this shape already lives at src/features/site/BrandLogo.tsx (STORY-004) \u2014 see open question catalogue-vs-repo-mismatch."
-    },
-    {
-      "figma_node": "6:12 nav-links",
-      "artboard_id": "6:6",
-      "code_component": "PrimaryNav",
-      "status": "proposed_new",
-      "notes": "proposed_new per the stated catalogue. Reuses the NavLink proposed below for each item. For context, a component of this shape already lives at src/features/site/PrimaryNav.tsx (STORY-004), wiring Home and Our Menu \u2014 see open question catalogue-vs-repo-mismatch. The frame also shows a third 'Cart' link not yet wired up anywhere \u2014 see open question header-cart-gap."
-    },
-    {
-      "figma_node": "6:13 Frame (Home link)",
-      "artboard_id": "6:6",
-      "code_component": "NavLink",
-      "status": "proposed_new",
-      "props": {
-        "to": "/",
-        "label": "Home",
-        "end": true
-      },
-      "notes": "proposed_new per the stated catalogue. Active state: brand-red label + 12x2 underline bar."
-    },
-    {
-      "figma_node": "6:16 Frame (Our Menu link)",
-      "artboard_id": "6:6",
-      "code_component": "NavLink",
-      "status": "proposed_new",
-      "props": {
-        "to": "/menu",
-        "label": "Our Menu"
-      },
-      "notes": "proposed_new per the stated catalogue. Reuses the NavLink proposed for the Home link (6:13)."
-    },
-    {
-      "figma_node": "6:18 Frame (Cart link)",
-      "artboard_id": "6:6",
-      "code_component": "NavLink",
-      "status": "proposed_new",
-      "props": {
-        "to": "/cart",
-        "label": "Cart"
-      },
-      "notes": "proposed_new per the stated catalogue. Reuses the NavLink proposed for the Home link (6:13); no /cart route exists yet for it to point to \u2014 see open question header-cart-gap."
-    },
-    {
-      "figma_node": "6:20 header-cart",
-      "artboard_id": "6:6",
-      "code_component": "SiteHeader",
-      "status": "proposed_new",
-      "notes": "proposed_new per the stated catalogue. Layout region inside SiteHeader (6:7) pairing the DeliveryIndicator proposed below with the CartButton proposed further down."
-    },
-    {
-      "figma_node": "6:21 'Estimated delivery: 30 mins'",
-      "artboard_id": "6:6",
-      "code_component": "DeliveryIndicator",
-      "status": "proposed_new",
-      "props": {
-        "prefix": "Estimated delivery:",
-        "value": "30 mins"
-      },
-      "notes": "proposed_new per the stated catalogue. Copy value differs from the delivery-banner's 'Average ETA: 25 - 35 Min' (6:50) \u2014 see open question delivery-eta-copy-mismatch."
-    },
-    {
-      "figma_node": "6:22 cart-icon-btn",
-      "artboard_id": "6:6",
-      "code_component": "CartButton",
-      "status": "proposed_new",
-      "notes": "Dark circular button: shopping-cart Icon + numeric badge (count prop, shown as 3). Not built yet \u2014 see open question header-cart-gap."
+      "notes": "Out of scope for this story. proposed_new per the stated catalogue (this project has no existing UI components). For context: code shaped like this already lives at src/features/site/SiteHeader.tsx from MANOJ-ADMIN-PROJECT-STORY-004 and renders BrandLogo + PrimaryNav + DeliveryIndicator on a #151212 bar. Mapped here only for whole-page continuity."
     },
     {
       "figma_node": "6:25 hero",
       "artboard_id": "6:6",
       "code_component": "Hero",
       "status": "proposed_new",
-      "notes": "Full-bleed dark (#151212) band containing the text column and the pizza photo."
+      "notes": "Out of scope for this story. Full-bleed dark (#151212) band containing the text column, eyebrow badge, CTAs and the pizza photo. Not yet built in the repo."
     },
     {
       "figma_node": "6:27 Frame (eyebrow badge)",
       "artboard_id": "6:6",
       "code_component": "EyebrowBadge",
       "status": "proposed_new",
-      "props": {
-        "icon": "flame",
-        "label": "Authentic Neapolitan Woodfired"
-      }
-    },
-    {
-      "figma_node": "6:30 'Wood-Fired Pizza, Delivered Hot'",
-      "artboard_id": "6:6",
-      "code_component": "Hero",
-      "status": "proposed_new",
-      "notes": "Two-line Fraunces 64/700 heading; second line ('Delivered Hot') in brand red (#C82D25), first line in white."
-    },
-    {
-      "figma_node": "6:31 hero paragraph",
-      "artboard_id": "6:6",
-      "code_component": "Hero",
-      "status": "proposed_new"
+      "props": { "icon": "flame", "label": "Authentic Neapolitan Woodfired" },
+      "notes": "Out of scope for this story. See open question hero-badge-icon-name."
     },
     {
       "figma_node": "6:33 Frame ('Order Online Now')",
       "artboard_id": "6:6",
       "code_component": "Button",
       "status": "proposed_new",
-      "props": {
-        "variant": "primary",
-        "label": "Order Online Now",
-        "icon": "arrow-right",
-        "iconPosition": "trailing"
-      }
+      "props": { "variant": "primary", "label": "Order Online Now", "icon": "arrow-right", "iconPosition": "trailing" },
+      "notes": "Out of scope for this story. See open question shared-button-component."
     },
     {
       "figma_node": "6:36 Frame ('Explore Full Menu')",
       "artboard_id": "6:6",
       "code_component": "Button",
       "status": "proposed_new",
-      "props": {
-        "variant": "outline",
-        "label": "Explore Full Menu"
-      }
+      "props": { "variant": "outline", "label": "Explore Full Menu" },
+      "notes": "Out of scope for this story. Reuses the Button proposed for the primary CTA."
     },
     {
       "figma_node": "6:38 hero-image-wrapper",
       "artboard_id": "6:6",
       "code_component": "HeroImage",
       "status": "proposed_new",
-      "props": {
-        "objectFit": "cover"
-      },
-      "notes": "Asset: ./.arc/designs/figma-asset-6-39-hero-image-wrapper.png, css_object_fit: cover."
+      "props": { "objectFit": "cover" },
+      "notes": "Out of scope for this story. Asset: ./.arc/designs/figma-asset-6-39-hero-image-wrapper.png, css_object_fit: cover."
     },
     {
       "figma_node": "6:40 delivery-banner",
       "artboard_id": "6:6",
       "code_component": "DeliveryBanner",
       "status": "proposed_new",
-      "notes": "Full-width brand-green (#2A7043) band between hero and featured section."
+      "notes": "Out of scope for this story. Full-width brand-green (#2A7043) band between hero and featured section. Not yet built in the repo."
     },
     {
       "figma_node": "6:41 Frame (free delivery copy)",
       "artboard_id": "6:6",
       "code_component": "IconTextBlock",
       "status": "proposed_new",
-      "props": {
-        "icon": "truck",
-        "title": "Free Delivery On Orders Over $35",
-        "subtitle": "Craving quality? Skip the delivery fee entirely inside our active zones."
-      }
+      "props": { "icon": "truck", "title": "Free Delivery On Orders Over $35", "subtitle": "Craving quality? Skip the delivery fee entirely inside our active zones." },
+      "notes": "Out of scope for this story."
     },
     {
       "figma_node": "6:48 Frame ('Average ETA')",
       "artboard_id": "6:6",
       "code_component": "StatBlock",
       "status": "proposed_new",
-      "props": {
-        "label": "Average ETA",
-        "value": "25 - 35 Min"
-      }
+      "props": { "label": "Average ETA", "value": "25 - 35 Min" },
+      "notes": "Out of scope for this story. See open question delivery-eta-copy-mismatch."
     },
     {
       "figma_node": "6:51 Frame ('Pizza Temperature')",
       "artboard_id": "6:6",
       "code_component": "StatBlock",
       "status": "proposed_new",
-      "props": {
-        "label": "Pizza Temperature",
-        "value": "Piping Hot Guaranteed"
-      },
-      "notes": "Reuses the StatBlock proposed for Average ETA."
+      "props": { "label": "Pizza Temperature", "value": "Piping Hot Guaranteed" },
+      "notes": "Out of scope for this story. Reuses the StatBlock proposed for Average ETA."
     },
     {
       "figma_node": "6:54 featured-section",
       "artboard_id": "6:6",
       "code_component": "FeaturedSection",
       "status": "proposed_new",
-      "notes": "Off-white (#FCFAF6) section wrapping the SectionHeading and the FeaturedGrid \u2014 the main deliverable of MANOJ-ADMIN-PROJECT-STORY-006."
+      "notes": "Out of scope for this story. proposed_new per the stated catalogue. For context, code shaped like this already lives at src/features/site/FeaturedSection.tsx + FeaturedGrid.tsx + MenuItemCard.tsx from MANOJ-ADMIN-PROJECT-STORY-006 — see open question catalogue-vs-repo-mismatch."
     },
     {
       "figma_node": "6:55 Frame (section heading)",
       "artboard_id": "6:6",
       "code_component": "SectionHeading",
       "status": "proposed_new",
-      "props": {
-        "eyebrow": "Chef Recommendations",
-        "eyebrowTone": "accent",
-        "heading": "Popular Sourdough Pizzas",
-        "showRule": true
-      },
-      "notes": "Centered eyebrow (brand red) + Fraunces heading + 48x3 red rule underneath."
+      "props": { "eyebrow": "Chef Recommendations", "eyebrowTone": "accent", "heading": "Popular Sourdough Pizzas", "showRule": true },
+      "notes": "Out of scope for this story. Reused by the story-section heading below — see open question shared-section-heading-component."
     },
     {
       "figma_node": "6:59 featured-grid",
       "artboard_id": "6:6",
       "code_component": "FeaturedGrid",
       "status": "proposed_new",
-      "notes": "4-column grid (302px cards, 24px gutter) of MenuItemCard \u2014 the component this story is named for. See open question featured-grid-responsive-breakpoints: the frame only specifies a fixed 1440px, 4-column layout."
+      "notes": "Out of scope for this story (delivered by MANOJ-ADMIN-PROJECT-STORY-006). 4-column grid (302px cards, 24px gutter) of MenuItemCard. See open question featured-grid-responsive-breakpoints."
     },
     {
       "figma_node": "6:60 Frame (Diavola card)",
@@ -400,7 +183,7 @@
         "description": "Spicy calabrian salami, house-pulled fresh mozzarella, san marzano tomato base, organic chili oil, fresh basil leaves.",
         "image": "./.arc/designs/figma-asset-6-62-featured-grid.png"
       },
-      "notes": "Image asset node 6:62, css_object_fit: cover."
+      "notes": "Out of scope for this story. Image asset node 6:62, css_object_fit: cover."
     },
     {
       "figma_node": "6:72 Frame (Funghi Selvatici & Tartufo card)",
@@ -413,7 +196,7 @@
         "description": "Roasted wild porcini and cremini mushrooms, truffle-infused olive oil, white mozzarella base, shaved pecorino.",
         "image": "./.arc/designs/figma-asset-6-74-featured-grid.png"
       },
-      "notes": "Reuses the MenuItemCard proposed for the Diavola card. Image asset node 6:74, css_object_fit: cover. Title clips to 'Funghi Selvatici &...' in the PNG at 302px width \u2014 see open question menu-card-title-truncation."
+      "notes": "Out of scope for this story. Reuses the MenuItemCard proposed for the Diavola card. Image asset node 6:74. See open question menu-card-title-truncation."
     },
     {
       "figma_node": "6:84 Frame (Classic Margherita card)",
@@ -426,7 +209,7 @@
         "description": "Imported San Marzano tomato sauce, fresh buffalo mozzarella, fragrant fresh basil, extra virgin olive oil.",
         "image": "./.arc/designs/figma-asset-6-86-featured-grid.png"
       },
-      "notes": "Reuses the MenuItemCard proposed for the Diavola card. Image asset node 6:86, css_object_fit: cover."
+      "notes": "Out of scope for this story. Reuses the MenuItemCard proposed for the Diavola card. Image asset node 6:86."
     },
     {
       "figma_node": "6:96 Frame (Prosciutto Crudo e Rucola card)",
@@ -439,60 +222,47 @@
         "description": "Prosciutto di Parma cured ham, fresh peppery wild arugula, shaved parmigiano-reggiano, balsamic glaze reduction.",
         "image": "./.arc/designs/figma-asset-6-98-featured-grid.png"
       },
-      "notes": "Reuses the MenuItemCard proposed for the Diavola card. Image asset node 6:98, css_object_fit: cover. This card's description block is 84px tall vs 63px for its siblings, yet the outer card is still 441px like the others \u2014 see open question menu-card-variable-height."
+      "notes": "Out of scope for this story. Reuses the MenuItemCard proposed for the Diavola card. Image asset node 6:98. See open question menu-card-variable-height."
     },
     {
-      "figma_node": "6:69 Frame ('Add to Order')",
+      "figma_node": "6:69, 6:81, 6:93, 6:105 (per-card 'Add to Order')",
       "artboard_id": "6:6",
       "code_component": "Button",
       "status": "proposed_new",
-      "props": {
-        "variant": "dark",
-        "label": "Add to Order",
-        "icon": "plus",
-        "iconPosition": "leading"
-      },
-      "notes": "Reused once per MenuItemCard (nodes 6:69, 6:81, 6:93, 6:105) \u2014 near-black full-width pill button with a leading plus icon. Reuses the same Button component proposed for the hero CTAs \u2014 see open question shared-button-component."
-    },
-    {
-      "figma_node": "6:679, 6:574/6:575 (arrow-right), 6:571/6:572 (truck), 6:577/6:578 x4 (plus), 6:568/6:569 (shopping-cart), 6:589 (star), 6:592 (shield), 6:595 (compass), 6:598 (instagram), 6:601 (facebook), 6:604 (twitter)",
-      "artboard_id": "6:6",
-      "code_component": "Icon",
-      "status": "proposed_new",
-      "notes": "Every vector glyph in this frame is a FRAME-wrapped VECTOR whose layer name matches a lucide-react icon id exactly (fire-extinguisher, arrow-right, truck, plus, shopping-cart, star, shield, compass, instagram, facebook, twitter). Proposing one thin Icon(name) wrapper around lucide-react rather than 11 hand-authored SVGs \u2014 see open question icon-library-choice. Node 6:679 ('fire-extinguisher') renders as a flame glyph in the PNG \u2014 see open question hero-badge-icon-name."
+      "props": { "variant": "dark", "label": "Add to Order", "icon": "plus", "iconPosition": "leading" },
+      "notes": "Out of scope for this story. Reuses the Button proposed for the hero CTAs."
     },
     {
       "figma_node": "6:108 story-section",
       "artboard_id": "6:6",
       "code_component": "StorySection",
       "status": "proposed_new",
-      "notes": "Cream (#F3EFE9) band: text column on the left, two stacked photos on the right."
+      "notes": "PRIMARY DELIVERABLE of this story. Cream (#F3EFE9) full-width band, 96px top / 120px bottom / 80px side padding, two-column horizontal layout (text column 600px, 80px gap, image collage 600px) fixed at the 1440px canvas width. Not built anywhere in the repo today (no equivalent under src/features/site). See open question story-section-responsive-breakpoints."
     },
     {
       "figma_node": "6:110 Frame (story heading)",
       "artboard_id": "6:6",
       "code_component": "SectionHeading",
       "status": "proposed_new",
-      "props": {
-        "eyebrow": "The Sourdough Secret",
-        "eyebrowTone": "brand",
-        "heading": "Our Passion for the Perfect Crust",
-        "showRule": false
-      },
-      "notes": "Reuses the SectionHeading proposed for the featured-section header \u2014 brand-green eyebrow, no rule. See open question shared-section-heading-component."
+      "props": { "eyebrow": "The Sourdough Secret", "eyebrowTone": "brand", "heading": "Our Passion for the Perfect Crust", "showRule": false },
+      "notes": "Reuses the SectionHeading proposed for the featured-section header (6:55) — brand-green eyebrow instead of brand-red, and no rule underneath. See open question shared-section-heading-component."
     },
     {
       "figma_node": "6:113 story paragraph",
       "artboard_id": "6:6",
       "code_component": "StorySection",
-      "status": "proposed_new"
+      "status": "proposed_new",
+      "props": {
+        "body": "At Forno Rosso, we respect the traditions of Neapolitan pizzaiolos while implementing modern techniques. We ferment our proprietary sourdough mother starter for 48 hours. This process creates a light, bubbly, and incredibly digestible dough with complex flavor profiles."
+      },
+      "notes": "Geist 16/25.6, muted (#6B6661), 600px measure, rendered directly inside StorySection rather than its own component."
     },
     {
       "figma_node": "6:114 Frame (feature list)",
       "artboard_id": "6:6",
       "code_component": "FeatureList",
       "status": "proposed_new",
-      "notes": "Vertical stack of 3 FeatureListItem rows."
+      "notes": "Vertical stack of 3 FeatureListItem rows, 16px gap, 600px wide, inside StorySection."
     },
     {
       "figma_node": "6:115 Frame (San Marzano feature)",
@@ -503,7 +273,8 @@
         "icon": "star",
         "title": "100% Imported San Marzano Tomatoes",
         "description": "Sourced directly from fertile Campania volcano soils for a sweet, low-acid base."
-      }
+      },
+      "notes": "36x36 brand-red (#C82D25) circular icon badge (radius 18) + Fraunces 16/600 title + Geist 13/400 muted description. See open question icon-library-choice."
     },
     {
       "figma_node": "6:121 Frame (mozzarella feature)",
@@ -515,7 +286,7 @@
         "title": "Fior di Latte & Fresh Mozzarella",
         "description": "Hand-stretched daily, creating the classic pool texture that blends beautifully under high fire."
       },
-      "notes": "Reuses the FeatureListItem proposed for the San Marzano row."
+      "notes": "Reuses the FeatureListItem proposed for the San Marzano row (6:115)."
     },
     {
       "figma_node": "6:127 Frame (oven feature)",
@@ -524,248 +295,207 @@
       "status": "proposed_new",
       "props": {
         "icon": "compass",
-        "title": "900\u00b0F Stone Hearth Wood Oven",
+        "title": "900°F Stone Hearth Wood Oven",
         "description": "Powered by seasoned hickory and oak to lock in flavors and produce perfect crust blistering in 90 seconds."
       },
-      "notes": "Reuses the FeatureListItem proposed for the San Marzano row. 'compass' has no obvious semantic link to a wood oven \u2014 see open question story-icon-mismatch."
+      "notes": "Reuses the FeatureListItem proposed for the San Marzano row. 'compass' has no obvious semantic link to a wood oven — see open question story-icon-mismatch."
     },
     {
       "figma_node": "6:133 story-img-collage",
       "artboard_id": "6:6",
       "code_component": "StoryImageCollage",
       "status": "proposed_new",
-      "notes": "Two side-by-side portrait photos, 292x520 each, 16px gap. Assets: node 6:134 -> ./.arc/designs/figma-asset-6-134-story-img-collage.png; node 6:135 -> ./.arc/designs/figma-asset-6-135-story-img-collage.png. Both css_object_fit: cover."
+      "notes": "PRIMARY DELIVERABLE of this story. Two side-by-side portrait photos, 292x520 each, 16px gap, both radius 16 and object-fit: cover. See open question story-section-responsive-breakpoints and story-collage-alt-text."
+    },
+    {
+      "figma_node": "6:134 Rectangle (dough photo)",
+      "artboard_id": "6:6",
+      "code_component": "StoryImageCollage",
+      "status": "proposed_new",
+      "props": { "objectFit": "cover" },
+      "notes": "Image-painting node. Asset: ./.arc/designs/figma-asset-6-134-story-img-collage.png, css_object_fit: cover. Shows a chef stretching sourdough by hand over a floured counter. See open question story-collage-alt-text for the alt text this story must ship."
+    },
+    {
+      "figma_node": "6:135 Rectangle (oven photo)",
+      "artboard_id": "6:6",
+      "code_component": "StoryImageCollage",
+      "status": "proposed_new",
+      "props": { "objectFit": "cover" },
+      "notes": "Image-painting node. Asset: ./.arc/designs/figma-asset-6-135-story-img-collage.png, css_object_fit: cover. Shows a lit wood-fired oven with a pizza baking inside. See open question story-collage-alt-text."
+    },
+    {
+      "figma_node": "6:679, 6:574/6:575, 6:571/6:572, 6:577/6:578 x4, 6:568/6:569, 6:589, 6:592, 6:595, 6:598, 6:601, 6:604",
+      "artboard_id": "6:6",
+      "code_component": "Icon",
+      "status": "proposed_new",
+      "notes": "Every vector glyph in this frame is a FRAME-wrapped VECTOR whose layer name matches a lucide-react icon id exactly (fire-extinguisher, arrow-right, truck, plus, shopping-cart, star, shield, compass, instagram, facebook, twitter). This story only needs star (6:589), shield (6:592) and compass (6:595) for FeatureListItem, but proposing one shared Icon(name) wrapper around lucide-react rather than one-off SVGs per icon — see open question icon-library-choice."
     },
     {
       "figma_node": "6:136 footer",
       "artboard_id": "6:6",
       "code_component": "SiteFooter",
       "status": "proposed_new",
-      "notes": "Full-width dark (#151212) footer."
+      "notes": "Out of scope for this story. Full-width dark (#151212) footer. Not yet built in the repo."
     },
     {
       "figma_node": "6:138 footer-brand",
       "artboard_id": "6:6",
       "code_component": "FooterBrand",
       "status": "proposed_new",
-      "notes": "Compact logo lockup + description paragraph + social icon row."
+      "notes": "Out of scope for this story. Compact logo lockup + description paragraph + social icon row."
     },
     {
       "figma_node": "6:139 Frame (mini logo)",
       "artboard_id": "6:6",
       "code_component": "BrandLogo",
       "status": "proposed_new",
-      "props": {
-        "compact": true
-      },
-      "notes": "proposed_new per the stated catalogue. Reuses the BrandLogo proposed for the header (6:8) at a smaller/compact scale rather than a new component."
+      "props": { "compact": true },
+      "notes": "Out of scope for this story. Reuses the BrandLogo proposed for the header (6:8) at a smaller scale."
     },
     {
       "figma_node": "6:144 social-row",
       "artboard_id": "6:6",
       "code_component": "SocialRow",
       "status": "proposed_new",
-      "notes": "Wraps 3 SocialIconLink instances."
-    },
-    {
-      "figma_node": "6:145 Frame (instagram)",
-      "artboard_id": "6:6",
-      "code_component": "SocialIconLink",
-      "status": "proposed_new",
-      "props": {
-        "icon": "instagram"
-      }
-    },
-    {
-      "figma_node": "6:147 Frame (facebook)",
-      "artboard_id": "6:6",
-      "code_component": "SocialIconLink",
-      "status": "proposed_new",
-      "props": {
-        "icon": "facebook"
-      },
-      "notes": "Reuses the SocialIconLink proposed for instagram."
-    },
-    {
-      "figma_node": "6:149 Frame (twitter)",
-      "artboard_id": "6:6",
-      "code_component": "SocialIconLink",
-      "status": "proposed_new",
-      "props": {
-        "icon": "twitter"
-      },
-      "notes": "Reuses the SocialIconLink proposed for instagram."
+      "notes": "Out of scope for this story. Wraps 3 SocialIconLink instances (instagram, facebook, twitter)."
     },
     {
       "figma_node": "6:151 footer-col (Kitchen Hours)",
       "artboard_id": "6:6",
       "code_component": "FooterColumn",
       "status": "proposed_new",
-      "props": {
-        "title": "Kitchen Hours"
-      },
-      "notes": "Contains 3 ScheduleRow rows."
-    },
-    {
-      "figma_node": "6:154 Frame (Monday - Thursday row)",
-      "artboard_id": "6:6",
-      "code_component": "ScheduleRow",
-      "status": "proposed_new",
-      "props": {
-        "days": "Monday - Thursday",
-        "hours": "12:00 PM - 10:00 PM"
-      }
-    },
-    {
-      "figma_node": "6:157 Frame (Friday - Saturday row)",
-      "artboard_id": "6:6",
-      "code_component": "ScheduleRow",
-      "status": "proposed_new",
-      "props": {
-        "days": "Friday - Saturday",
-        "hours": "12:00 PM - 11:30 PM"
-      },
-      "notes": "Reuses the ScheduleRow proposed above."
-    },
-    {
-      "figma_node": "6:160 Frame (Sunday row)",
-      "artboard_id": "6:6",
-      "code_component": "ScheduleRow",
-      "status": "proposed_new",
-      "props": {
-        "days": "Sunday",
-        "hours": "1:00 PM - 9:30 PM"
-      },
-      "notes": "Reuses the ScheduleRow proposed above."
+      "props": { "title": "Kitchen Hours" },
+      "notes": "Out of scope for this story. Contains 3 ScheduleRow rows."
     },
     {
       "figma_node": "6:163 footer-col (Pizzeria Location)",
       "artboard_id": "6:6",
       "code_component": "FooterColumn",
       "status": "proposed_new",
-      "props": {
-        "title": "Pizzeria Location"
-      },
-      "notes": "Reuses the FooterColumn proposed for Kitchen Hours; content is address + delivery phone + email instead of schedule rows."
+      "props": { "title": "Pizzeria Location" },
+      "notes": "Out of scope for this story. Reuses the FooterColumn proposed for Kitchen Hours; content is address + delivery phone + email instead of schedule rows."
     },
     {
       "figma_node": "6:170 Line",
       "artboard_id": "6:6",
       "code_component": "Divider",
       "status": "proposed_new",
-      "notes": "1px full-width hairline above the copyright bar."
+      "notes": "Out of scope for this story. 1px full-width hairline above the copyright bar."
     },
     {
       "figma_node": "6:171 footer-bottom",
       "artboard_id": "6:6",
       "code_component": "FooterLegalRow",
       "status": "proposed_new",
-      "notes": "Copyright text plus 'Privacy Policy' / 'Delivery Terms' links."
+      "notes": "Out of scope for this story. Copyright text plus 'Privacy Policy' / 'Delivery Terms' links."
     }
   ],
   "excluded": [],
   "open_questions": [
     {
-      "id": "featured-grid-responsive-breakpoints",
-      "topic": "FeaturedGrid has no responsive design below 1440px",
-      "detail": "The frame fixes featured-grid (6:59) at exactly 4 columns x 302px cards for a 1440px canvas; no tablet or mobile column count is drawn anywhere. This story is specifically about shipping this grid, so the gap is now directly in scope (STORY-004 deferred the equivalent question for the header).",
-      "arc_assumption": "Reuse the app's existing useIsMobileViewport hook/pattern (src/features/site/useIsMobileViewport.ts, 640px breakpoint) and lay the grid out with CSS grid auto-fit, collapsing from 4 columns at desktop widths to 2 columns on tablet and 1 column at/below 640px, rather than shipping a fixed 1280px-wide grid that would overflow on smaller viewports.",
+      "id": "story-section-responsive-breakpoints",
+      "topic": "StorySection has no responsive design below its fixed 1440px, two-column layout",
+      "detail": "story-section (6:108) fixes a 600px text column and a 600px, two-photo image collage side by side with an 80px gap, inside 80px side padding on a 1440px canvas. No tablet or mobile stacking is drawn anywhere, and the two 292px-wide collage photos (6:134, 6:135) would not fit side by side once the column drops much below ~660px.",
+      "arc_assumption": "Reuse the app's existing useIsMobileViewport hook/pattern (src/features/site/useIsMobileViewport.ts, 640px breakpoint): below that width, stack to a single column with the text block (eyebrow, heading, paragraph, feature list) first, then the two collage photos below it, stacked vertically full-width rather than side by side.",
       "blocking": true,
       "options": [
         {
-          "id": "responsive-reflow",
-          "label": "Responsive grid: 4 cols desktop, 2 cols tablet, 1 col mobile (\u2264640px) \u2014 extrapolated from the app's existing mobile breakpoint, not drawn in the frame"
+          "id": "stack-text-first",
+          "label": "Single column below 640px: text block first, then the two collage photos stacked vertically below — extrapolated from the app's existing mobile breakpoint, not drawn in the frame"
+        },
+        {
+          "id": "stack-image-first",
+          "label": "Single column below 640px: image collage first as a visual hook, text block below"
         },
         {
           "id": "desktop-fixed",
-          "label": "Ship the grid fixed at the designed 1280px/4-column layout only, matching the frame pixel-for-pixel with no reflow below it"
+          "label": "Ship the two-column 600/600 layout fixed at the designed width only, matching the frame pixel-for-pixel with no reflow below it"
         }
       ],
-      "assumed_option": "responsive-reflow"
+      "assumed_option": "stack-text-first"
     },
     {
-      "id": "menu-card-title-truncation",
-      "topic": "Two menu card titles are truncated or near the edge of the 302px card width",
-      "detail": "'Funghi Selvatici & Tartufo' (6:77) renders as 'Funghi Selvatici &...' in the PNG, and 'Prosciutto Crudo e Rucola' (6:101) is close to the same limit \u2014 the design does not show what a graceful 2-line wrap or smaller font-size fallback should look like.",
-      "arc_assumption": "Let MenuItemCard's title wrap to 2 lines instead of truncating, since clipping a dish name mid-word is a worse outcome for a menu than a slightly taller title block.",
-      "blocking": true,
-      "options": [
-        {
-          "id": "wrap-2-lines",
-          "label": "Wrap the title to 2 lines and let that row grow \u2014 a visible departure from the single-line PNG for long names"
-        },
-        {
-          "id": "truncate-ellipsis",
-          "label": "Keep the single-line ellipsis truncation exactly as rendered (6:77 crops to 'Funghi Selvatici &...')"
-        },
-        {
-          "id": "shrink-font",
-          "label": "Auto-shrink the title font-size until it fits one line, keeping the row height fixed"
-        }
-      ],
-      "assumed_option": "wrap-2-lines"
+      "id": "story-collage-alt-text",
+      "topic": "The two story photos have no authored alt text",
+      "detail": "Nodes 6:134 and 6:135 are both generically named 'Rectangle' in Figma; the frame supplies no accessible description for either photo, only the pixels themselves (a chef hand-stretching dough, and a pizza baking inside a lit wood-fired oven).",
+      "arc_assumption": "Author descriptive alt text from the rendered imagery: 'A chef hand-stretching sourdough pizza dough over a floured countertop' for 6:134, and 'A wood-fired pizza baking inside a lit stone hearth oven' for 6:135, rather than leaving alt text empty or generic.",
+      "blocking": false
     },
     {
-      "id": "shared-button-component",
-      "topic": "Whether hero CTAs and card 'Add to Order' buttons share one Button component",
-      "detail": "Hero has a primary red-fill button with a trailing arrow icon and an outline button with no icon; each MenuItemCard has a dark-fill button with a leading plus icon. All three share size, radius (8px), and type style but differ in fill/border/icon placement.",
-      "arc_assumption": "Model all three as one shared Button component with variant ('primary' | 'outline' | 'dark') and icon/iconPosition props, instead of near-duplicate components. Carried over from STORY-004's mapping of the same frame.",
+      "id": "story-icon-mismatch",
+      "topic": "'900°F Stone Hearth Wood Oven' feature uses a compass icon",
+      "detail": "FeatureListItem icons are star (tomatoes), shield (mozzarella), and compass (wood oven, 6:595) — compass has no obvious semantic link to an oven or fire, unlike the other two pairings.",
+      "arc_assumption": "Render the icon exactly as designed (lucide 'compass') rather than substituting a flame/oven icon; unlike the hero badge's icon (see hero-badge-icon-name) this isn't an obvious mislabel, just an unusual pairing, so the frame is trusted as authoritative.",
       "blocking": false
     },
     {
       "id": "shared-section-heading-component",
       "topic": "Whether featured-section and story-section headings share one SectionHeading component",
       "detail": "featured-section uses a brand-red uppercase eyebrow with a short rule under the title; story-section uses a brand-green uppercase eyebrow with no rule. Layout (eyebrow above serif title) is otherwise identical.",
-      "arc_assumption": "Model both as one shared SectionHeading component with eyebrowTone ('accent' | 'brand') and showRule props. Carried over from STORY-004's mapping of the same frame.",
+      "arc_assumption": "Model both as one shared SectionHeading component with eyebrowTone ('accent' | 'brand') and showRule props. Carried over from MANOJ-ADMIN-PROJECT-STORY-006's mapping of the same frame.",
       "blocking": false
     },
     {
-      "id": "menu-card-variable-height",
-      "topic": "MenuItemCard's internal proportions vary across instances despite equal outer card height",
-      "detail": "All 4 cards are 441px tall, but the Prosciutto card's description block is 84px vs 63px for the other three (6:103 vs 6:67/6:79/6:91), and its content wrapper (6:97) is 377px vs 356px \u2014 real menu copy will not always be this evenly sized.",
-      "arc_assumption": "Build MenuItemCard as a fixed-width, auto-height flex column (image, then a content block that grows with description length, then the Add to Order button) rather than a hard-coded 441px card height, so longer copy doesn't clip or force artificial truncation.",
+      "id": "icon-library-choice",
+      "topic": "No icon assets are exported for the vector icons this story needs (star, shield, compass)",
+      "detail": "figma-assets.json only lists photographic fills (hero, 4 menu cards, 2 story photos); star, shield and compass are vector node names that match lucide-react icon ids exactly, same as every other icon in this frame.",
+      "arc_assumption": "Introduce lucide-react as the icon source and wrap it in a local Icon(name) component rather than hand-authoring new SVGs, since the naming match is too exact to be coincidental. Carried over from MANOJ-ADMIN-PROJECT-STORY-006's mapping of the same frame.",
+      "blocking": false
+    },
+    {
+      "id": "catalogue-vs-repo-mismatch",
+      "topic": "Supplied component catalogue said greenfield, but the repo already has site components from earlier stories",
+      "detail": "The task prompt states 'no existing UI components in this project', but src/features/site already contains SiteHeader, PrimaryNav, NavLink, BrandLogo, DeliveryIndicator (STORY-004) and FeaturedSection, FeaturedGrid, MenuItemCard (STORY-006). StorySection, FeatureList, FeatureListItem and StoryImageCollage — this story's actual deliverables — have no equivalent anywhere in the repo, so they are genuinely new either way.",
+      "arc_assumption": "Follow the stated catalogue literally: every node in component_map above is marked status: proposed_new, with no exceptions. Where matching code already lives in src/features/site (from prior stories, all out-of-scope for this story), that is called out in the relevant entry's notes so an implementer reuses/extends it instead of duplicating it — but status itself is not overridden.",
+      "blocking": false
+    },
+    {
+      "id": "shared-button-component",
+      "topic": "Whether hero CTAs and card 'Add to Order' buttons share one Button component",
+      "detail": "Hero has a primary red-fill button with a trailing arrow icon and an outline button with no icon; each MenuItemCard has a dark-fill button with a leading plus icon. All three share size, radius (8px) and type style but differ in fill/border/icon placement.",
+      "arc_assumption": "Model all three as one shared Button component with variant ('primary' | 'outline' | 'dark') and icon/iconPosition props. Carried over from MANOJ-ADMIN-PROJECT-STORY-004's mapping of the same frame. Out of scope for this story (no button appears in story-section).",
       "blocking": false
     },
     {
       "id": "header-cart-gap",
       "topic": "Header still has a designed 'Cart' affordance that isn't built",
-      "detail": "The frame shows both a plain 'Cart' nav link (6:18) and a separate cart icon button with a live-count badge (6:22) in the header. STORY-004 shipped SiteHeader with only Home/Our Menu (matching the two routes that exist today) and no CartButton at all.",
-      "arc_assumption": "Leave this gap for whichever story adds a cart/checkout flow: it needs a /cart route before the NavLink instance and CartButton (icon + count prop) can be wired in. Not part of this story's scope, noted here only because the featured-grid's 'Add to Order' buttons imply a cart will exist soon.",
+      "detail": "The frame shows both a plain 'Cart' nav link (6:18) and a separate cart icon button with a live-count badge (6:22) in the header. STORY-004 shipped SiteHeader with only Home/Our Menu and no CartButton at all.",
+      "arc_assumption": "Leave this gap for whichever story adds a cart/checkout flow. Not part of this story's scope, carried forward for continuity only.",
       "blocking": false
     },
     {
       "id": "hero-badge-icon-name",
       "topic": "Hero eyebrow badge's icon layer is misnamed relative to its glyph",
       "detail": "Node 6:679 is named 'fire-extinguisher' but the rendered PNG shows a flame glyph, and 'Authentic Neapolitan Woodfired' pairs naturally with fire/flame, not an extinguisher.",
-      "arc_assumption": "Render lucide's 'flame' icon here rather than 'fire-extinguisher', treating the Figma layer name as a mislabeled instance swap rather than an intentional choice.",
-      "blocking": false
-    },
-    {
-      "id": "story-icon-mismatch",
-      "topic": "'900\u00b0F Stone Hearth Wood Oven' feature uses a compass icon",
-      "detail": "FeatureListItem icons are star (tomatoes), shield (mozzarella), and compass (wood oven, 6:595) \u2014 compass has no obvious semantic link to an oven or fire, unlike the other two pairings.",
-      "arc_assumption": "Render the icon exactly as designed (lucide 'compass') rather than substituting a flame/oven icon; unlike hero-badge-icon-name this isn't an obvious mislabel, just an unusual pairing, so the frame is trusted as authoritative.",
-      "blocking": false
-    },
-    {
-      "id": "icon-library-choice",
-      "topic": "No icon assets are exported for the ~11 vector icons in this frame",
-      "detail": "figma-assets.json only lists photographic fills (hero, 4 menu cards, 2 story photos); fire-extinguisher, arrow-right, truck, plus, star, shield, compass, instagram, facebook, twitter and shopping-cart are all vector node names that match lucide-react icon ids exactly.",
-      "arc_assumption": "Introduce lucide-react as the icon source and wrap it in a local Icon(name) component rather than hand-authoring 11 new SVGs, since the naming match is too exact to be coincidental.",
+      "arc_assumption": "Render lucide's 'flame' icon here rather than 'fire-extinguisher'. Out of scope for this story, carried forward for continuity only.",
       "blocking": false
     },
     {
       "id": "delivery-eta-copy-mismatch",
       "topic": "Delivery time shown twice with different values",
-      "detail": "Header shows 'Estimated delivery: 30 mins' (6:21) while the delivery banner states 'Average ETA: 25 - 35 Min' (6:50). These may be an intentional live-order-estimate vs. site-wide-average split, or just inconsistent placeholder copy.",
-      "arc_assumption": "Implement both strings literally as authored, as two independent copy sources with no shared data binding, and flag the discrepancy for content review. Carried over from STORY-004's mapping of the same frame.",
+      "detail": "Header shows 'Estimated delivery: 30 mins' (6:21) while the delivery banner states 'Average ETA: 25 - 35 Min' (6:50).",
+      "arc_assumption": "Implement both strings literally as authored, as two independent copy sources with no shared data binding, and flag the discrepancy for content review. Out of scope for this story, carried forward for continuity only.",
       "blocking": false
     },
     {
-      "id": "catalogue-vs-repo-mismatch",
-      "topic": "Supplied component catalogue said greenfield, but the repo already has site components from STORY-004",
-      "detail": "The task prompt states 'no existing UI components in this project', but src/features/site already contains SiteHeader, PrimaryNav, NavLink, BrandLogo, and DeliveryIndicator, built for MANOJ-ADMIN-PROJECT-STORY-004.",
-      "arc_assumption": "Follow the stated catalogue literally: every node in component_map above is marked status: proposed_new, with no exceptions, since the catalogue says no UI components exist yet. Where matching code already lives in src/features/site (SiteHeader, PrimaryNav, NavLink, BrandLogo, DeliveryIndicator, from STORY-004), that is called out in the relevant entry's notes so an implementer reuses/extends it instead of duplicating it \u2014 but status itself is not overridden.",
+      "id": "featured-grid-responsive-breakpoints",
+      "topic": "FeaturedGrid has no responsive design below 1440px",
+      "detail": "The frame fixes featured-grid (6:59) at exactly 4 columns x 302px cards for a 1440px canvas; no tablet or mobile column count is drawn anywhere.",
+      "arc_assumption": "Reuse the app's existing useIsMobileViewport hook/pattern, collapsing from 4 columns at desktop widths to 2 columns on tablet and 1 column at/below 640px. Out of scope for this story (delivered by MANOJ-ADMIN-PROJECT-STORY-006), carried forward for continuity only.",
+      "blocking": false
+    },
+    {
+      "id": "menu-card-title-truncation",
+      "topic": "Two menu card titles are truncated or near the edge of the 302px card width",
+      "detail": "'Funghi Selvatici & Tartufo' (6:77) renders as 'Funghi Selvatici &...' in the PNG, and 'Prosciutto Crudo e Rucola' (6:101) is close to the same limit.",
+      "arc_assumption": "Let MenuItemCard's title wrap to 2 lines instead of truncating. Out of scope for this story, carried forward for continuity only.",
+      "blocking": false
+    },
+    {
+      "id": "menu-card-variable-height",
+      "topic": "MenuItemCard's internal proportions vary across instances despite equal outer card height",
+      "detail": "All 4 cards are 441px tall, but the Prosciutto card's description block is 84px vs 63px for the other three.",
+      "arc_assumption": "Build MenuItemCard as a fixed-width, auto-height flex column rather than a hard-coded card height. Out of scope for this story, carried forward for continuity only.",
       "blocking": false
     }
   ]

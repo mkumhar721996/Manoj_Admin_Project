@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<!--
+  Figma → component mapping REVIEW page for MANOJ-ADMIN-PROJECT-STORY-007
+  (brand story / trust content section).
+
+  This is NOT a from-scratch UI prototype and NOT a design system proposal.
+  It shows how arc read the ingested Figma frame (figma-frame.json) and
+  figma-frame.png: which code components each Figma node maps to, the
+  tokens distilled from the frame, and the open questions raised along the
+  way. The rendered PNG embedded below is authoritative for visuals; this
+  page explains the mapping, it does not redraw the design.
+
+  This project's stated component catalogue is empty (greenfield) — every
+  row in the component map below is proposed_new, with no exceptions. This
+  page defines its own minimal, neutral review styling below, sourced only
+  from the tokens distilled from the Figma frame — no arc branding, no
+  external stylesheet.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MANOJ-ADMIN-PROJECT-STORY-007 — Figma Mapping Review</title>
+<style>
+  :root {
+    /* Tokens distilled from figma-frame.json -> tokens.colors / stroke_colors / font_families */
+    --bg: #FCFAF6;              /* surface-warm-white — page background */
+    --surface: #FFFFFF;          /* surface-white — cards/tables */
+    --border: #EBE7DF;           /* card-border stroke color */
+    --fg: #151212;               /* ink — primary text */
+    --muted: #6B6661;            /* muted body/secondary text */
+    --brand: #C82D25;            /* brand-red — accents, links, primary badges */
+    --brand-green: #2A7043;      /* brand-green — secondary accent, this story's eyebrow color */
+    --cream: #F3EFE9;            /* story-section background */
+    --font-sans: Geist, -apple-system, Segoe UI, Roboto, sans-serif;
+    --font-serif: Fraunces, Georgia, 'Times New Roman', serif;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-pill: 100px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Reviewer bar (per UI-GUIDELINES §11 scaffold, adapted: single static
+     mapping-review page, so no prev/next screen switcher is needed) */
+  #review-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    font-family: var(--font-sans);
+  }
+  #review-bar .story-id {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+  #review-bar .bar-title {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    color: var(--fg);
+  }
+  #review-bar .bar-tag {
+    color: var(--brand);
+    border: 1px solid var(--brand);
+    border-radius: var(--radius-pill);
+    padding: 2px 10px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .bar-spacer { height: 46px; }
+
+  main {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-5) var(--space-7);
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    margin: 0 0 var(--space-2);
+  }
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    margin: var(--space-7) 0 var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 700;
+    margin: var(--space-5) 0 var(--space-2);
+  }
+  p { margin: 0 0 var(--space-3); }
+  .lede {
+    color: var(--muted);
+    max-width: 78ch;
+  }
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--brand-green);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    margin-bottom: var(--space-5);
+    color: var(--fg);
+  }
+  .callout strong { color: var(--brand-green); }
+
+  figure { margin: 0 0 var(--space-5); }
+  figure img {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+  }
+  figcaption {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: var(--space-2);
+  }
+
+  .section-shot { max-width: 640px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    font-size: 13px;
+  }
+  th, td {
+    text-align: left;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  tr:last-child td { border-bottom: none; }
+  code, .mono {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+  .props-cell code { display: block; white-space: pre-wrap; margin-bottom: 2px; }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 2px 9px;
+    border-radius: var(--radius-pill);
+  }
+  .pill-existing { background: rgba(42,112,67,0.12); color: var(--brand-green); }
+  .pill-new { background: rgba(200,45,37,0.10); color: var(--brand); }
+  .pill-scope { background: rgba(42,112,67,0.14); color: var(--brand-green); margin-left: 6px; }
+  .pill-outofscope { background: rgba(21,18,18,0.08); color: var(--muted); margin-left: 6px; }
+
+  .artboard-block { margin-bottom: var(--space-7); }
+  .artboard-meta {
+    display: flex;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: var(--space-3);
+  }
+  .artboard-meta b { color: var(--fg); }
+
+  .token-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+  .swatch {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .swatch-color { height: 44px; }
+  .swatch-body { padding: var(--space-2) var(--space-3); font-size: 12px; }
+  .swatch-body .hex { font-weight: 700; }
+  .swatch-body .usage { color: var(--muted); margin-top: 2px; }
+
+  .type-ramp-row { display: flex; align-items: baseline; gap: var(--space-4); padding: var(--space-2) 0; border-bottom: 1px solid var(--border); }
+  .type-ramp-row:last-child { border-bottom: none; }
+  .type-ramp-sample { font-family: var(--font-serif); }
+  .type-ramp-meta { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  .question {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    margin-bottom: var(--space-3);
+  }
+  .question.blocking { border-left: 4px solid var(--brand); }
+  .question.non-blocking { border-left: 4px solid var(--border); }
+  .q-head { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); flex-wrap: wrap; }
+  .q-topic { font-weight: 700; }
+  .q-flag { font-size: 11px; font-weight: 700; letter-spacing: 0.03em; padding: 2px 8px; border-radius: var(--radius-pill); }
+  .q-flag.blocking { background: rgba(200,45,37,0.12); color: var(--brand); }
+  .q-flag.non-blocking { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+  .q-detail { margin-bottom: var(--space-2); }
+  .q-assumption {
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: var(--space-2) var(--space-3);
+    font-size: 13px;
+  }
+  .q-assumption b { color: var(--brand); text-transform: uppercase; font-size: 11px; letter-spacing: 0.04em; display: block; margin-bottom: 2px; }
+  .q-options { margin: var(--space-2) 0 0; padding-left: var(--space-4); font-size: 13px; color: var(--muted); }
+  .q-options li.assumed { color: var(--fg); font-weight: 600; }
+  .q-options li.assumed::after { content: " — assumed"; color: var(--brand); font-weight: 700; }
+
+  .excluded-empty { color: var(--muted); font-style: italic; }
+
+  footer.page-footer { color: var(--muted); font-size: 12px; margin-top: var(--space-7); border-top: 1px solid var(--border); padding-top: var(--space-3); }
+</style>
+</head>
+<body>
+
+<!-- Reviewer bar -->
+<div id="review-bar">
+  <span class="story-id mono">MANOJ-ADMIN-PROJECT-STORY-007</span>
+  <span class="bar-title">Figma → Component Mapping Review</span>
+  <span class="bar-tag">source of truth: figma-frame.png</span>
+</div>
+<div class="bar-spacer"></div>
+
+<main>
+  <h1>Brand Story / Trust Content — Figma Mapping Review</h1>
+  <p class="lede">
+    This page is a review surface, not a redesign: it shows how arc read the ingested Figma
+    frame (<code>figma-frame.json</code> / <code>figma-frame.png</code>) for the Forno Rosso
+    home page and mapped its nodes onto proposed code components. The stated component catalogue
+    for this project is empty (greenfield), so every row below is
+    <span class="pill pill-new">proposed_new</span> — nothing is marked as already existing. The
+    rendered PNG is authoritative for visuals; this page explains structure and mapping
+    decisions, it does not redraw the design.
+  </p>
+
+  <div class="callout">
+    <strong>Single artboard, one section in scope.</strong> The linked Figma node
+    (<code>6:6</code>, &quot;home-page&quot;) is already a single FRAME, not a CANVAS containing
+    several artboards, so this frame is one screen, mapped in full below. This story's
+    implementation scope is <strong>story-section</strong> (&quot;Our Passion for the Perfect
+    Crust&quot;: heading, paragraph, the 3-item trust/feature list, and the two-photo image
+    collage); the header / hero / delivery banner / featured menu grid / footer are mapped for
+    context only — most of them were already shipped by
+    MANOJ-ADMIN-PROJECT-STORY-004 and MANOJ-ADMIN-PROJECT-STORY-006. Per the stated catalogue
+    every row is still <span class="pill pill-new">proposed_new</span>, but Notes call out where
+    matching code already exists in this repo — see open question
+    <code>catalogue-vs-repo-mismatch</code>.
+  </div>
+
+  <h2>Rendered frame</h2>
+  <figure>
+    <img src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-007/figma-frame.png?AWSAccessKeyId=ASIA256MLQMTKYXEZS7X&Signature=jGKyJ7k5tPwE36BIw2iyH1DyuBA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCmFwLXNvdXRoLTEiRzBFAiA0OqK3u7sdd7Fh3zbrOIndAQWlR5P%2BgRRYt2SCxA%2B4jQIhAIcJDSm%2Fn5atd8%2Bw9kld4g1pVaXXBW%2BnYRAK1O%2FcTM%2BhKr0FCCEQABoMNzUxNTEwOTc5MzY2IgzRQ8OyBCS5dLsUFkQqmgUSngk9E1NRKIS2IE59Jok1RiQG%2FCa0tmSfLJSODQZztul7otilCGtdWCTP6cyFWPvroaQPQKO%2Fdsldv9KbLjIzu1pkklZ9f6rw4QVgbeWAR64tjxVOfGMdpd9nnV0u5jVGXu8wULEY1%2FJGtgaE%2FmWGnkGGwXg%2BeD92Z6eiNH1milVFKhIlMEjOdIenvzrIJiNQSwwYYoeWmAaMud98DiV%2FDYHVnGpKfsSHVHcYy1uyZ3lG7MjdY3tPfqLzDnGSNB0rw3tNOZHHB6yHaUe04gpDEp9iw3OeN11yzFTg7e1LU7Bkgi2LhSRpZyOnQtCzoD%2F0uJqW6c6emGJVajdGhKdvoLiBWGkPnq0il8ygIfdymBDlEcEmQslWEZAXFOI3b8a1VBHxxyCYtjgyVWuUP%2FB6x7jRnX6Vjhr9qwlU5NDChuNwwwbPTXS2maE8pyxY1WcHk7zUMOxY6Bxk3LIWIuvquJrS5vKuw4S8r7HWR31BTiDw03V%2BGSLtxZ1nE%2BZLVgalpjqeDcJ7%2FvNTskVyMSMA7G7%2FeDoiuO6KuTWOaKGwCj9F%2Frse9WxQ9Osjoya8wtUbYD7FVP7EdVFADr3MVhGPBJMy7zb28h5eHr%2BxlL8JKk7D8pOcZ0Ed%2FCZidnLA9dONjn2EUfgC%2B5VUwoxRB9ZJigl983FC1gM%2FKCTUZOkuWhqiUJSHGrI61J5%2FrJh0lt3%2BcUB7WWrs3j4x%2FlAZc6bIpDsxX1mLOxTGT9c4DVaxlAj%2FrQoZaFg3x6Y0ySLNecbmn1ZQGwZdaFPyNJUAofBSQtD%2F6YC2eL2LE6GMckaLbKPAXIDIZ0Cgg1PV1L%2FTJTyIKnRKZLCVwynsGMdkipHd3noaNkRXDpWxyRJeRiwphwEJk8WkGK7gbUowwKC81AY6sQEc%2FbEIlX0KZIX6sTi8bhWgh4995vRplI75ZITgqReMLva6IfXQ7eIqUlcfWIv%2FD3AlPYYs8A6duRBCvpvPcbXRYEvc6IIGJZOIiYGRa8edH54vgRzDPsQbuQf1Gd3HZ0MUgH9eNn7LYMrDlI9FKsQL1osclgIQiJwSMta4YJ5YPyogUw2vKoC8bAFQG9euwggOw6MsmXYJASEMFfbIHpphK%2BrRuAm2VsCtBzMDB7UNa18%3D&Expires=1788367891" alt="Forno Rosso home page — rendered Figma frame" />
+    <figcaption>figma-frame.png — full home-page frame, 1440×2786. Authoritative for all visual detail (color, spacing, type) not called out explicitly below.</figcaption>
+  </figure>
+
+  <h2>Artboards</h2>
+  <table>
+    <thead>
+      <tr><th>Figma node</th><th>Name</th><th>Figma type</th><th>Kind</th><th>Bounds</th><th>Role</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>6:6</code></td>
+        <td>home-page</td>
+        <td>FRAME</td>
+        <td><span class="pill pill-outofscope" style="margin-left:0">screen</span></td>
+        <td class="mono">1440 × 2786<br/>x −692, y −450</td>
+        <td>Forno Rosso marketing home page — header/nav shell, hero, delivery banner, featured menu grid, <strong>brand-story section (this story)</strong>, footer.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Component map</h2>
+  <p class="lede">Grouped by artboard (one artboard: <code>home-page</code> / <code>6:6</code>), then by page section. Rows marked &quot;reuses…&quot; in Notes share a component with another row in this same map. Every row is <span class="pill pill-new">proposed_new</span> per the stated catalogue; a few Notes flag where matching code already lives in this repo from a prior story, for the implementer's awareness only.</p>
+
+  <div class="artboard-block">
+    <h3 id="artboard-6-6">home-page (6:6) — full component map</h3>
+
+    <h3 style="margin-top:var(--space-5)">Header / navigation shell <span class="pill pill-outofscope">out of scope — shipped by STORY-004</span></h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-007/figma-section-6-7-header.png?AWSAccessKeyId=ASIA256MLQMTKYXEZS7X&Signature=ab8AOp4nLsXjBzedtwwkqrTNMI0%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCmFwLXNvdXRoLTEiRzBFAiA0OqK3u7sdd7Fh3zbrOIndAQWlR5P%2BgRRYt2SCxA%2B4jQIhAIcJDSm%2Fn5atd8%2Bw9kld4g1pVaXXBW%2BnYRAK1O%2FcTM%2BhKr0FCCEQABoMNzUxNTEwOTc5MzY2IgzRQ8OyBCS5dLsUFkQqmgUSngk9E1NRKIS2IE59Jok1RiQG%2FCa0tmSfLJSODQZztul7otilCGtdWCTP6cyFWPvroaQPQKO%2Fdsldv9KbLjIzu1pkklZ9f6rw4QVgbeWAR64tjxVOfGMdpd9nnV0u5jVGXu8wULEY1%2FJGtgaE%2FmWGnkGGwXg%2BeD92Z6eiNH1milVFKhIlMEjOdIenvzrIJiNQSwwYYoeWmAaMud98DiV%2FDYHVnGpKfsSHVHcYy1uyZ3lG7MjdY3tPfqLzDnGSNB0rw3tNOZHHB6yHaUe04gpDEp9iw3OeN11yzFTg7e1LU7Bkgi2LhSRpZyOnQtCzoD%2F0uJqW6c6emGJVajdGhKdvoLiBWGkPnq0il8ygIfdymBDlEcEmQslWEZAXFOI3b8a1VBHxxyCYtjgyVWuUP%2FB6x7jRnX6Vjhr9qwlU5NDChuNwwwbPTXS2maE8pyxY1WcHk7zUMOxY6Bxk3LIWIuvquJrS5vKuw4S8r7HWR31BTiDw03V%2BGSLtxZ1nE%2BZLVgalpjqeDcJ7%2FvNTskVyMSMA7G7%2FeDoiuO6KuTWOaKGwCj9F%2Frse9WxQ9Osjoya8wtUbYD7FVP7EdVFADr3MVhGPBJMy7zb28h5eHr%2BxlL8JKk7D8pOcZ0Ed%2FCZidnLA9dONjn2EUfgC%2B5VUwoxRB9ZJigl983FC1gM%2FKCTUZOkuWhqiUJSHGrI61J5%2FrJh0lt3%2BcUB7WWrs3j4x%2FlAZc6bIpDsxX1mLOxTGT9c4DVaxlAj%2FrQoZaFg3x6Y0ySLNecbmn1ZQGwZdaFPyNJUAofBSQtD%2F6YC2eL2LE6GMckaLbKPAXIDIZ0Cgg1PV1L%2FTJTyIKnRKZLCVwynsGMdkipHd3noaNkRXDpWxyRJeRiwphwEJk8WkGK7gbUowwKC81AY6sQEc%2FbEIlX0KZIX6sTi8bhWgh4995vRplI75ZITgqReMLva6IfXQ7eIqUlcfWIv%2FD3AlPYYs8A6duRBCvpvPcbXRYEvc6IIGJZOIiYGRa8edH54vgRzDPsQbuQf1Gd3HZ0MUgH9eNn7LYMrDlI9FKsQL1osclgIQiJwSMta4YJ5YPyogUw2vKoC8bAFQG9euwggOw6MsmXYJASEMFfbIHpphK%2BrRuAm2VsCtBzMDB7UNa18%3D&Expires=1788367890" alt="header section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-header"></tbody>
+    </table>
+
+    <h3>Hero <span class="pill pill-outofscope">out of scope — not yet built</span></h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-007/figma-section-6-25-hero.png?AWSAccessKeyId=ASIA256MLQMTKYXEZS7X&Signature=C4Amj3OEnyPjED%2FWNQx06zOBN4w%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCmFwLXNvdXRoLTEiRzBFAiA0OqK3u7sdd7Fh3zbrOIndAQWlR5P%2BgRRYt2SCxA%2B4jQIhAIcJDSm%2Fn5atd8%2Bw9kld4g1pVaXXBW%2BnYRAK1O%2FcTM%2BhKr0FCCEQABoMNzUxNTEwOTc5MzY2IgzRQ8OyBCS5dLsUFkQqmgUSngk9E1NRKIS2IE59Jok1RiQG%2FCa0tmSfLJSODQZztul7otilCGtdWCTP6cyFWPvroaQPQKO%2Fdsldv9KbLjIzu1pkklZ9f6rw4QVgbeWAR64tjxVOfGMdpd9nnV0u5jVGXu8wULEY1%2FJGtgaE%2FmWGnkGGwXg%2BeD92Z6eiNH1milVFKhIlMEjOdIenvzrIJiNQSwwYYoeWmAaMud98DiV%2FDYHVnGpKfsSHVHcYy1uyZ3lG7MjdY3tPfqLzDnGSNB0rw3tNOZHHB6yHaUe04gpDEp9iw3OeN11yzFTg7e1LU7Bkgi2LhSRpZyOnQtCzoD%2F0uJqW6c6emGJVajdGhKdvoLiBWGkPnq0il8ygIfdymBDlEcEmQslWEZAXFOI3b8a1VBHxxyCYtjgyVWuUP%2FB6x7jRnX6Vjhr9qwlU5NDChuNwwwbPTXS2maE8pyxY1WcHk7zUMOxY6Bxk3LIWIuvquJrS5vKuw4S8r7HWR31BTiDw03V%2BGSLtxZ1nE%2BZLVgalpjqeDcJ7%2FvNTskVyMSMA7G7%2FeDoiuO6KuTWOaKGwCj9F%2Frse9WxQ9Osjoya8wtUbYD7FVP7EdVFADr3MVhGPBJMy7zb28h5eHr%2BxlL8JKk7D8pOcZ0Ed%2FCZidnLA9dONjn2EUfgC%2B5VUwoxRB9ZJigl983FC1gM%2FKCTUZOkuWhqiUJSHGrI61J5%2FrJh0lt3%2BcUB7WWrs3j4x%2FlAZc6bIpDsxX1mLOxTGT9c4DVaxlAj%2FrQoZaFg3x6Y0ySLNecbmn1ZQGwZdaFPyNJUAofBSQtD%2F6YC2eL2LE6GMckaLbKPAXIDIZ0Cgg1PV1L%2FTJTyIKnRKZLCVwynsGMdkipHd3noaNkRXDpWxyRJeRiwphwEJk8WkGK7gbUowwKC81AY6sQEc%2FbEIlX0KZIX6sTi8bhWgh4995vRplI75ZITgqReMLva6IfXQ7eIqUlcfWIv%2FD3AlPYYs8A6duRBCvpvPcbXRYEvc6IIGJZOIiYGRa8edH54vgRzDPsQbuQf1Gd3HZ0MUgH9eNn7LYMrDlI9FKsQL1osclgIQiJwSMta4YJ5YPyogUw2vKoC8bAFQG9euwggOw6MsmXYJASEMFfbIHpphK%2BrRuAm2VsCtBzMDB7UNa18%3D&Expires=1788367891" alt="hero section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-hero"></tbody>
+    </table>
+
+    <h3>Delivery banner <span class="pill pill-outofscope">out of scope — not yet built</span></h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-007/figma-section-6-40-delivery-banner.png?AWSAccessKeyId=ASIA256MLQMTKYXEZS7X&Signature=EwTHcnbOzonEL%2Fd1I6RZkAzjzT8%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCmFwLXNvdXRoLTEiRzBFAiA0OqK3u7sdd7Fh3zbrOIndAQWlR5P%2BgRRYt2SCxA%2B4jQIhAIcJDSm%2Fn5atd8%2Bw9kld4g1pVaXXBW%2BnYRAK1O%2FcTM%2BhKr0FCCEQABoMNzUxNTEwOTc5MzY2IgzRQ8OyBCS5dLsUFkQqmgUSngk9E1NRKIS2IE59Jok1RiQG%2FCa0tmSfLJSODQZztul7otilCGtdWCTP6cyFWPvroaQPQKO%2Fdsldv9KbLjIzu1pkklZ9f6rw4QVgbeWAR64tjxVOfGMdpd9nnV0u5jVGXu8wULEY1%2FJGtgaE%2FmWGnkGGwXg%2BeD92Z6eiNH1milVFKhIlMEjOdIenvzrIJiNQSwwYYoeWmAaMud98DiV%2FDYHVnGpKfsSHVHcYy1uyZ3lG7MjdY3tPfqLzDnGSNB0rw3tNOZHHB6yHaUe04gpDEp9iw3OeN11yzFTg7e1LU7Bkgi2LhSRpZyOnQtCzoD%2F0uJqW6c6emGJVajdGhKdvoLiBWGkPnq0il8ygIfdymBDlEcEmQslWEZAXFOI3b8a1VBHxxyCYtjgyVWuUP%2FB6x7jRnX6Vjhr9qwlU5NDChuNwwwbPTXS2maE8pyxY1WcHk7zUMOxY6Bxk3LIWIuvquJrS5vKuw4S8r7HWR31BTiDw03V%2BGSLtxZ1nE%2BZLVgalpjqeDcJ7%2FvNTskVyMSMA7G7%2FeDoiuO6KuTWOaKGwCj9F%2Frse9WxQ9Osjoya8wtUbYD7FVP7EdVFADr3MVhGPBJMy7zb28h5eHr%2BxlL8JKk7D8pOcZ0Ed%2FCZidnLA9dONjn2EUfgC%2B5VUwoxRB9ZJigl983FC1gM%2FKCTUZOkuWhqiUJSHGrI61J5%2FrJh0lt3%2BcUB7WWrs3j4x%2FlAZc6bIpDsxX1mLOxTGT9c4DVaxlAj%2FrQoZaFg3x6Y0ySLNecbmn1ZQGwZdaFPyNJUAofBSQtD%2F6YC2eL2LE6GMckaLbKPAXIDIZ0Cgg1PV1L%2FTJTyIKnRKZLCVwynsGMdkipHd3noaNkRXDpWxyRJeRiwphwEJk8WkGK7gbUowwKC81AY6sQEc%2FbEIlX0KZIX6sTi8bhWgh4995vRplI75ZITgqReMLva6IfXQ7eIqUlcfWIv%2FD3AlPYYs8A6duRBCvpvPcbXRYEvc6IIGJZOIiYGRa8edH54vgRzDPsQbuQf1Gd3HZ0MUgH9eNn7LYMrDlI9FKsQL1osclgIQiJwSMta4YJ5YPyogUw2vKoC8bAFQG9euwggOw6MsmXYJASEMFfbIHpphK%2BrRuAm2VsCtBzMDB7UNa18%3D&Expires=1788367891" alt="delivery banner section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-delivery"></tbody>
+    </table>
+
+    <h3>Featured section (menu grid) <span class="pill pill-outofscope">out of scope — shipped by STORY-006</span></h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-007/figma-section-6-54-featured-section.png?AWSAccessKeyId=ASIA256MLQMTKYXEZS7X&Signature=%2F4aDPi%2FncvirT5Sfp6nGCCo9UCg%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCmFwLXNvdXRoLTEiRzBFAiA0OqK3u7sdd7Fh3zbrOIndAQWlR5P%2BgRRYt2SCxA%2B4jQIhAIcJDSm%2Fn5atd8%2Bw9kld4g1pVaXXBW%2BnYRAK1O%2FcTM%2BhKr0FCCEQABoMNzUxNTEwOTc5MzY2IgzRQ8OyBCS5dLsUFkQqmgUSngk9E1NRKIS2IE59Jok1RiQG%2FCa0tmSfLJSODQZztul7otilCGtdWCTP6cyFWPvroaQPQKO%2Fdsldv9KbLjIzu1pkklZ9f6rw4QVgbeWAR64tjxVOfGMdpd9nnV0u5jVGXu8wULEY1%2FJGtgaE%2FmWGnkGGwXg%2BeD92Z6eiNH1milVFKhIlMEjOdIenvzrIJiNQSwwYYoeWmAaMud98DiV%2FDYHVnGpKfsSHVHcYy1uyZ3lG7MjdY3tPfqLzDnGSNB0rw3tNOZHHB6yHaUe04gpDEp9iw3OeN11yzFTg7e1LU7Bkgi2LhSRpZyOnQtCzoD%2F0uJqW6c6emGJVajdGhKdvoLiBWGkPnq0il8ygIfdymBDlEcEmQslWEZAXFOI3b8a1VBHxxyCYtjgyVWuUP%2FB6x7jRnX6Vjhr9qwlU5NDChuNwwwbPTXS2maE8pyxY1WcHk7zUMOxY6Bxk3LIWIuvquJrS5vKuw4S8r7HWR31BTiDw03V%2BGSLtxZ1nE%2BZLVgalpjqeDcJ7%2FvNTskVyMSMA7G7%2FeDoiuO6KuTWOaKGwCj9F%2Frse9WxQ9Osjoya8wtUbYD7FVP7EdVFADr3MVhGPBJMy7zb28h5eHr%2BxlL8JKk7D8pOcZ0Ed%2FCZidnLA9dONjn2EUfgC%2B5VUwoxRB9ZJigl983FC1gM%2FKCTUZOkuWhqiUJSHGrI61J5%2FrJh0lt3%2BcUB7WWrs3j4x%2FlAZc6bIpDsxX1mLOxTGT9c4DVaxlAj%2FrQoZaFg3x6Y0ySLNecbmn1ZQGwZdaFPyNJUAofBSQtD%2F6YC2eL2LE6GMckaLbKPAXIDIZ0Cgg1PV1L%2FTJTyIKnRKZLCVwynsGMdkipHd3noaNkRXDpWxyRJeRiwphwEJk8WkGK7gbUowwKC81AY6sQEc%2FbEIlX0KZIX6sTi8bhWgh4995vRplI75ZITgqReMLva6IfXQ7eIqUlcfWIv%2FD3AlPYYs8A6duRBCvpvPcbXRYEvc6IIGJZOIiYGRa8edH54vgRzDPsQbuQf1Gd3HZ0MUgH9eNn7LYMrDlI9FKsQL1osclgIQiJwSMta4YJ5YPyogUw2vKoC8bAFQG9euwggOw6MsmXYJASEMFfbIHpphK%2BrRuAm2VsCtBzMDB7UNa18%3D&Expires=1788367890" alt="featured section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-featured"></tbody>
+    </table>
+
+    <h3>Story section (brand story / trust content) <span class="pill pill-scope">this story's scope</span></h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-007/figma-section-6-108-story-section.png?AWSAccessKeyId=ASIA256MLQMTKYXEZS7X&Signature=OPLmLCvdLMp3fvG4Y9fBP20C1vQ%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCmFwLXNvdXRoLTEiRzBFAiA0OqK3u7sdd7Fh3zbrOIndAQWlR5P%2BgRRYt2SCxA%2B4jQIhAIcJDSm%2Fn5atd8%2Bw9kld4g1pVaXXBW%2BnYRAK1O%2FcTM%2BhKr0FCCEQABoMNzUxNTEwOTc5MzY2IgzRQ8OyBCS5dLsUFkQqmgUSngk9E1NRKIS2IE59Jok1RiQG%2FCa0tmSfLJSODQZztul7otilCGtdWCTP6cyFWPvroaQPQKO%2Fdsldv9KbLjIzu1pkklZ9f6rw4QVgbeWAR64tjxVOfGMdpd9nnV0u5jVGXu8wULEY1%2FJGtgaE%2FmWGnkGGwXg%2BeD92Z6eiNH1milVFKhIlMEjOdIenvzrIJiNQSwwYYoeWmAaMud98DiV%2FDYHVnGpKfsSHVHcYy1uyZ3lG7MjdY3tPfqLzDnGSNB0rw3tNOZHHB6yHaUe04gpDEp9iw3OeN11yzFTg7e1LU7Bkgi2LhSRpZyOnQtCzoD%2F0uJqW6c6emGJVajdGhKdvoLiBWGkPnq0il8ygIfdymBDlEcEmQslWEZAXFOI3b8a1VBHxxyCYtjgyVWuUP%2FB6x7jRnX6Vjhr9qwlU5NDChuNwwwbPTXS2maE8pyxY1WcHk7zUMOxY6Bxk3LIWIuvquJrS5vKuw4S8r7HWR31BTiDw03V%2BGSLtxZ1nE%2BZLVgalpjqeDcJ7%2FvNTskVyMSMA7G7%2FeDoiuO6KuTWOaKGwCj9F%2Frse9WxQ9Osjoya8wtUbYD7FVP7EdVFADr3MVhGPBJMy7zb28h5eHr%2BxlL8JKk7D8pOcZ0Ed%2FCZidnLA9dONjn2EUfgC%2B5VUwoxRB9ZJigl983FC1gM%2FKCTUZOkuWhqiUJSHGrI61J5%2FrJh0lt3%2BcUB7WWrs3j4x%2FlAZc6bIpDsxX1mLOxTGT9c4DVaxlAj%2FrQoZaFg3x6Y0ySLNecbmn1ZQGwZdaFPyNJUAofBSQtD%2F6YC2eL2LE6GMckaLbKPAXIDIZ0Cgg1PV1L%2FTJTyIKnRKZLCVwynsGMdkipHd3noaNkRXDpWxyRJeRiwphwEJk8WkGK7gbUowwKC81AY6sQEc%2FbEIlX0KZIX6sTi8bhWgh4995vRplI75ZITgqReMLva6IfXQ7eIqUlcfWIv%2FD3AlPYYs8A6duRBCvpvPcbXRYEvc6IIGJZOIiYGRa8edH54vgRzDPsQbuQf1Gd3HZ0MUgH9eNn7LYMrDlI9FKsQL1osclgIQiJwSMta4YJ5YPyogUw2vKoC8bAFQG9euwggOw6MsmXYJASEMFfbIHpphK%2BrRuAm2VsCtBzMDB7UNa18%3D&Expires=1788367891" alt="story section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-story"></tbody>
+    </table>
+
+    <h3>Icons used by this story's FeatureListItem rows <span class="pill pill-scope">this story's scope</span></h3>
+    <p class="lede" style="margin-bottom:var(--space-2)">The frame contains ~11 vector glyphs whose layer names match lucide-react icon ids exactly; this story only needs three of them (star, shield, compass).</p>
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-icons"></tbody>
+    </table>
+
+    <h3>Footer <span class="pill pill-outofscope">out of scope — not yet built</span></h3>
+    <img class="section-shot" src="https://bnts-arc-qa-run-output-751510979366.s3.amazonaws.com/ux-design/bounteous/proj_79ea4032/MANOJ-ADMIN-PROJECT-STORY-007/figma-section-6-136-footer.png?AWSAccessKeyId=ASIA256MLQMTKYXEZS7X&Signature=kWK4CfqgjeLgMcaxegpyDArOoZg%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEFgaCmFwLXNvdXRoLTEiRzBFAiA0OqK3u7sdd7Fh3zbrOIndAQWlR5P%2BgRRYt2SCxA%2B4jQIhAIcJDSm%2Fn5atd8%2Bw9kld4g1pVaXXBW%2BnYRAK1O%2FcTM%2BhKr0FCCEQABoMNzUxNTEwOTc5MzY2IgzRQ8OyBCS5dLsUFkQqmgUSngk9E1NRKIS2IE59Jok1RiQG%2FCa0tmSfLJSODQZztul7otilCGtdWCTP6cyFWPvroaQPQKO%2Fdsldv9KbLjIzu1pkklZ9f6rw4QVgbeWAR64tjxVOfGMdpd9nnV0u5jVGXu8wULEY1%2FJGtgaE%2FmWGnkGGwXg%2BeD92Z6eiNH1milVFKhIlMEjOdIenvzrIJiNQSwwYYoeWmAaMud98DiV%2FDYHVnGpKfsSHVHcYy1uyZ3lG7MjdY3tPfqLzDnGSNB0rw3tNOZHHB6yHaUe04gpDEp9iw3OeN11yzFTg7e1LU7Bkgi2LhSRpZyOnQtCzoD%2F0uJqW6c6emGJVajdGhKdvoLiBWGkPnq0il8ygIfdymBDlEcEmQslWEZAXFOI3b8a1VBHxxyCYtjgyVWuUP%2FB6x7jRnX6Vjhr9qwlU5NDChuNwwwbPTXS2maE8pyxY1WcHk7zUMOxY6Bxk3LIWIuvquJrS5vKuw4S8r7HWR31BTiDw03V%2BGSLtxZ1nE%2BZLVgalpjqeDcJ7%2FvNTskVyMSMA7G7%2FeDoiuO6KuTWOaKGwCj9F%2Frse9WxQ9Osjoya8wtUbYD7FVP7EdVFADr3MVhGPBJMy7zb28h5eHr%2BxlL8JKk7D8pOcZ0Ed%2FCZidnLA9dONjn2EUfgC%2B5VUwoxRB9ZJigl983FC1gM%2FKCTUZOkuWhqiUJSHGrI61J5%2FrJh0lt3%2BcUB7WWrs3j4x%2FlAZc6bIpDsxX1mLOxTGT9c4DVaxlAj%2FrQoZaFg3x6Y0ySLNecbmn1ZQGwZdaFPyNJUAofBSQtD%2F6YC2eL2LE6GMckaLbKPAXIDIZ0Cgg1PV1L%2FTJTyIKnRKZLCVwynsGMdkipHd3noaNkRXDpWxyRJeRiwphwEJk8WkGK7gbUowwKC81AY6sQEc%2FbEIlX0KZIX6sTi8bhWgh4995vRplI75ZITgqReMLva6IfXQ7eIqUlcfWIv%2FD3AlPYYs8A6duRBCvpvPcbXRYEvc6IIGJZOIiYGRa8edH54vgRzDPsQbuQf1Gd3HZ0MUgH9eNn7LYMrDlI9FKsQL1osclgIQiJwSMta4YJ5YPyogUw2vKoC8bAFQG9euwggOw6MsmXYJASEMFfbIHpphK%2BrRuAm2VsCtBzMDB7UNa18%3D&Expires=1788367891" alt="footer section" />
+    <table>
+      <thead><tr><th>Figma node</th><th>Code component</th><th>Status</th><th>Props</th><th>Notes</th></tr></thead>
+      <tbody id="tbl-footer"></tbody>
+    </table>
+  </div>
+
+  <h2>Tokens distilled from the frame</h2>
+
+  <h3>Color</h3>
+  <div class="token-grid" id="color-swatches"></div>
+
+  <h3>Type ramp</h3>
+  <div id="type-ramp" style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding: 0 var(--space-4);"></div>
+
+  <h3>Spacing &amp; radii</h3>
+  <table>
+    <thead><tr><th>Token set</th><th>Values (px)</th></tr></thead>
+    <tbody>
+      <tr><td>Spacing scale</td><td class="mono">2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 120</td></tr>
+      <tr><td>Corner radii</td><td class="mono">1, 1.5, 8, 16, 18, 20, 24, 100 (pill)</td></tr>
+      <tr><td>Stroke weights</td><td class="mono">1, 2</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Excluded (OS / device chrome, mockup scaffolding)</h2>
+  <p class="excluded-empty">None found. The frame is a fixed 1440px desktop web frame with no simulated browser chrome, mobile status bar, notch, or home indicator to exclude.</p>
+
+  <h2>Open questions</h2>
+  <p class="lede">Blocking questions first — these are judgement calls that would make the implementation wrong if answered differently. Each shows the assumption arc made in the absence of an answer. Questions tagged <span class="pill pill-scope" style="margin-left:0">in scope</span> below concern this story's deliverable (story-section); the rest are carried forward from earlier stories' mapping of the same frame, for continuity only.</p>
+  <div id="questions"></div>
+
+  <footer class="page-footer">
+    Generated from <code>figma-frame.json</code> / <code>figma-frame.png</code> for MANOJ-ADMIN-PROJECT-STORY-007. See <code>design-context.json</code> in this same directory for the machine-readable version of this map.
+  </footer>
+</main>
+
+<script>
+const colorTokens = [
+  {"hex": "#151212", "usage": "header / hero / footer background, dark surfaces"},
+  {"hex": "#C82D25", "usage": "logo badge, primary CTA, active nav underline/text, card price, chef-recommendations eyebrow, this story's FeatureListItem icon badges"},
+  {"hex": "#2A7043", "usage": "delivery banner background, '30 mins' highlight, THIS STORY's eyebrow ('The Sourdough Secret')"},
+  {"hex": "#6B6661", "usage": "secondary/description copy on light surfaces — this story's body paragraph and feature descriptions"},
+  {"hex": "#F3EFE9", "usage": "THIS STORY's story-section background"},
+  {"hex": "#FCFAF6", "usage": "featured-section / page background"},
+  {"hex": "#FFFFFF", "usage": "menu-item card background, text on dark backgrounds"},
+  {"hex": "#EBE7DF", "usage": "hairline border (stroke color)"}
+];
+
+const colorGrid = document.getElementById('color-swatches');
+colorTokens.forEach(t => {
+  const el = document.createElement('div');
+  el.className = 'swatch';
+  el.innerHTML = `
+    <div class="swatch-color" style="background:${t.hex}; border-bottom:1px solid var(--border);"></div>
+    <div class="swatch-body">
+      <div class="hex">${t.hex}</div>
+      <div class="usage">${t.usage}</div>
+    </div>`;
+  colorGrid.appendChild(el);
+});
+
+const typeRamp = [
+  {"sample": "Wood-Fired Pizza,", "meta": "Fraunces 700 · 64/70.4 — hero heading"},
+  {"sample": "Our Passion for the Perfect Crust", "meta": "Fraunces 700 · 40/46 — section headings (this story's heading)"},
+  {"sample": "100% Imported San Marzano Tomatoes", "meta": "Fraunces 600 · 16/19.73 — this story's FeatureListItem title"},
+  {"sample": "THE SOURDOUGH SECRET", "meta": "Geist 600 · 13/16.9 uppercase — this story's eyebrow label"},
+  {"sample": "At Forno Rosso, we respect the traditions…", "meta": "Geist 400 · 16/25.6 — this story's body paragraph"},
+  {"sample": "Sourced directly from fertile Campania volcano soils…", "meta": "Geist 400 · 13/18.2 — this story's feature description"},
+  {"sample": "Add to Order", "meta": "Geist 600 · 15/19.5 — button labels (out of scope)"}
+];
+const rampEl = document.getElementById('type-ramp');
+typeRamp.forEach(r => {
+  const row = document.createElement('div');
+  row.className = 'type-ramp-row';
+  row.innerHTML = `<span class="type-ramp-sample">${r.sample}</span><span class="type-ramp-meta">${r.meta}</span>`;
+  rampEl.appendChild(row);
+});
+
+function statusPill(status) {
+  return status === 'existing'
+    ? '<span class="pill pill-existing">existing</span>'
+    : '<span class="pill pill-new">proposed_new</span>';
+}
+function propsCell(props) {
+  if (!props || Object.keys(props).length === 0) return '<span style="color:var(--muted)">—</span>';
+  return Object.entries(props).map(([k,v]) => `<code>${k}: ${JSON.stringify(v)}</code>`).join('');
+}
+function renderRows(targetId, rows) {
+  const tbody = document.getElementById(targetId);
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td class="mono">${r.figma_node}</td>
+      <td><strong>${r.code_component}</strong></td>
+      <td>${statusPill(r.status)}</td>
+      <td class="props-cell">${propsCell(r.props)}</td>
+      <td>${r.notes || ''}</td>
+    </tr>`).join('');
+}
+
+const headerRows = [{"figma_node": "6:7 header", "code_component": "SiteHeader", "status": "proposed_new", "notes": "Out of scope for this story. proposed_new per the stated catalogue. For context: code shaped like this already lives at src/features/site/SiteHeader.tsx from MANOJ-ADMIN-PROJECT-STORY-004 and renders BrandLogo + PrimaryNav + DeliveryIndicator on a #151212 bar. Mapped here only for whole-page continuity."}];
+const heroRows = [
+  {"figma_node": "6:25 hero", "code_component": "Hero", "status": "proposed_new", "notes": "Out of scope for this story. Full-bleed dark (#151212) band containing the text column, eyebrow badge, CTAs and the pizza photo. Not yet built in the repo."},
+  {"figma_node": "6:27 Frame (eyebrow badge)", "code_component": "EyebrowBadge", "status": "proposed_new", "props": {"icon": "flame", "label": "Authentic Neapolitan Woodfired"}, "notes": "Out of scope for this story. See open question hero-badge-icon-name."},
+  {"figma_node": "6:33 Frame ('Order Online Now')", "code_component": "Button", "status": "proposed_new", "props": {"variant": "primary", "label": "Order Online Now", "icon": "arrow-right", "iconPosition": "trailing"}, "notes": "Out of scope for this story. See open question shared-button-component."},
+  {"figma_node": "6:36 Frame ('Explore Full Menu')", "code_component": "Button", "status": "proposed_new", "props": {"variant": "outline", "label": "Explore Full Menu"}, "notes": "Out of scope for this story."},
+  {"figma_node": "6:38 hero-image-wrapper", "code_component": "HeroImage", "status": "proposed_new", "props": {"objectFit": "cover"}, "notes": "Out of scope for this story. Asset: ./.arc/designs/figma-asset-6-39-hero-image-wrapper.png, css_object_fit: cover."}
+];
+const deliveryRows = [
+  {"figma_node": "6:40 delivery-banner", "code_component": "DeliveryBanner", "status": "proposed_new", "notes": "Out of scope for this story. Full-width brand-green (#2A7043) band. Not yet built in the repo."},
+  {"figma_node": "6:41 Frame (free delivery copy)", "code_component": "IconTextBlock", "status": "proposed_new", "props": {"icon": "truck", "title": "Free Delivery On Orders Over $35", "subtitle": "Craving quality? Skip the delivery fee entirely inside our active zones."}, "notes": "Out of scope for this story."},
+  {"figma_node": "6:48 Frame ('Average ETA')", "code_component": "StatBlock", "status": "proposed_new", "props": {"label": "Average ETA", "value": "25 - 35 Min"}, "notes": "Out of scope for this story. See open question delivery-eta-copy-mismatch."},
+  {"figma_node": "6:51 Frame ('Pizza Temperature')", "code_component": "StatBlock", "status": "proposed_new", "props": {"label": "Pizza Temperature", "value": "Piping Hot Guaranteed"}, "notes": "Out of scope for this story. Reuses the StatBlock proposed for Average ETA."}
+];
+const featuredRows = [
+  {"figma_node": "6:54 featured-section", "code_component": "FeaturedSection", "status": "proposed_new", "notes": "Out of scope for this story. For context, code shaped like this already lives at src/features/site/FeaturedSection.tsx (STORY-006)."},
+  {"figma_node": "6:55 Frame (section heading)", "code_component": "SectionHeading", "status": "proposed_new", "props": {"eyebrow": "Chef Recommendations", "eyebrowTone": "accent", "heading": "Popular Sourdough Pizzas", "showRule": true}, "notes": "Out of scope for this story. Reused by the story-section heading below — see open question shared-section-heading-component."},
+  {"figma_node": "6:59 featured-grid", "code_component": "FeaturedGrid", "status": "proposed_new", "notes": "Out of scope for this story (delivered by STORY-006). See open question featured-grid-responsive-breakpoints."},
+  {"figma_node": "6:60 / 6:72 / 6:84 / 6:96 (menu cards)", "code_component": "MenuItemCard", "status": "proposed_new", "props": {"name": "Diavola / Funghi Selvatici & Tartufo / Classic Margherita / Prosciutto Crudo e Rucola", "image": "./.arc/designs/figma-asset-6-62/74/86/98-featured-grid.png"}, "notes": "Out of scope for this story. See open questions menu-card-title-truncation and menu-card-variable-height."},
+  {"figma_node": "6:69 / 6:81 / 6:93 / 6:105 ('Add to Order')", "code_component": "Button", "status": "proposed_new", "props": {"variant": "dark", "label": "Add to Order", "icon": "plus", "iconPosition": "leading"}, "notes": "Out of scope for this story. Reuses the Button proposed for the hero CTAs."}
+];
+const storyRows = [
+  {"figma_node": "6:108 story-section", "code_component": "StorySection", "status": "proposed_new", "notes": "PRIMARY DELIVERABLE of this story. Cream (#F3EFE9) full-width band, 96px top / 120px bottom / 80px side padding, two-column layout (600px text + 80px gap + 600px image collage) fixed at 1440px canvas width. No equivalent exists anywhere in the repo today. See open question story-section-responsive-breakpoints."},
+  {"figma_node": "6:110 Frame (story heading)", "code_component": "SectionHeading", "status": "proposed_new", "props": {"eyebrow": "The Sourdough Secret", "eyebrowTone": "brand", "heading": "Our Passion for the Perfect Crust", "showRule": false}, "notes": "Reuses the SectionHeading proposed for the featured-section header (6:55) — brand-green eyebrow instead of brand-red, no rule. See open question shared-section-heading-component."},
+  {"figma_node": "6:113 story paragraph", "code_component": "StorySection", "status": "proposed_new", "props": {"body": "At Forno Rosso, we respect the traditions of Neapolitan pizzaiolos while implementing modern techniques. We ferment our proprietary sourdough mother starter for 48 hours. This process creates a light, bubbly, and incredibly digestible dough with complex flavor profiles."}, "notes": "Geist 16/25.6, muted (#6B6661), 600px measure, rendered directly inside StorySection."},
+  {"figma_node": "6:114 Frame (feature list)", "code_component": "FeatureList", "status": "proposed_new", "notes": "Vertical stack of 3 FeatureListItem rows, 16px gap, 600px wide."},
+  {"figma_node": "6:115 Frame (San Marzano feature)", "code_component": "FeatureListItem", "status": "proposed_new", "props": {"icon": "star", "title": "100% Imported San Marzano Tomatoes", "description": "Sourced directly from fertile Campania volcano soils for a sweet, low-acid base."}, "notes": "36x36 brand-red circular icon badge (radius 18) + Fraunces 16/600 title + Geist 13/400 muted description."},
+  {"figma_node": "6:121 Frame (mozzarella feature)", "code_component": "FeatureListItem", "status": "proposed_new", "props": {"icon": "shield", "title": "Fior di Latte & Fresh Mozzarella", "description": "Hand-stretched daily, creating the classic pool texture that blends beautifully under high fire."}, "notes": "Reuses the FeatureListItem proposed for the San Marzano row."},
+  {"figma_node": "6:127 Frame (oven feature)", "code_component": "FeatureListItem", "status": "proposed_new", "props": {"icon": "compass", "title": "900°F Stone Hearth Wood Oven", "description": "Powered by seasoned hickory and oak to lock in flavors and produce perfect crust blistering in 90 seconds."}, "notes": "Reuses the FeatureListItem proposed for the San Marzano row. 'compass' has no obvious semantic link to a wood oven — see open question story-icon-mismatch."},
+  {"figma_node": "6:133 story-img-collage", "code_component": "StoryImageCollage", "status": "proposed_new", "notes": "PRIMARY DELIVERABLE of this story. Two side-by-side portrait photos, 292x520 each, 16px gap, radius 16, object-fit: cover. See open questions story-section-responsive-breakpoints and story-collage-alt-text."},
+  {"figma_node": "6:134 Rectangle (dough photo)", "code_component": "StoryImageCollage", "status": "proposed_new", "props": {"objectFit": "cover"}, "notes": "Image-painting node. Asset: ./.arc/designs/figma-asset-6-134-story-img-collage.png, css_object_fit: cover. Shows a chef stretching sourdough by hand. See open question story-collage-alt-text."},
+  {"figma_node": "6:135 Rectangle (oven photo)", "code_component": "StoryImageCollage", "status": "proposed_new", "props": {"objectFit": "cover"}, "notes": "Image-painting node. Asset: ./.arc/designs/figma-asset-6-135-story-img-collage.png, css_object_fit: cover. Shows a lit wood-fired oven with a pizza baking inside. See open question story-collage-alt-text."}
+];
+const iconRows = [
+  {"figma_node": "6:589 (star), 6:592 (shield), 6:595 (compass)", "code_component": "Icon", "status": "proposed_new", "notes": "These 3 FRAME-wrapped VECTOR glyphs are named after lucide-react icon ids exactly, same as every other icon in this frame (fire-extinguisher, arrow-right, truck, plus, shopping-cart, instagram, facebook, twitter — out of scope). Proposing one shared Icon(name) wrapper around lucide-react rather than one-off SVGs — see open question icon-library-choice."}
+];
+const footerRows = [
+  {"figma_node": "6:136 footer", "code_component": "SiteFooter", "status": "proposed_new", "notes": "Out of scope for this story. Full-width dark (#151212) footer. Not yet built in the repo."},
+  {"figma_node": "6:138 footer-brand", "code_component": "FooterBrand", "status": "proposed_new", "notes": "Out of scope for this story."},
+  {"figma_node": "6:139 Frame (mini logo)", "code_component": "BrandLogo", "status": "proposed_new", "props": {"compact": true}, "notes": "Out of scope for this story. Reuses the BrandLogo proposed for the header at a smaller scale."},
+  {"figma_node": "6:144 social-row", "code_component": "SocialRow", "status": "proposed_new", "notes": "Out of scope for this story. Wraps 3 SocialIconLink instances."},
+  {"figma_node": "6:151 / 6:163 footer-col", "code_component": "FooterColumn", "status": "proposed_new", "props": {"title": "Kitchen Hours / Pizzeria Location"}, "notes": "Out of scope for this story."},
+  {"figma_node": "6:170 Line", "code_component": "Divider", "status": "proposed_new", "notes": "Out of scope for this story. 1px full-width hairline above the copyright bar."},
+  {"figma_node": "6:171 footer-bottom", "code_component": "FooterLegalRow", "status": "proposed_new", "notes": "Out of scope for this story. Copyright text plus 'Privacy Policy' / 'Delivery Terms' links."}
+];
+
+renderRows('tbl-header', headerRows);
+renderRows('tbl-hero', heroRows);
+renderRows('tbl-delivery', deliveryRows);
+renderRows('tbl-featured', featuredRows);
+renderRows('tbl-story', storyRows);
+renderRows('tbl-icons', iconRows);
+renderRows('tbl-footer', footerRows);
+
+const questions = [
+  {"id": "story-section-responsive-breakpoints", "topic": "StorySection has no responsive design below its fixed 1440px, two-column layout", "detail": "story-section (6:108) fixes a 600px text column and a 600px, two-photo image collage side by side with an 80px gap, inside 80px side padding on a 1440px canvas. No tablet or mobile stacking is drawn anywhere, and the two 292px-wide collage photos would not fit side by side once the column drops much below ~660px.", "assumption": "Reuse the app's existing useIsMobileViewport hook/pattern (src/features/site/useIsMobileViewport.ts, 640px breakpoint): below that width, stack to a single column with the text block first, then the two collage photos stacked vertically below it.", "blocking": true, "inScope": true, "options": [
+    {"label": "Single column below 640px: text block first, then the two collage photos stacked vertically below — extrapolated from the app's existing mobile breakpoint, not drawn in the frame", "assumed": true},
+    {"label": "Single column below 640px: image collage first as a visual hook, text block below", "assumed": false},
+    {"label": "Ship the two-column 600/600 layout fixed at the designed width only, matching the frame pixel-for-pixel with no reflow below it", "assumed": false}
+  ]},
+  {"id": "story-collage-alt-text", "topic": "The two story photos have no authored alt text", "detail": "Nodes 6:134 and 6:135 are both generically named 'Rectangle' in Figma; the frame supplies no accessible description for either photo, only the pixels themselves.", "assumption": "Author descriptive alt text from the rendered imagery: 'A chef hand-stretching sourdough pizza dough over a floured countertop' for 6:134, and 'A wood-fired pizza baking inside a lit stone hearth oven' for 6:135.", "blocking": false, "inScope": true},
+  {"id": "story-icon-mismatch", "topic": "'900°F Stone Hearth Wood Oven' feature uses a compass icon", "detail": "FeatureListItem icons are star (tomatoes), shield (mozzarella), and compass (wood oven, 6:595) — compass has no obvious semantic link to an oven or fire, unlike the other two pairings.", "assumption": "Render the icon exactly as designed (lucide 'compass') rather than substituting a flame/oven icon; unlike the hero badge's icon this isn't an obvious mislabel, just an unusual pairing, so the frame is trusted as authoritative.", "blocking": false, "inScope": true},
+  {"id": "shared-section-heading-component", "topic": "Whether featured-section and story-section headings share one SectionHeading component", "detail": "featured-section uses a brand-red uppercase eyebrow with a short rule under the title; story-section uses a brand-green uppercase eyebrow with no rule. Layout is otherwise identical.", "assumption": "Model both as one shared SectionHeading component with eyebrowTone ('accent' | 'brand') and showRule props. Carried over from MANOJ-ADMIN-PROJECT-STORY-006's mapping of the same frame.", "blocking": false, "inScope": true},
+  {"id": "icon-library-choice", "topic": "No icon assets are exported for the vector icons this story needs (star, shield, compass)", "detail": "figma-assets.json only lists photographic fills; star, shield and compass are vector node names that match lucide-react icon ids exactly.", "assumption": "Introduce lucide-react as the icon source and wrap it in a local Icon(name) component rather than hand-authoring new SVGs. Carried over from MANOJ-ADMIN-PROJECT-STORY-006's mapping of the same frame.", "blocking": false, "inScope": true},
+  {"id": "catalogue-vs-repo-mismatch", "topic": "Supplied component catalogue said greenfield, but the repo already has site components from earlier stories", "detail": "The task prompt states 'no existing UI components in this project', but src/features/site already contains SiteHeader, PrimaryNav, NavLink, BrandLogo, DeliveryIndicator (STORY-004) and FeaturedSection, FeaturedGrid, MenuItemCard (STORY-006). StorySection, FeatureList, FeatureListItem and StoryImageCollage — this story's actual deliverables — have no equivalent anywhere in the repo, so they are genuinely new either way.", "assumption": "Follow the stated catalogue literally: every node in the component map is marked status: proposed_new, with no exceptions. Where matching code already lives in src/features/site (all out-of-scope for this story), that is called out in the relevant entry's notes instead.", "blocking": false, "inScope": false},
+  {"id": "shared-button-component", "topic": "Whether hero CTAs and card 'Add to Order' buttons share one Button component", "detail": "Hero has a primary red-fill button with a trailing arrow icon and an outline button with no icon; each MenuItemCard has a dark-fill button with a leading plus icon.", "assumption": "Model all three as one shared Button component with variant ('primary' | 'outline' | 'dark') and icon/iconPosition props. Carried over from MANOJ-ADMIN-PROJECT-STORY-004's mapping of the same frame. Out of scope for this story.", "blocking": false, "inScope": false},
+  {"id": "header-cart-gap", "topic": "Header still has a designed 'Cart' affordance that isn't built", "detail": "The frame shows both a plain 'Cart' nav link (6:18) and a separate cart icon button with a live-count badge (6:22) in the header. STORY-004 shipped SiteHeader with only Home/Our Menu and no CartButton at all.", "assumption": "Leave this gap for whichever story adds a cart/checkout flow. Out of scope for this story, carried forward for continuity only.", "blocking": false, "inScope": false},
+  {"id": "hero-badge-icon-name", "topic": "Hero eyebrow badge's icon layer is misnamed relative to its glyph", "detail": "Node 6:679 is named 'fire-extinguisher' but the rendered PNG shows a flame glyph.", "assumption": "Render lucide's 'flame' icon here rather than 'fire-extinguisher'. Out of scope for this story, carried forward for continuity only.", "blocking": false, "inScope": false},
+  {"id": "delivery-eta-copy-mismatch", "topic": "Delivery time shown twice with different values", "detail": "Header shows 'Estimated delivery: 30 mins' (6:21) while the delivery banner states 'Average ETA: 25 - 35 Min' (6:50).", "assumption": "Implement both strings literally as authored, as two independent copy sources with no shared data binding. Out of scope for this story, carried forward for continuity only.", "blocking": false, "inScope": false},
+  {"id": "featured-grid-responsive-breakpoints", "topic": "FeaturedGrid has no responsive design below 1440px", "detail": "The frame fixes featured-grid (6:59) at exactly 4 columns x 302px cards for a 1440px canvas; no tablet or mobile column count is drawn anywhere.", "assumption": "Reuse the app's existing useIsMobileViewport hook/pattern, collapsing to 2 columns on tablet and 1 column at/below 640px. Out of scope for this story (delivered by MANOJ-ADMIN-PROJECT-STORY-006), carried forward for continuity only.", "blocking": false, "inScope": false},
+  {"id": "menu-card-title-truncation", "topic": "Two menu card titles are truncated or near the edge of the 302px card width", "detail": "'Funghi Selvatici & Tartufo' (6:77) renders as 'Funghi Selvatici &...' in the PNG.", "assumption": "Let MenuItemCard's title wrap to 2 lines instead of truncating. Out of scope for this story, carried forward for continuity only.", "blocking": false, "inScope": false},
+  {"id": "menu-card-variable-height", "topic": "MenuItemCard's internal proportions vary across instances despite equal outer card height", "detail": "All 4 cards are 441px tall, but the Prosciutto card's description block is 84px vs 63px for the other three.", "assumption": "Build MenuItemCard as a fixed-width, auto-height flex column rather than a hard-coded card height. Out of scope for this story, carried forward for continuity only.", "blocking": false, "inScope": false}
+];
+
+const qContainer = document.getElementById('questions');
+questions.sort((a,b) => (b.blocking - a.blocking));
+qContainer.innerHTML = questions.map(q => `
+  <div class="question ${q.blocking ? 'blocking' : 'non-blocking'}">
+    <div class="q-head">
+      <span class="q-topic">${q.topic}</span>
+      <span class="q-flag ${q.blocking ? 'blocking' : 'non-blocking'}">${q.blocking ? 'BLOCKING' : 'non-blocking'}</span>
+      ${q.inScope ? '<span class="pill pill-scope">in scope</span>' : '<span class="pill pill-outofscope">carried forward</span>'}
+      <span class="mono" style="color:var(--muted); font-size:11px;">${q.id}</span>
+    </div>
+    <p class="q-detail">${q.detail}</p>
+    <div class="q-assumption"><b>arc's assumption (awaiting confirmation)</b>${q.assumption}</div>
+    ${q.options ? `<ul class="q-options">${q.options.map(o => `<li class="${o.assumed ? 'assumed' : ''}">${o.label}</li>`).join('')}</ul>` : ''}
+  </div>
+`).join('');
+</script>
+
+</body>
+</html>
+
+<!-- arc:css-inlined -->
