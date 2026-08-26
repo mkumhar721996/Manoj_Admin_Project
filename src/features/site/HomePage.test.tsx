@@ -17,6 +17,10 @@ describe("HomePage", () => {
     expect(
       screen.getByText(/popular sourdough pizzas/i),
     ).toBeInTheDocument();
+    expect(screen.getByTestId("story-section")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /our passion for the perfect crust/i }),
+    ).toBeInTheDocument();
   });
 
   it("navigates to the menu page when 'Add to Order' is clicked, with no cart logic triggered", async () => {
