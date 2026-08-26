@@ -33,6 +33,25 @@ describe("App", () => {
     expect(screen.queryByText(/success|saved|added/i)).not.toBeInTheDocument();
   });
 
+  it("shows a newly created expense in the list immediately, without a page reload", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: /add expense/i }));
+    await user.type(screen.getByLabelText(/amount/i), "50");
+    await user.type(screen.getByLabelText(/date/i), "2026-08-26");
+    await user.click(screen.getByRole("button", { name: /save/i }));
+
+    const deleteButton = screen.getByRole("button", {
+      name: "Delete expense of $50.00 on 2026-08-26",
+    });
+    await user.click(deleteButton);
+    await user.click(screen.getByRole("button", { name: /^delete$/i }));
+
+    const stored = JSON.parse(localStorage.getItem("expenses") ?? "[]");
+    expect(stored).toHaveLength(0);
+  });
+
   it("shows a confirmation dialog before deleting, then removes the expense and returns to the launching surface", async () => {
     addExpense({ amount: 12.5, date: "2026-08-26", category: "Food", notes: "" });
     const user = userEvent.setup();
