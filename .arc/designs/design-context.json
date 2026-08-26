@@ -1,0 +1,162 @@
+{
+  "frame": {
+    "file_key": "Kzae8FDEX2i6bB6tcai7JX",
+    "node_id": "6:6",
+    "name": "home-page",
+    "node_type": "FRAME"
+  },
+  "artboards": [
+    {
+      "id": "6:6",
+      "name": "home-page",
+      "figma_type": "FRAME",
+      "kind": "screen",
+      "bounds": { "x": -692.0, "y": -450.0, "width": 1440.0, "height": 2786.0 },
+      "role": "Forno Rosso pizzeria marketing home page: site header/nav shell, hero, delivery-promise banner, featured-menu grid, brand-story section, and footer. The linked node is a single FRAME (not a CANVAS of several artboards), so the whole page is one screen; there is only one artboard to review. The current story's scope is the header/navigation shell (row 1), the rest of the page is mapped for completeness and context."
+    }
+  ],
+  "resolved_decisions": [],
+  "tokens": {
+    "colors": ["#151212", "#2A7043", "#6B6661", "#C82D25", "#F3EFE9", "#FCFAF6", "#FFFFFF"],
+    "stroke_colors": ["#C82D25", "#EBE7DF", "#FFFFFF"],
+    "font_sizes": [12.0, 13.0, 14.0, 15.0, 16.0, 18.0, 20.0, 22.0, 24.0, 40.0, 64.0],
+    "font_families": ["Fraunces", "Geist"],
+    "font_weights": [400.0, 500.0, 600.0, 700.0],
+    "spacing": [2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 16.0, 20.0, 24.0, 32.0, 40.0, 48.0, 64.0, 80.0, 96.0, 120.0],
+    "radii": [1.0, 1.5, 8.0, 16.0, 18.0, 20.0, 24.0, 100.0],
+    "stroke_weights": [1.0, 2.0],
+    "semantic_colors": {
+      "ink": { "hex": "#151212", "usage": "header/hero/footer background, dark card surfaces (Add to Order button, header cart pill icon)" },
+      "brand-red": { "hex": "#C82D25", "usage": "logo badge, primary CTA fill, active nav underline/text, price text, feature-icon circles, chef-recommendations eyebrow, featured section rule" },
+      "brand-green": { "hex": "#2A7043", "usage": "delivery-banner background, 'delivery in 30 mins' highlight, story-section eyebrow" },
+      "muted": { "hex": "#6B6661", "usage": "secondary/description copy on light surfaces" },
+      "surface-cream": { "hex": "#F3EFE9", "usage": "story-section background" },
+      "surface-warm-white": { "hex": "#FCFAF6", "usage": "featured-section background" },
+      "surface-white": { "hex": "#FFFFFF", "usage": "menu-item card background, text on dark backgrounds" },
+      "card-border": { "hex": "#EBE7DF", "usage": "menu-item card hairline border" },
+      "on-dark-translucent-10": { "rgba": "rgba(255,255,255,0.10)", "usage": "header cart-icon-btn pill background" },
+      "on-dark-translucent-7": { "rgba": "rgba(255,255,255,0.07)", "usage": "hero eyebrow pill background, footer social-icon circle background" }
+    },
+    "type_ramp_notes": {
+      "display": "Fraunces 700 64/70.4 — hero H1",
+      "h2": "Fraunces 600/700 40/46-49 — section titles (Popular Sourdough Pizzas, Our Passion for the Perfect Crust)",
+      "h3": "Fraunces 600 18-20 — card/list item titles",
+      "eyebrow": "Geist 600 13-14, UPPERCASE, letter-spacing 0 — SectionHeading/EyebrowBadge labels",
+      "nav": "Geist 600 15 — PrimaryNav links",
+      "body": "Geist 400 14-16 — paragraphs/descriptions",
+      "button": "Geist 600 14-16 — Button label"
+    }
+  },
+  "component_map": [
+    { "figma_node": "6:7", "artboard_id": "6:6", "code_component": "SiteHeader", "status": "proposed_new", "props": { "background": "ink" }, "notes": "Top-level nav shell: fixed-height (88px) horizontal bar, ink background, 80px side padding, space-between layout containing BrandLogo, PrimaryNav (centered), and HeaderCartSummary. Primary component for this story." },
+    { "figma_node": "6:8", "artboard_id": "6:6", "code_component": "BrandLogo", "status": "proposed_new", "props": { "initial": "F", "name": "Forno Rosso", "size": "lg" }, "notes": "40x40 red rounded-square badge with italic-bold serif 'F' + serif wordmark. Reused at smaller size in footer (see 6:139)." },
+    { "figma_node": "6:12", "artboard_id": "6:6", "code_component": "PrimaryNav", "status": "proposed_new", "props": { "itemSpacing": 40 }, "notes": "Horizontal list of NavLink items, centered in header." },
+    { "figma_node": "6:13", "artboard_id": "6:6", "code_component": "NavLink", "status": "proposed_new", "props": { "label": "Home", "active": true, "href": "/" }, "notes": "Active state: brand-red text + 12x2 red underline bar (child 6:15) 4px below label." },
+    { "figma_node": "6:16", "artboard_id": "6:6", "code_component": "NavLink", "status": "proposed_new", "props": { "label": "Our Menu", "active": false }, "notes": "Reuses NavLink proposed for 6:13; inactive state is white text, no underline." },
+    { "figma_node": "6:18", "artboard_id": "6:6", "code_component": "NavLink", "status": "proposed_new", "props": { "label": "Cart", "active": false }, "notes": "Reuses NavLink proposed for 6:13. See open question two-cart-affordances: this text link co-exists with the separate CartButton icon (6:22) in the same header." },
+    { "figma_node": "6:20", "artboard_id": "6:6", "code_component": "HeaderCartSummary", "status": "proposed_new", "props": {}, "notes": "Right-hand cluster: delivery ETA text + CartButton, 12px gap." },
+    { "figma_node": "6:21", "artboard_id": "6:6", "code_component": "HeaderCartSummary", "status": "proposed_new", "props": { "text": "Estimated delivery: 30 mins", "highlight": "30 mins", "highlightColor": "brand-green" }, "notes": "Text slot of HeaderCartSummary (6:20); 80% opacity white base text with the 'time' segment overridden to brand-green + semibold via Figma character style override." },
+    { "figma_node": "6:22", "artboard_id": "6:6", "code_component": "CartButton", "status": "proposed_new", "props": { "icon": "shopping-cart", "count": 3 }, "notes": "Pill button, 10%-opacity white background, fully rounded (radius 24), white stroke-only cart icon + semibold count badge, no separate badge chip — count sits inline after the icon inside the same pill." },
+    { "figma_node": "6:25", "artboard_id": "6:6", "code_component": "Hero", "status": "proposed_new", "props": {}, "notes": "Two-column hero: text column (EyebrowBadge, heading, paragraph, CTA Button pair) + HeroImage." },
+    { "figma_node": "6:27", "artboard_id": "6:6", "code_component": "EyebrowBadge", "status": "proposed_new", "props": { "icon": "flame", "label": "Authentic Neapolitan Woodfired" }, "notes": "Fully-rounded pill (radius 100), 7%-opacity white fill, brand-red leading icon, uppercase white label." },
+    { "figma_node": "6:30", "artboard_id": "6:6", "code_component": "Hero", "status": "proposed_new", "props": { "heading": "Wood-Fired Pizza,\nDelivered Hot", "highlightLine": 2, "highlightColor": "brand-red" }, "notes": "Heading slot of Hero (6:25): Fraunces 700/64, line 1 default white, line 2 ('Delivered Hot') overridden to brand-red via character style override index 1." },
+    { "figma_node": "6:31", "artboard_id": "6:6", "code_component": "Hero", "status": "proposed_new", "props": { "body": "Baked at 900°F in our stone ovens to perfect charred perfection. Handcrafted sourdough bases fermented for 48 hours. Order now for fast, direct thermal-bag delivery." }, "notes": "Paragraph slot of Hero (6:25), Geist 400/16, ~70% max-width column." },
+    { "figma_node": "6:33", "artboard_id": "6:6", "code_component": "Button", "status": "proposed_new", "props": { "label": "Order Online Now", "variant": "primary", "icon": "arrow-right", "iconPosition": "trailing" }, "notes": "Brand-red fill, radius 8, white text + trailing arrow icon." },
+    { "figma_node": "6:36", "artboard_id": "6:6", "code_component": "Button", "status": "proposed_new", "props": { "label": "Explore Full Menu", "variant": "outline" }, "notes": "Transparent fill, 1px white stroke, radius 8, no icon. Reuses Button proposed for 6:33 with a different variant." },
+    { "figma_node": "6:38", "artboard_id": "6:6", "code_component": "HeroImage", "status": "proposed_new", "props": { "src": "./.arc/designs/figma-asset-6-39-hero-image-wrapper.png", "objectFit": "cover", "width": 616, "height": 480 }, "notes": "Node 6:39 (Rectangle) paints this box; asset file named above per figma-assets.json, css_object_fit 'cover'." },
+    { "figma_node": "6:40", "artboard_id": "6:6", "code_component": "DeliveryBanner", "status": "proposed_new", "props": { "background": "brand-green" }, "notes": "Full-width strip: IconTextBlock on the left, two StatBlocks on the right." },
+    { "figma_node": "6:41", "artboard_id": "6:6", "code_component": "IconTextBlock", "status": "proposed_new", "props": { "icon": "truck", "title": "Free Delivery On Orders Over $35", "body": "Craving quality? Skip the delivery fee entirely inside our active zones." }, "notes": "Icon circle + two-line text, left side of DeliveryBanner (6:40)." },
+    { "figma_node": "6:48", "artboard_id": "6:6", "code_component": "StatBlock", "status": "proposed_new", "props": { "label": "Average ETA", "value": "25 - 35 Min" }, "notes": "Uppercase small label over bold value, right side of DeliveryBanner." },
+    { "figma_node": "6:51", "artboard_id": "6:6", "code_component": "StatBlock", "status": "proposed_new", "props": { "label": "Pizza Temperature", "value": "Piping Hot Guaranteed" }, "notes": "Reuses StatBlock proposed for 6:48." },
+    { "figma_node": "6:54", "artboard_id": "6:6", "code_component": "FeaturedSection", "status": "proposed_new", "props": { "background": "surface-warm-white" }, "notes": "SectionHeading + FeaturedGrid, centered container." },
+    { "figma_node": "6:55", "artboard_id": "6:6", "code_component": "SectionHeading", "status": "proposed_new", "props": { "eyebrow": "Chef Recommendations", "title": "Popular Sourdough Pizzas", "eyebrowTone": "accent", "showRule": true, "align": "center" }, "notes": "Brand-red uppercase eyebrow, Fraunces 700/40 title, short brand-red rule (24x3, radius 1.5) centered beneath." },
+    { "figma_node": "6:59", "artboard_id": "6:6", "code_component": "FeaturedGrid", "status": "proposed_new", "props": { "columns": 4 }, "notes": "4-column grid of MenuItemCard on the 1440px frame; no narrower breakpoint is drawn (see open question no-responsive-breakpoints)." },
+    { "figma_node": "6:60", "artboard_id": "6:6", "code_component": "MenuItemCard", "status": "proposed_new", "props": { "name": "Diavola", "price": "$16.50", "description": "Spicy calabrian salami, house-pulled fresh mozzarella, san marzano tomato base, organic chili oil, fresh basil leaves.", "image": "./.arc/designs/figma-asset-6-62-featured-grid.png", "objectFit": "cover" }, "notes": "White card, 16px radius, #EBE7DF hairline border; image (302x220, node 6:62) + name/price row + description + AddToOrder Button." },
+    { "figma_node": "6:69", "artboard_id": "6:6", "code_component": "Button", "status": "proposed_new", "props": { "label": "Add to Order", "variant": "dark", "icon": "plus", "iconPosition": "leading" }, "notes": "Ink-fill, radius 8, leading plus icon. See open question shared-button-component: proposed as the same Button component as the hero CTAs (6:33/6:36) with a third 'dark' variant, rather than a separate component." },
+    { "figma_node": "6:72", "artboard_id": "6:6", "code_component": "MenuItemCard", "status": "proposed_new", "props": { "name": "Funghi Selvatici & Tartufo", "price": "$18.00", "description": "Roasted wild porcini and cremini mushrooms, truffle-infused olive oil, white mozzarella base, shaved pecorino.", "image": "./.arc/designs/figma-asset-6-74-featured-grid.png", "objectFit": "cover" }, "notes": "Reuses MenuItemCard proposed for 6:60." },
+    { "figma_node": "6:81", "artboard_id": "6:6", "code_component": "Button", "status": "proposed_new", "props": { "label": "Add to Order", "variant": "dark", "icon": "plus", "iconPosition": "leading" }, "notes": "Reuses Button(variant dark) proposed for 6:69." },
+    { "figma_node": "6:84", "artboard_id": "6:6", "code_component": "MenuItemCard", "status": "proposed_new", "props": { "name": "Classic Margherita", "price": "$14.50", "description": "Imported San Marzano tomato sauce, fresh buffalo mozzarella, fragrant fresh basil, extra virgin olive oil.", "image": "./.arc/designs/figma-asset-6-86-featured-grid.png", "objectFit": "cover" }, "notes": "Reuses MenuItemCard proposed for 6:60." },
+    { "figma_node": "6:93", "artboard_id": "6:6", "code_component": "Button", "status": "proposed_new", "props": { "label": "Add to Order", "variant": "dark", "icon": "plus", "iconPosition": "leading" }, "notes": "Reuses Button(variant dark) proposed for 6:69." },
+    { "figma_node": "6:96", "artboard_id": "6:6", "code_component": "MenuItemCard", "status": "proposed_new", "props": { "name": "Prosciutto Crudo e Rucola", "price": "$19.00", "description": "Prosciutto di Parma cured ham, fresh peppery wild arugula, shaved parmigiano-reggiano, balsamic glaze reduction.", "image": "./.arc/designs/figma-asset-6-98-featured-grid.png", "objectFit": "cover" }, "notes": "Reuses MenuItemCard proposed for 6:60." },
+    { "figma_node": "6:105", "artboard_id": "6:6", "code_component": "Button", "status": "proposed_new", "props": { "label": "Add to Order", "variant": "dark", "icon": "plus", "iconPosition": "leading" }, "notes": "Reuses Button(variant dark) proposed for 6:69." },
+    { "figma_node": "6:108", "artboard_id": "6:6", "code_component": "StorySection", "status": "proposed_new", "props": { "background": "surface-cream" }, "notes": "Two-column: text column (SectionHeading + paragraph + FeatureList) and StoryImageCollage." },
+    { "figma_node": "6:110", "artboard_id": "6:6", "code_component": "SectionHeading", "status": "proposed_new", "props": { "eyebrow": "The Sourdough Secret", "title": "Our Passion for the Perfect Crust", "eyebrowTone": "brand", "showRule": false, "align": "left" }, "notes": "Reuses SectionHeading proposed for 6:55 with the green/brand eyebrow tone and no rule variant." },
+    { "figma_node": "6:113", "artboard_id": "6:6", "code_component": "StorySection", "status": "proposed_new", "props": { "body": "At Forno Rosso, we respect the traditions of Neapolitan pizzaiolos while implementing modern techniques. We ferment our proprietary sourdough mother starter for 48 hours. This process creates a light, bubbly, and incredibly digestible dough with complex flavor profiles." }, "notes": "Paragraph slot of StorySection (6:108)." },
+    { "figma_node": "6:114", "artboard_id": "6:6", "code_component": "FeatureList", "status": "proposed_new", "props": {}, "notes": "Vertical stack of 3 FeatureListItem, 24px gap." },
+    { "figma_node": "6:115", "artboard_id": "6:6", "code_component": "FeatureListItem", "status": "proposed_new", "props": { "icon": "star", "title": "100% Imported San Marzano Tomatoes", "description": "Sourced directly from fertile Campania volcano soils for a sweet, low-acid base." }, "notes": "36x36 brand-red circle icon + title/description text stack." },
+    { "figma_node": "6:121", "artboard_id": "6:6", "code_component": "FeatureListItem", "status": "proposed_new", "props": { "icon": "shield", "title": "Fior di Latte & Fresh Mozzarella", "description": "Hand-stretched daily, creating the classic pool texture that blends beautifully under high fire." }, "notes": "Reuses FeatureListItem proposed for 6:115." },
+    { "figma_node": "6:127", "artboard_id": "6:6", "code_component": "FeatureListItem", "status": "proposed_new", "props": { "icon": "compass", "title": "900°F Stone Hearth Wood Oven", "description": "Powered by seasoned hickory and oak to lock in flavors and produce perfect crust blistering in 90 seconds." }, "notes": "Reuses FeatureListItem proposed for 6:115." },
+    { "figma_node": "6:133", "artboard_id": "6:6", "code_component": "StoryImageCollage", "status": "proposed_new", "props": { "images": ["./.arc/designs/figma-asset-6-134-story-img-collage.png", "./.arc/designs/figma-asset-6-135-story-img-collage.png"], "objectFit": "cover" }, "notes": "Two 292x520 images side by side (nodes 6:134, 6:135), asset files named above per figma-assets.json." },
+    { "figma_node": "6:136", "artboard_id": "6:6", "code_component": "SiteFooter", "status": "proposed_new", "props": { "background": "ink" }, "notes": "FooterBrand + two FooterColumn + Divider + FooterLegalRow." },
+    { "figma_node": "6:138", "artboard_id": "6:6", "code_component": "FooterBrand", "status": "proposed_new", "props": { "tagline": "Artisanal wood-fired sourdough pizzas crafted with 48-hour fermented dough and imported San Marzano ingredients. Delivered fresh and piping hot." }, "notes": "BrandLogo (small) + tagline paragraph + SocialRow." },
+    { "figma_node": "6:139", "artboard_id": "6:6", "code_component": "BrandLogo", "status": "proposed_new", "props": { "initial": "F", "name": "Forno Rosso", "size": "sm" }, "notes": "Reuses BrandLogo proposed for header logo-group (6:8) at a smaller size." },
+    { "figma_node": "6:144", "artboard_id": "6:6", "code_component": "SocialRow", "status": "proposed_new", "props": {}, "notes": "Horizontal row of 3 SocialIconLink, 12px gap." },
+    { "figma_node": "6:145", "artboard_id": "6:6", "code_component": "SocialIconLink", "status": "proposed_new", "props": { "icon": "instagram" }, "notes": "36x36 fully-rounded, 7%-opacity white circle, white icon." },
+    { "figma_node": "6:147", "artboard_id": "6:6", "code_component": "SocialIconLink", "status": "proposed_new", "props": { "icon": "facebook" }, "notes": "Reuses SocialIconLink proposed for 6:145." },
+    { "figma_node": "6:149", "artboard_id": "6:6", "code_component": "SocialIconLink", "status": "proposed_new", "props": { "icon": "twitter" }, "notes": "Reuses SocialIconLink proposed for 6:145." },
+    { "figma_node": "6:151", "artboard_id": "6:6", "code_component": "FooterColumn", "status": "proposed_new", "props": { "heading": "Kitchen Hours" }, "notes": "Heading + vertical stack of 3 ScheduleRow." },
+    { "figma_node": "6:154", "artboard_id": "6:6", "code_component": "ScheduleRow", "status": "proposed_new", "props": { "days": "Monday - Thursday", "hours": "12:00 PM - 10:00 PM" }, "notes": "Day label + hours value, stacked pair." },
+    { "figma_node": "6:157", "artboard_id": "6:6", "code_component": "ScheduleRow", "status": "proposed_new", "props": { "days": "Friday - Saturday", "hours": "12:00 PM - 11:30 PM" }, "notes": "Reuses ScheduleRow proposed for 6:154." },
+    { "figma_node": "6:160", "artboard_id": "6:6", "code_component": "ScheduleRow", "status": "proposed_new", "props": { "days": "Sunday", "hours": "1:00 PM - 9:30 PM" }, "notes": "Reuses ScheduleRow proposed for 6:154." },
+    { "figma_node": "6:163", "artboard_id": "6:6", "code_component": "FooterColumn", "status": "proposed_new", "props": { "heading": "Pizzeria Location", "address": "842 Rione Monti, Sourdough Avenue, Suite 100", "phone": "Delivery: (555) 392-7677", "email": "Email: ciao@fornorosso.pizza" }, "notes": "Reuses FooterColumn proposed for 6:151, filled with address/contact lines instead of ScheduleRow children." },
+    { "figma_node": "6:170", "artboard_id": "6:6", "code_component": "Divider", "status": "proposed_new", "props": {}, "notes": "1px full-width hairline separating footer columns from the legal row." },
+    { "figma_node": "6:171", "artboard_id": "6:6", "code_component": "FooterLegalRow", "status": "proposed_new", "props": { "copyright": "© 2026 Forno Rosso Pizzeria. All rights reserved.", "links": ["Privacy Policy", "Delivery Terms"] }, "notes": "Copyright text left, legal links right, space-between." }
+  ],
+  "excluded": [],
+  "open_questions": [
+    {
+      "id": "no-responsive-header-design",
+      "topic": "Header/nav shell has no mobile or tablet breakpoint",
+      "detail": "The Figma frame is fixed at 1440px wide (desktop only). No hamburger/drawer menu, collapsed nav state, or narrower header layout is drawn anywhere in the source frame, even though this story is specifically about the site header & navigation shell. Implementing a mobile nav pattern now would mean inventing UI that is not in the source of truth.",
+      "arc_assumption": "Implement SiteHeader/PrimaryNav exactly as designed for the ≥1440px desktop breakpoint only. Do not invent a hamburger/drawer pattern; treat small-viewport header behavior as out of scope until a mobile design is supplied.",
+      "blocking": true,
+      "options": [
+        { "id": "desktop-only", "label": "Build only the desktop header now; request a follow-up design for mobile/tablet nav before implementing it" },
+        { "id": "invent-hamburger", "label": "Invent a conventional hamburger/drawer pattern now, using generic best practice not present in the Figma frame" }
+      ],
+      "assumed_option": "desktop-only"
+    },
+    {
+      "id": "delivery-eta-copy-mismatch",
+      "topic": "Delivery time shown twice with different values",
+      "detail": "Header shows 'Estimated delivery: 30 mins' (node 6:21) while the delivery banner below states 'Average ETA: 25 - 35 Min' (node 6:50). These may be intentional (a live order estimate vs. a general site-wide average) or simply inconsistent placeholder copy.",
+      "arc_assumption": "Implement both strings literally as authored, as two independent copy sources (no shared data binding), and flag the discrepancy for content review.",
+      "blocking": false
+    },
+    {
+      "id": "header-sticky-behavior",
+      "topic": "Whether the header should be sticky/fixed on scroll",
+      "detail": "Every node in the frame, including the header, carries Figma's default 'SCROLLS' scroll behavior rather than 'STICKY_SCROLLS', meaning the design does not specify a pinned header.",
+      "arc_assumption": "Implement SiteHeader in normal document flow (non-sticky), matching the frame's scrollBehavior; do not add position:sticky/fixed since that would be an invented behavior.",
+      "blocking": false
+    },
+    {
+      "id": "two-cart-affordances",
+      "topic": "'Cart' appears twice in the header",
+      "detail": "PrimaryNav includes a plain 'Cart' text link (node 6:19) alongside a separate icon+badge CartButton (node 6:22) in the same header row.",
+      "arc_assumption": "Keep both as designed and map them to two distinct components (NavLink and CartButton) rather than merging them; the nav link likely routes to a full cart page while the icon button is a quick-access affordance with a live item count.",
+      "blocking": false
+    },
+    {
+      "id": "shared-button-component",
+      "topic": "Whether hero CTAs and card 'Add to Order' buttons share one Button component",
+      "detail": "Hero has a primary red-fill button with a trailing arrow icon and an outline button with no icon; each MenuItemCard has a dark-fill button with a leading plus icon. All three share size, radius (8px), and type style but differ in fill/border/icon placement.",
+      "arc_assumption": "Model all three as a single shared Button component with variant ('primary' | 'outline' | 'dark') and icon/iconPosition props, instead of three near-duplicate components.",
+      "blocking": false
+    },
+    {
+      "id": "shared-section-heading-component",
+      "topic": "Whether featured-section and story-section headings share one SectionHeading component",
+      "detail": "featured-section uses a brand-red uppercase eyebrow with a short rule under the title; story-section uses a brand-green uppercase eyebrow with no rule. Layout (eyebrow above serif title) is otherwise identical.",
+      "arc_assumption": "Model both as a single shared SectionHeading component with eyebrowTone ('accent' | 'brand') and showRule props, instead of two separate components.",
+      "blocking": false
+    },
+    {
+      "id": "no-responsive-page-breakpoints",
+      "topic": "Rest of the page (4-col menu grid, 2-col hero/story) has no responsive design either",
+      "detail": "Beyond the header, FeaturedGrid (4 columns) and the hero/story two-column layouts are only specified at 1440px. This is outside the current story's scope but noted for the team building the rest of the page.",
+      "arc_assumption": "Out of scope for this story; implement the header/nav shell at the designed breakpoint only, and leave responsive treatment of the remaining sections to whichever story implements them.",
+      "blocking": false
+    }
+  ]
+}
