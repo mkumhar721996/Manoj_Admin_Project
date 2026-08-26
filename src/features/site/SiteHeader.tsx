@@ -2,9 +2,11 @@ import { BrandLogo } from "./BrandLogo";
 import { PrimaryNav } from "./PrimaryNav";
 import { DeliveryIndicator } from "./DeliveryIndicator";
 import { useSiteConfig } from "./siteConfig";
+import { useIsMobileViewport } from "./useIsMobileViewport";
 
 export function SiteHeader() {
   const config = useSiteConfig();
+  const isMobile = useIsMobileViewport();
 
   return (
     <header
@@ -13,13 +15,13 @@ export function SiteHeader() {
         minHeight: 88,
         paddingTop: 16,
         paddingBottom: 16,
-        paddingLeft: 80,
-        paddingRight: 80,
+        paddingLeft: isMobile ? 20 : 80,
+        paddingRight: isMobile ? 20 : 80,
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "space-between",
         alignItems: "center",
-        gap: 16,
+        gap: isMobile ? 12 : 16,
       }}
     >
       <BrandLogo />

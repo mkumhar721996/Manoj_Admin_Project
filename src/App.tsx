@@ -1,16 +1,10 @@
-import { useState } from "react";
-import { CreateExpenseForm } from "./features/expenses/CreateExpenseForm";
+import { BrowserRouter } from "react-router-dom";
+import { SiteRoutes } from "./features/site/routes";
 
 export function App() {
-  const [showForm, setShowForm] = useState(false);
-
-  if (showForm) {
-    return <CreateExpenseForm onClose={() => setShowForm(false)} />;
-  }
-
   return (
-    <button type="button" onClick={() => setShowForm(true)}>
-      Add Expense
-    </button>
+    <BrowserRouter>
+      <SiteRoutes />
+    </BrowserRouter>
   );
 }
