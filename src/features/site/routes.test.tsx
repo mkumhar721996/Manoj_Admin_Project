@@ -31,4 +31,28 @@ describe("SiteRoutes", () => {
     expect(screen.getByTestId("home-page")).toBeInTheDocument();
     expect(screen.queryByTestId("our-menu-page")).not.toBeInTheDocument();
   });
+
+  it("renders the register page's Facebook continue button at /register", () => {
+    render(
+      <MemoryRouter initialEntries={["/register"]}>
+        <SiteRoutes />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole("button", { name: /continue with facebook/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders the login page's Facebook continue button at /login", () => {
+    render(
+      <MemoryRouter initialEntries={["/login"]}>
+        <SiteRoutes />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole("button", { name: /continue with facebook/i }),
+    ).toBeInTheDocument();
+  });
 });
