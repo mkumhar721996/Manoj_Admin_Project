@@ -55,4 +55,33 @@ describe("SiteRoutes", () => {
       screen.getByRole("button", { name: /continue with facebook/i }),
     ).toBeInTheDocument();
   });
+
+  it("navigates to the legal pages via the footer links", async () => {
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <SiteRoutes />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId("home-page")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("link", { name: "Privacy Policy" }));
+
+    expect(screen.getByTestId("privacy-policy-page")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Privacy Policy" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId("home-page")).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole("link", { name: "Delivery Terms" }));
+
+    expect(screen.getByTestId("delivery-terms-page")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Delivery Terms" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("privacy-policy-page"),
+    ).not.toBeInTheDocument();
+  });
 });
