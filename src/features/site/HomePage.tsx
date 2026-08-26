@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CreateExpenseForm } from "../expenses/CreateExpenseForm";
+import { ExpenseList } from "../expenses/ExpenseList";
 
 export function HomePage() {
   const [showForm, setShowForm] = useState(false);
@@ -14,6 +15,7 @@ export function HomePage() {
           Add Expense
         </button>
       )}
+      <ExpenseList />
     </main>
   );
 }
