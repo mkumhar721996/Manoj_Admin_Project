@@ -7,14 +7,18 @@ export function LoginPage() {
   const [message, setMessage] = useState<string | null>(null);
 
   async function handleLogin() {
-    const profile = await loginWithFacebook();
-    const user = authenticateFacebookUser(profile);
-    if (!user) {
-      setMessage("No account found. Please register with Facebook first.");
-      return;
+    try {
+      const profile = await loginWithFacebook();
+      const user = authenticateFacebookUser(profile);
+      if (!user) {
+        setMessage("No account found. Please register with Facebook first.");
+        return;
+      }
+      setCurrentUser(user);
+      setMessage("Logged in successfully.");
+    } catch {
+      setMessage("Login failed. Please try again.");
     }
-    setCurrentUser(user);
-    setMessage("Logged in successfully.");
   }
 
   return (

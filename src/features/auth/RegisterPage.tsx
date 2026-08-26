@@ -7,10 +7,14 @@ export function RegisterPage() {
   const [message, setMessage] = useState<string | null>(null);
 
   async function handleRegister() {
-    const profile = await loginWithFacebook();
-    const user = createUserFromFacebookProfile(profile);
-    setCurrentUser(user);
-    setMessage("Account created successfully.");
+    try {
+      const profile = await loginWithFacebook();
+      const user = createUserFromFacebookProfile(profile);
+      setCurrentUser(user);
+      setMessage("Account created successfully.");
+    } catch {
+      setMessage("Registration failed. Please try again.");
+    }
   }
 
   return (

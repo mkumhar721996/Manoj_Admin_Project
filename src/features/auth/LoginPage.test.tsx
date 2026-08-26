@@ -57,4 +57,21 @@ describe("LoginPage", () => {
     ).toBeInTheDocument();
     expect(setCurrentUser).not.toHaveBeenCalled();
   });
+
+  it("shows an error message when the Facebook login flow fails", async () => {
+    vi.mocked(loginWithFacebook).mockRejectedValue(
+      new Error("Facebook login was cancelled"),
+    );
+
+    const user = userEvent.setup();
+    render(<LoginPage />);
+
+    await user.click(
+      screen.getByRole("button", { name: /continue with facebook/i }),
+    );
+
+    expect(await screen.findByText(/login failed/i)).toBeInTheDocument();
+    expect(authenticateFacebookUser).not.toHaveBeenCalled();
+    expect(setCurrentUser).not.toHaveBeenCalled();
+  });
 });

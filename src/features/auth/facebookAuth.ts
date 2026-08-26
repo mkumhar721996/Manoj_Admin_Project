@@ -4,6 +4,8 @@ export type FacebookProfile = {
   email: string;
 };
 
+type FacebookApiResponse = FacebookProfile & { error?: { message: string } };
+
 declare global {
   interface Window {
     FB?: {
@@ -13,7 +15,7 @@ declare global {
       api: (
         path: string,
         params: Record<string, unknown>,
-        callback: (profile: FacebookProfile) => void,
+        callback: (response: FacebookApiResponse) => void,
       ) => void;
     };
   }
@@ -32,11 +34,13 @@ export function loginWithFacebook(): Promise<FacebookProfile> {
         return;
       }
 
-      window.FB?.api(
-        "/me",
-        { fields: "id,name,email" },
-        (profile) => resolve(profile),
-      );
+      window.FB?.api("/me", { fields: "id,name,email" }, (response) => {
+        if (response.error) {
+          reject(new Error(response.error.message));
+          return;
+        }
+        resolve(response);
+      });
     });
   });
 }

@@ -3,14 +3,26 @@ import type { User } from "../../types/user";
 const STORAGE_KEY = "session";
 
 export function setCurrentUser(user: User): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+  } catch {
+    console.error("Failed to save session");
+  }
 }
 
 export function getCurrentUser(): User | null {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  return stored ? JSON.parse(stored) : null;
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : null;
+  } catch {
+    return null;
+  }
 }
 
 export function clearCurrentUser(): void {
-  localStorage.removeItem(STORAGE_KEY);
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    console.error("Failed to clear session");
+  }
 }
