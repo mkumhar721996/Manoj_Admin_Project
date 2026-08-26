@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 
-export function BrandLogo() {
+type BrandLogoProps = {
+  size?: "default" | "compact";
+};
+
+export function BrandLogo({ size = "default" }: BrandLogoProps) {
+  const isCompact = size === "compact";
+  const badgeSize = isCompact ? 36 : 40;
+
   return (
     <Link
       to="/"
@@ -14,8 +21,8 @@ export function BrandLogo() {
     >
       <span
         style={{
-          width: 40,
-          height: 40,
+          width: badgeSize,
+          height: badgeSize,
           borderRadius: "50%",
           backgroundColor: "#C82D25",
           display: "flex",
@@ -29,7 +36,7 @@ export function BrandLogo() {
             fontFamily: "Fraunces, serif",
             fontWeight: 700,
             fontStyle: "italic",
-            fontSize: 22,
+            fontSize: isCompact ? 18 : 22,
             color: "#FFFFFF",
           }}
         >
@@ -40,7 +47,7 @@ export function BrandLogo() {
         style={{
           fontFamily: "Fraunces, serif",
           fontWeight: 600,
-          fontSize: 24,
+          fontSize: isCompact ? 22 : 24,
           color: "#FFFFFF",
           whiteSpace: "nowrap",
         }}

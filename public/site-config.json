@@ -1,4 +1,18 @@
 {
   "deliveryEtaPrefix": "Estimated delivery:",
-  "deliveryEtaValue": "30 mins"
+  "deliveryEtaValue": "30 mins",
+  "footerDescription": "Artisanal wood-fired sourdough pizzas crafted with 48-hour fermented dough and imported San Marzano ingredients. Delivered fresh and piping hot.",
+  "kitchenHours": [
+    { "day": "Monday - Thursday", "hours": "12:00 PM - 10:00 PM" },
+    { "day": "Friday - Saturday", "hours": "12:00 PM - 11:30 PM" },
+    { "day": "Sunday", "hours": "1:00 PM - 9:30 PM" }
+  ],
+  "pizzeriaAddress": "842 Rione Monti, Sourdough Avenue, Suite 100",
+  "deliveryPhone": "(555) 392-7677",
+  "contactEmail": "ciao@fornorosso.pizza",
+  "socialLinks": {
+    "instagram": "#",
+    "facebook": "#",
+    "twitter": "#"
+  }
 }
