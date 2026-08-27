@@ -19,6 +19,21 @@ describe("HomePage", () => {
     ).toBeInTheDocument();
   });
 
+  it("shows the footer's kitchen hours and pizzeria location on the home page", () => {
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <SiteRoutes />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole("heading", { name: /kitchen hours/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /pizzeria location/i }),
+    ).toBeInTheDocument();
+  });
+
   it("navigates to the menu page when 'Add to Order' is clicked, with no cart logic triggered", async () => {
     const user = userEvent.setup();
     render(
