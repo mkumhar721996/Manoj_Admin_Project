@@ -36,10 +36,5 @@ describe("HomePage", () => {
 
     expect(screen.getByTestId("our-menu-page")).toBeInTheDocument();
     expect(screen.queryByTestId("home-page")).not.toBeInTheDocument();
-
-    expect(screen.queryByText(/cart/i)).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", { name: /cart/i }),
-    ).not.toBeInTheDocument();
   });
 });

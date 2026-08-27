@@ -1,4 +1,5 @@
 import { BrandLogo } from "./BrandLogo";
+import { CartButton } from "./CartButton";
 import { PrimaryNav } from "./PrimaryNav";
 import { DeliveryIndicator } from "./DeliveryIndicator";
 import { useSiteConfig } from "./siteConfig";
@@ -26,10 +27,19 @@ export function SiteHeader() {
     >
       <BrandLogo />
       <PrimaryNav />
-      <DeliveryIndicator
-        prefix={config.deliveryEtaPrefix}
-        value={config.deliveryEtaValue}
-      />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+        }}
+      >
+        <DeliveryIndicator
+          prefix={config.deliveryEtaPrefix}
+          value={config.deliveryEtaValue}
+        />
+        <CartButton />
+      </div>
     </header>
   );
 }
