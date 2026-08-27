@@ -14,12 +14,16 @@ type SocialIconButtonProps = {
   label: string;
 };
 
+function isSafeHref(href: string): boolean {
+  return href === "#" || /^https?:\/\//i.test(href);
+}
+
 export function SocialIconButton({ icon, href, label }: SocialIconButtonProps) {
   const IconComponent = ICONS[icon];
 
   return (
     <a
-      href={href}
+      href={isSafeHref(href) ? href : "#"}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}

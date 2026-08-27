@@ -17,4 +17,17 @@ describe("SocialIconButton", () => {
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
   });
+
+  it("falls back to a safe href instead of rendering an unsafe URL scheme like javascript:", () => {
+    render(
+      <SocialIconButton
+        icon="instagram"
+        href="javascript:alert('xss')"
+        label="Instagram"
+      />,
+    );
+
+    const link = screen.getByRole("link", { name: "Instagram" });
+    expect(link).toHaveAttribute("href", "#");
+  });
 });
