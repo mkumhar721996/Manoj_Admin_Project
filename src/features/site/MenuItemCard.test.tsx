@@ -22,6 +22,7 @@ describe("MenuItemCard", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(diavola.description)).toBeInTheDocument();
     expect(screen.getByText("$16.50")).toBeInTheDocument();
+    expect(screen.getByText("$16.50")).toHaveStyle({ color: "#C82D25" });
 
     const image = screen.getByRole("img", { name: "Diavola" });
     expect(image).toHaveAttribute("src", "/images/menu/diavola.png");

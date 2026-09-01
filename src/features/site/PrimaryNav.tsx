@@ -13,6 +13,7 @@ export function PrimaryNav() {
     >
       <NavLink to="/" label="Home" end />
       <NavLink to="/menu" label="Our Menu" />
+      <NavLink to="/cart" label="Cart" />
     </nav>
   );
 }

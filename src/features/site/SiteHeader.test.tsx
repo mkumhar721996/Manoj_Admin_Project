@@ -1,6 +1,7 @@
 import { act, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { addItem, removeItem, resetCart } from "../cart/cartStore";
 import { SiteHeader } from "./SiteHeader";
 
 const DEFAULT_INNER_WIDTH = window.innerWidth;
@@ -14,7 +15,7 @@ describe("SiteHeader", () => {
     });
   });
 
-  it("renders the brand logo, Home/Our Menu nav links, and the delivery-time indicator", () => {
+  it("renders the brand logo, Home/Our Menu/Cart nav links, and the delivery-time indicator", () => {
     render(
       <MemoryRouter>
         <SiteHeader />
@@ -28,10 +29,23 @@ describe("SiteHeader", () => {
     expect(
       screen.getByRole("link", { name: "Our Menu" }),
     ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Cart" })).toBeInTheDocument();
 
     const indicator = screen.getByText(/estimated delivery/i);
     expect(indicator).toBeInTheDocument();
     expect(indicator).toHaveTextContent("30 mins");
+  });
+
+  it("has a dark near-black background", () => {
+    render(
+      <MemoryRouter>
+        <SiteHeader />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole("banner")).toHaveStyle({
+      backgroundColor: "#151212",
+    });
   });
 
   it("displays the delivery-time indicator from the externally fetched site config, not a hardcoded value", async () => {
@@ -58,20 +72,27 @@ describe("SiteHeader", () => {
     expect(screen.queryByText(/estimated delivery/i)).not.toBeInTheDocument();
   });
 
-  it("renders no cart item-count badge while the cart epic is unwired", () => {
+  it("displays a cart badge reflecting the current cart item count, updating live as items are added and removed", async () => {
     render(
       <MemoryRouter>
         <SiteHeader />
       </MemoryRouter>,
     );
 
-    expect(screen.queryByText(/cart/i)).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("img", { name: /cart/i }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", { name: /cart/i }),
-    ).not.toBeInTheDocument();
+    expect(screen.getByTestId("cart-badge")).toHaveTextContent("0");
+
+    await act(async () => {
+      addItem("diavola");
+      addItem("margherita");
+    });
+    expect(screen.getByTestId("cart-badge")).toHaveTextContent("2");
+
+    await act(async () => {
+      removeItem("diavola");
+    });
+    expect(screen.getByTestId("cart-badge")).toHaveTextContent("1");
+
+    resetCart();
   });
 
   it("keeps all nav links and the delivery indicator visible and legible at a 1280px desktop viewport", () => {
