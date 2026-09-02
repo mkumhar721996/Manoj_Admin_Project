@@ -18,6 +18,7 @@ export function OtpLoginPage() {
     user: User;
     identifier: string;
   } | null>(null);
+  const [linkError, setLinkError] = useState<string | null>(null);
 
   async function handleLogin() {
     try {
@@ -26,6 +27,7 @@ export function OtpLoginPage() {
       if (!user) {
         const collision = findOtpCollision(verifiedIdentifier);
         if (collision) {
+          setLinkError(null);
           setPendingCollision({ user: collision, identifier: verifiedIdentifier });
           return;
         }
@@ -45,22 +47,22 @@ export function OtpLoginPage() {
     try {
       const profile = await loginWithFacebook();
       if (profile.id !== collidingUser.facebookId) {
-        setPendingCollision(null);
-        setMessage("Unable to verify ownership of the linked account. Please try again.");
+        setLinkError("Unable to verify ownership of the linked account. Please try again.");
         return;
       }
       const linkedUser = linkOtpToExistingUser(collidingUser.id, verifiedIdentifier);
       setCurrentUser(linkedUser);
       setPendingCollision(null);
+      setLinkError(null);
       setMessage("Logged in successfully.");
     } catch {
-      setPendingCollision(null);
-      setMessage("Unable to verify ownership of the linked account. Please try again.");
+      setLinkError("Unable to verify ownership of the linked account. Please try again.");
     }
   }
 
   function handleDeclineLink() {
     setPendingCollision(null);
+    setLinkError(null);
   }
 
   if (pendingCollision) {
@@ -69,6 +71,7 @@ export function OtpLoginPage() {
         <h1>Login</h1>
         <LinkAccountsPrompt
           collidingUser={pendingCollision.user}
+          error={linkError}
           onConfirm={handleConfirmLink}
           onDecline={handleDeclineLink}
         />

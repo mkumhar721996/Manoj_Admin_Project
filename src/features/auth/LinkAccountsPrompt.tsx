@@ -2,12 +2,14 @@ import type { User } from "../../types/user";
 
 type LinkAccountsPromptProps = {
   collidingUser: User;
+  error?: string | null;
   onConfirm: () => void;
   onDecline: () => void;
 };
 
 export function LinkAccountsPrompt({
   collidingUser,
+  error,
   onConfirm,
   onDecline,
 }: LinkAccountsPromptProps) {
@@ -19,6 +21,7 @@ export function LinkAccountsPrompt({
         An account already exists for {identifier}. Link this login method to
         that account?
       </p>
+      {error && <p>{error}</p>}
       <button type="button" onClick={onConfirm}>
         Link accounts
       </button>

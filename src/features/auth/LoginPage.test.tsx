@@ -153,7 +153,7 @@ describe("LoginPage", () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
-    it("does not link or authenticate when ownership of the colliding OTP identifier cannot be re-verified", async () => {
+    it("keeps the link-accounts prompt open for retry when ownership of the colliding OTP identifier cannot be re-verified", async () => {
       vi.mocked(requestOtpLogin).mockResolvedValue("someone-else@example.com");
       const user = await loginAndReachPrompt();
 
@@ -164,7 +164,10 @@ describe("LoginPage", () => {
       ).toBeInTheDocument();
       expect(linkFacebookToExistingUser).not.toHaveBeenCalled();
       expect(setCurrentUser).not.toHaveBeenCalled();
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(screen.getByRole("dialog")).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /link accounts/i }),
+      ).toBeInTheDocument();
     });
 
     it("does not merge accounts or authenticate, and returns to the login screen when declined", async () => {

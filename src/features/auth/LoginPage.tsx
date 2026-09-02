@@ -18,6 +18,7 @@ export function LoginPage() {
     user: User;
     profile: FacebookProfile;
   } | null>(null);
+  const [linkError, setLinkError] = useState<string | null>(null);
 
   async function handleLogin() {
     try {
@@ -26,6 +27,7 @@ export function LoginPage() {
       if (!user) {
         const collision = findFacebookCollision(profile);
         if (collision) {
+          setLinkError(null);
           setPendingCollision({ user: collision, profile });
           return;
         }
@@ -47,22 +49,22 @@ export function LoginPage() {
         collidingUser.otpIdentifier ?? "",
       );
       if (verifiedIdentifier !== collidingUser.otpIdentifier) {
-        setPendingCollision(null);
-        setMessage("Unable to verify ownership of the linked account. Please try again.");
+        setLinkError("Unable to verify ownership of the linked account. Please try again.");
         return;
       }
       const linkedUser = linkFacebookToExistingUser(collidingUser.id, profile);
       setCurrentUser(linkedUser);
       setPendingCollision(null);
+      setLinkError(null);
       setMessage("Logged in successfully.");
     } catch {
-      setPendingCollision(null);
-      setMessage("Unable to verify ownership of the linked account. Please try again.");
+      setLinkError("Unable to verify ownership of the linked account. Please try again.");
     }
   }
 
   function handleDeclineLink() {
     setPendingCollision(null);
+    setLinkError(null);
   }
 
   if (pendingCollision) {
@@ -71,6 +73,7 @@ export function LoginPage() {
         <h1>Login</h1>
         <LinkAccountsPrompt
           collidingUser={pendingCollision.user}
+          error={linkError}
           onConfirm={handleConfirmLink}
           onDecline={handleDeclineLink}
         />

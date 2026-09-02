@@ -126,7 +126,7 @@ describe("OtpLoginPage", () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
-    it("does not link or authenticate when ownership of the colliding Facebook account cannot be re-verified", async () => {
+    it("keeps the link-accounts prompt open for retry when ownership of the colliding Facebook account cannot be re-verified", async () => {
       vi.mocked(loginWithFacebook).mockResolvedValue({
         id: "someone-elses-fb-id",
         name: "Someone Else",
@@ -141,7 +141,10 @@ describe("OtpLoginPage", () => {
       ).toBeInTheDocument();
       expect(linkOtpToExistingUser).not.toHaveBeenCalled();
       expect(setCurrentUser).not.toHaveBeenCalled();
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(screen.getByRole("dialog")).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /link accounts/i }),
+      ).toBeInTheDocument();
     });
 
     it("does not merge accounts or authenticate, and returns to the login screen when declined", async () => {

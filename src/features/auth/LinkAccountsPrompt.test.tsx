@@ -56,4 +56,33 @@ describe("LinkAccountsPrompt", () => {
     expect(onDecline).toHaveBeenCalledTimes(1);
     expect(onConfirm).not.toHaveBeenCalled();
   });
+
+  it("shows an error message inside the dialog when provided, while keeping it open for retry", () => {
+    render(
+      <LinkAccountsPrompt
+        collidingUser={collidingUser}
+        error="Unable to verify ownership of the linked account. Please try again."
+        onConfirm={vi.fn()}
+        onDecline={vi.fn()}
+      />,
+    );
+
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toHaveTextContent(/unable to verify ownership/i);
+    expect(
+      screen.getByRole("button", { name: /link accounts/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders no error text when none is provided", () => {
+    render(
+      <LinkAccountsPrompt
+        collidingUser={collidingUser}
+        onConfirm={vi.fn()}
+        onDecline={vi.fn()}
+      />,
+    );
+
+    expect(screen.queryByText(/unable to verify ownership/i)).not.toBeInTheDocument();
+  });
 });
