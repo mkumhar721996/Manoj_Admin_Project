@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import {
   authenticateFacebookUser,
   createUserFromFacebookProfile,
+  updateUser,
 } from "./userStore";
 
 describe("userStore", () => {
@@ -54,6 +55,38 @@ describe("userStore", () => {
       });
 
       expect(result).toBeNull();
+    });
+  });
+
+  describe("updateUser", () => {
+    it("persists updated name, phone, and email for the given user id", async () => {
+      const user = createUserFromFacebookProfile({
+        id: "fb-1",
+        name: "Jane Doe",
+        email: "jane@example.com",
+      });
+
+      const updated = await updateUser(user.id, {
+        name: "Jane Smith",
+        phone: "555-0100",
+        email: "jane.smith@example.com",
+      });
+
+      expect(updated).toMatchObject({
+        id: user.id,
+        facebookId: user.facebookId,
+        name: "Jane Smith",
+        phone: "555-0100",
+        email: "jane.smith@example.com",
+      });
+
+      const stored = JSON.parse(localStorage.getItem("users") ?? "[]");
+      const storedUser = stored.find((u: { id: string }) => u.id === user.id);
+      expect(storedUser).toMatchObject({
+        name: "Jane Smith",
+        phone: "555-0100",
+        email: "jane.smith@example.com",
+      });
     });
   });
 });

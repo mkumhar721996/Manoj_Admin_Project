@@ -27,3 +27,21 @@ export function createUserFromFacebookProfile(profile: FacebookProfile): User {
 export function authenticateFacebookUser(profile: FacebookProfile): User | null {
   return findUserByFacebookId(profile.id) ?? null;
 }
+
+export async function updateUser(
+  id: string,
+  updates: Partial<Pick<User, "name" | "phone" | "email">>,
+): Promise<User> {
+  const users = readUsers();
+  let updatedUser: User | undefined;
+  const nextUsers = users.map((user) => {
+    if (user.id !== id) return user;
+    updatedUser = { ...user, ...updates };
+    return updatedUser;
+  });
+  if (!updatedUser) {
+    throw new Error(`No user found with id ${id}`);
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(nextUsers));
+  return updatedUser;
+}
