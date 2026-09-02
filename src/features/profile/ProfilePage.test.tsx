@@ -87,7 +87,7 @@ describe("ProfilePage", () => {
 
       await screen.findByDisplayValue("Jane Smith");
 
-      expect(updateUser).toHaveBeenCalledWith("user-1", {
+      expect(updateUser).toHaveBeenCalledWith("user-1", "fb-1", {
         name: "Jane Smith",
         phone: "555-0200",
         email: "jane.smith@example.com",
@@ -96,6 +96,30 @@ describe("ProfilePage", () => {
       expect(screen.getByDisplayValue("Jane Smith")).toBeInTheDocument();
       expect(screen.getByDisplayValue("555-0200")).toBeInTheDocument();
       expect(screen.getByDisplayValue("jane.smith@example.com")).toBeInTheDocument();
+    });
+  });
+
+  describe("save failure", () => {
+    it("shows an error message and re-enables the save control when the save fails", async () => {
+      vi.mocked(getCurrentUser).mockReturnValue({
+        id: "user-1",
+        facebookId: "fb-1",
+        name: "Jane Doe",
+        phone: "555-0100",
+        email: "jane@example.com",
+      });
+      vi.mocked(updateUser).mockRejectedValue(new Error("boom"));
+
+      const user = userEvent.setup();
+      renderProfilePage();
+
+      const saveButton = screen.getByRole("button", { name: /save/i });
+      await user.click(saveButton);
+
+      expect(
+        await screen.findByText(/failed to save profile/i),
+      ).toBeInTheDocument();
+      expect(saveButton).not.toBeDisabled();
     });
   });
 

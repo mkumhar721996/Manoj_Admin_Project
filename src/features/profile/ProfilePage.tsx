@@ -10,16 +10,24 @@ export function ProfilePage() {
   const [phone, setPhone] = useState(currentUser?.phone ?? "");
   const [email, setEmail] = useState(currentUser?.email ?? "");
   const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSave() {
     if (!currentUser) return;
     setIsSaving(true);
+    setError(null);
     try {
-      const updated = await updateUser(currentUser.id, { name, phone, email });
+      const updated = await updateUser(currentUser.id, currentUser.facebookId, {
+        name,
+        phone,
+        email,
+      });
       setCurrentUser(updated);
       setName(updated.name);
       setPhone(updated.phone ?? "");
       setEmail(updated.email);
+    } catch {
+      setError("Failed to save profile. Please try again.");
     } finally {
       setIsSaving(false);
     }
@@ -49,6 +57,7 @@ export function ProfilePage() {
         Save
       </button>
       {isSaving && <p role="status">Saving…</p>}
+      {error && <p role="alert">{error}</p>}
       <button type="button" onClick={handleLogout}>
         Log out
       </button>

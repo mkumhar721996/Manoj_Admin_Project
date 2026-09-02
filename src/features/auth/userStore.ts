@@ -30,17 +30,18 @@ export function authenticateFacebookUser(profile: FacebookProfile): User | null 
 
 export async function updateUser(
   id: string,
+  facebookId: string,
   updates: Partial<Pick<User, "name" | "phone" | "email">>,
 ): Promise<User> {
   const users = readUsers();
   let updatedUser: User | undefined;
   const nextUsers = users.map((user) => {
-    if (user.id !== id) return user;
+    if (user.id !== id || user.facebookId !== facebookId) return user;
     updatedUser = { ...user, ...updates };
     return updatedUser;
   });
   if (!updatedUser) {
-    throw new Error(`No user found with id ${id}`);
+    throw new Error(`No user found with id ${id} owned by facebookId ${facebookId}`);
   }
   localStorage.setItem(STORAGE_KEY, JSON.stringify(nextUsers));
   return updatedUser;

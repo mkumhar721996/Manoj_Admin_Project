@@ -59,14 +59,14 @@ describe("userStore", () => {
   });
 
   describe("updateUser", () => {
-    it("persists updated name, phone, and email for the given user id", async () => {
+    it("persists updated name, phone, and email for the given user id when the facebookId matches", async () => {
       const user = createUserFromFacebookProfile({
         id: "fb-1",
         name: "Jane Doe",
         email: "jane@example.com",
       });
 
-      const updated = await updateUser(user.id, {
+      const updated = await updateUser(user.id, user.facebookId, {
         name: "Jane Smith",
         phone: "555-0100",
         email: "jane.smith@example.com",
@@ -87,6 +87,22 @@ describe("userStore", () => {
         phone: "555-0100",
         email: "jane.smith@example.com",
       });
+    });
+
+    it("rejects the update and leaves the record unchanged when the facebookId does not match the id", async () => {
+      const user = createUserFromFacebookProfile({
+        id: "fb-1",
+        name: "Jane Doe",
+        email: "jane@example.com",
+      });
+
+      await expect(
+        updateUser(user.id, "fb-attacker", { name: "Mallory" }),
+      ).rejects.toThrow();
+
+      const stored = JSON.parse(localStorage.getItem("users") ?? "[]");
+      const storedUser = stored.find((u: { id: string }) => u.id === user.id);
+      expect(storedUser).toMatchObject({ name: "Jane Doe" });
     });
   });
 });
