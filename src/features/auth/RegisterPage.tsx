@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { loginWithFacebook } from "./facebookAuth";
 import { setCurrentUser } from "./session";
 import { createUserFromFacebookProfile } from "./userStore";
@@ -23,6 +24,9 @@ export function RegisterPage() {
       <button type="button" onClick={handleRegister}>
         Continue with Facebook
       </button>
+      <p>
+        <Link to="/register/otp">Register with phone or email instead</Link>
+      </p>
       {message && <p>{message}</p>}
     </main>
   );

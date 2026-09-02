@@ -1,34 +1,34 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { loginWithFacebook } from "./facebookAuth";
 import { LinkAccountsPrompt } from "./LinkAccountsPrompt";
+import { requestOtpLogin } from "./otpAuth";
 import { setCurrentUser } from "./session";
 import {
-  authenticateFacebookUser,
-  findFacebookCollision,
-  linkFacebookToExistingUser,
+  authenticateOtpUser,
+  findOtpCollision,
+  linkOtpToExistingUser,
 } from "./userStore";
-import type { FacebookProfile } from "./facebookAuth";
 import type { User } from "../../types/user";
 
-export function LoginPage() {
+export function OtpLoginPage() {
+  const [identifier, setIdentifier] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [pendingCollision, setPendingCollision] = useState<{
     user: User;
-    profile: FacebookProfile;
+    identifier: string;
   } | null>(null);
 
   async function handleLogin() {
     try {
-      const profile = await loginWithFacebook();
-      const user = authenticateFacebookUser(profile);
+      const verifiedIdentifier = await requestOtpLogin(identifier);
+      const user = authenticateOtpUser(verifiedIdentifier);
       if (!user) {
-        const collision = findFacebookCollision(profile);
+        const collision = findOtpCollision(verifiedIdentifier);
         if (collision) {
-          setPendingCollision({ user: collision, profile });
+          setPendingCollision({ user: collision, identifier: verifiedIdentifier });
           return;
         }
-        setMessage("No account found. Please register with Facebook first.");
+        setMessage("No account found. Please register first.");
         return;
       }
       setCurrentUser(user);
@@ -40,9 +40,9 @@ export function LoginPage() {
 
   function handleConfirmLink() {
     if (!pendingCollision) return;
-    const linkedUser = linkFacebookToExistingUser(
+    const linkedUser = linkOtpToExistingUser(
       pendingCollision.user.id,
-      pendingCollision.profile,
+      pendingCollision.identifier,
     );
     setCurrentUser(linkedUser);
     setPendingCollision(null);
@@ -55,7 +55,7 @@ export function LoginPage() {
 
   if (pendingCollision) {
     return (
-      <main data-testid="login-page">
+      <main data-testid="otp-login-page">
         <h1>Login</h1>
         <LinkAccountsPrompt
           collidingUser={pendingCollision.user}
@@ -67,13 +67,19 @@ export function LoginPage() {
   }
 
   return (
-    <main data-testid="login-page">
+    <main data-testid="otp-login-page">
       <h1>Login</h1>
+      <label htmlFor="otp-login-identifier">Phone or email</label>
+      <input
+        id="otp-login-identifier"
+        value={identifier}
+        onChange={(event) => setIdentifier(event.target.value)}
+      />
       <button type="button" onClick={handleLogin}>
-        Continue with Facebook
+        Continue
       </button>
       <p>
-        <Link to="/login/otp">Continue with phone or email instead</Link>
+        <Link to="/login">Continue with Facebook instead</Link>
       </p>
       {message && <p>{message}</p>}
     </main>

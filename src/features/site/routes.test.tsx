@@ -55,4 +55,24 @@ describe("SiteRoutes", () => {
       screen.getByRole("button", { name: /continue with facebook/i }),
     ).toBeInTheDocument();
   });
+
+  it("renders the OTP register page's identifier input at /register/otp", () => {
+    render(
+      <MemoryRouter initialEntries={["/register/otp"]}>
+        <SiteRoutes />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByLabelText(/phone or email/i)).toBeInTheDocument();
+  });
+
+  it("renders the OTP login page's identifier input at /login/otp", () => {
+    render(
+      <MemoryRouter initialEntries={["/login/otp"]}>
+        <SiteRoutes />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByLabelText(/phone or email/i)).toBeInTheDocument();
+  });
 });

@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { RegisterPage } from "./RegisterPage";
 import { loginWithFacebook } from "./facebookAuth";
@@ -29,7 +30,11 @@ describe("RegisterPage", () => {
     vi.mocked(createUserFromFacebookProfile).mockReturnValue(registeredUser);
 
     const user = userEvent.setup();
-    render(<RegisterPage />);
+    render(
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>,
+    );
 
     await user.click(
       screen.getByRole("button", { name: /continue with facebook/i }),
@@ -49,7 +54,11 @@ describe("RegisterPage", () => {
     );
 
     const user = userEvent.setup();
-    render(<RegisterPage />);
+    render(
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>,
+    );
 
     await user.click(
       screen.getByRole("button", { name: /continue with facebook/i }),
