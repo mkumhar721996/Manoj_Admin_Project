@@ -1,6 +1,7 @@
 export type User = {
   id: string;
-  facebookId: string;
   name: string;
-  email: string;
+  email?: string;
+  facebookId?: string;
+  otpIdentifier?: string;
 };

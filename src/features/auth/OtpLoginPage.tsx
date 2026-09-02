@@ -5,33 +5,33 @@ import { LinkAccountsPrompt } from "./LinkAccountsPrompt";
 import { requestOtpLogin } from "./otpAuth";
 import { setCurrentUser } from "./session";
 import {
-  authenticateFacebookUser,
-  findFacebookCollision,
-  linkFacebookToExistingUser,
+  authenticateOtpUser,
+  findOtpCollision,
+  linkOtpToExistingUser,
 } from "./userStore";
-import type { FacebookProfile } from "./facebookAuth";
 import type { User } from "../../types/user";
 
-export function LoginPage() {
+export function OtpLoginPage() {
+  const [identifier, setIdentifier] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [pendingCollision, setPendingCollision] = useState<{
     user: User;
-    profile: FacebookProfile;
+    identifier: string;
   } | null>(null);
   const [linkError, setLinkError] = useState<string | null>(null);
 
   async function handleLogin() {
     try {
-      const profile = await loginWithFacebook();
-      const user = authenticateFacebookUser(profile);
+      const verifiedIdentifier = await requestOtpLogin(identifier);
+      const user = authenticateOtpUser(verifiedIdentifier);
       if (!user) {
-        const collision = findFacebookCollision(profile);
+        const collision = findOtpCollision(verifiedIdentifier);
         if (collision) {
           setLinkError(null);
-          setPendingCollision({ user: collision, profile });
+          setPendingCollision({ user: collision, identifier: verifiedIdentifier });
           return;
         }
-        setMessage("No account found. Please register with Facebook first.");
+        setMessage("No account found. Please register first.");
         return;
       }
       setCurrentUser(user);
@@ -43,16 +43,14 @@ export function LoginPage() {
 
   async function handleConfirmLink() {
     if (!pendingCollision) return;
-    const { user: collidingUser, profile } = pendingCollision;
+    const { user: collidingUser, identifier: verifiedIdentifier } = pendingCollision;
     try {
-      const verifiedIdentifier = await requestOtpLogin(
-        collidingUser.otpIdentifier ?? "",
-      );
-      if (verifiedIdentifier !== collidingUser.otpIdentifier) {
+      const profile = await loginWithFacebook();
+      if (profile.id !== collidingUser.facebookId) {
         setLinkError("Unable to verify ownership of the linked account. Please try again.");
         return;
       }
-      const linkedUser = linkFacebookToExistingUser(collidingUser.id, profile);
+      const linkedUser = linkOtpToExistingUser(collidingUser.id, verifiedIdentifier);
       setCurrentUser(linkedUser);
       setPendingCollision(null);
       setLinkError(null);
@@ -69,7 +67,7 @@ export function LoginPage() {
 
   if (pendingCollision) {
     return (
-      <main data-testid="login-page">
+      <main data-testid="otp-login-page">
         <h1>Login</h1>
         <LinkAccountsPrompt
           collidingUser={pendingCollision.user}
@@ -82,13 +80,19 @@ export function LoginPage() {
   }
 
   return (
-    <main data-testid="login-page">
+    <main data-testid="otp-login-page">
       <h1>Login</h1>
+      <label htmlFor="otp-login-identifier">Phone or email</label>
+      <input
+        id="otp-login-identifier"
+        value={identifier}
+        onChange={(event) => setIdentifier(event.target.value)}
+      />
       <button type="button" onClick={handleLogin}>
-        Continue with Facebook
+        Continue
       </button>
       <p>
-        <Link to="/login/otp">Continue with phone or email instead</Link>
+        <Link to="/login">Continue with Facebook instead</Link>
       </p>
       {message && <p>{message}</p>}
     </main>
