@@ -3,11 +3,13 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ProfilePage } from "./ProfilePage";
+import { getCurrentFacebookProfile } from "../auth/facebookAuth";
 import { clearCurrentUser, getCurrentUser, setCurrentUser } from "../auth/session";
 import { updateUser } from "../auth/userStore";
 
 vi.mock("../auth/session");
 vi.mock("../auth/userStore");
+vi.mock("../auth/facebookAuth");
 
 function renderProfilePage() {
   return render(
@@ -23,6 +25,7 @@ describe("ProfilePage", () => {
     vi.mocked(setCurrentUser).mockReset();
     vi.mocked(clearCurrentUser).mockReset();
     vi.mocked(updateUser).mockReset();
+    vi.mocked(getCurrentFacebookProfile).mockReset();
   });
 
   describe("viewing the profile", () => {
@@ -72,6 +75,11 @@ describe("ProfilePage", () => {
         email: "jane.smith@example.com",
       };
       vi.mocked(getCurrentUser).mockReturnValue(currentUser);
+      vi.mocked(getCurrentFacebookProfile).mockResolvedValue({
+        id: "fb-1",
+        name: "Jane Doe",
+        email: "jane@example.com",
+      });
       vi.mocked(updateUser).mockResolvedValue(updatedUser);
 
       const user = userEvent.setup();
@@ -99,6 +107,33 @@ describe("ProfilePage", () => {
     });
   });
 
+  describe("identity verification", () => {
+    it("rejects the save and never calls updateUser when the session's facebookId does not match the live Facebook identity", async () => {
+      vi.mocked(getCurrentUser).mockReturnValue({
+        id: "victim-id",
+        facebookId: "victim-fb-id",
+        name: "Victim",
+        phone: "555-0100",
+        email: "victim@example.com",
+      });
+      vi.mocked(getCurrentFacebookProfile).mockResolvedValue({
+        id: "attacker-fb-id",
+        name: "Attacker",
+        email: "attacker@example.com",
+      });
+
+      const user = userEvent.setup();
+      renderProfilePage();
+
+      await user.click(screen.getByRole("button", { name: /save/i }));
+
+      expect(
+        await screen.findByText(/failed to save profile/i),
+      ).toBeInTheDocument();
+      expect(updateUser).not.toHaveBeenCalled();
+    });
+  });
+
   describe("save failure", () => {
     it("shows an error message and re-enables the save control when the save fails", async () => {
       vi.mocked(getCurrentUser).mockReturnValue({
@@ -106,6 +141,11 @@ describe("ProfilePage", () => {
         facebookId: "fb-1",
         name: "Jane Doe",
         phone: "555-0100",
+        email: "jane@example.com",
+      });
+      vi.mocked(getCurrentFacebookProfile).mockResolvedValue({
+        id: "fb-1",
+        name: "Jane Doe",
         email: "jane@example.com",
       });
       vi.mocked(updateUser).mockRejectedValue(new Error("boom"));
@@ -133,6 +173,11 @@ describe("ProfilePage", () => {
         email: "jane@example.com",
       };
       vi.mocked(getCurrentUser).mockReturnValue(currentUser);
+      vi.mocked(getCurrentFacebookProfile).mockResolvedValue({
+        id: "fb-1",
+        name: "Jane Doe",
+        email: "jane@example.com",
+      });
       let resolveUpdate: (user: typeof currentUser) => void;
       const pending = new Promise<typeof currentUser>((resolve) => {
         resolveUpdate = resolve;

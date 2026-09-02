@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createUserFromFacebookProfile } from "../auth/userStore";
 import { setCurrentUser } from "../auth/session";
 import { SiteRoutes } from "./routes";
@@ -9,6 +9,10 @@ import { SiteRoutes } from "./routes";
 describe("SiteRoutes", () => {
   beforeEach(() => {
     localStorage.clear();
+  });
+
+  afterEach(() => {
+    delete window.FB;
   });
 
   it("navigates between Home and Our Menu when their nav links are clicked", async () => {
@@ -80,6 +84,12 @@ describe("SiteRoutes", () => {
       email: "jane@example.com",
     });
     setCurrentUser(registeredUser);
+    window.FB = {
+      login: () => {},
+      getLoginStatus: (callback) => callback({ status: "connected" }),
+      api: (_path, _params, callback) =>
+        callback({ id: "fb-1", name: "Jane Doe", email: "jane@example.com" }),
+    };
 
     const user = userEvent.setup();
     render(

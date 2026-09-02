@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getCurrentFacebookProfile } from "../auth/facebookAuth";
 import { clearCurrentUser, getCurrentUser, setCurrentUser } from "../auth/session";
 import { updateUser } from "../auth/userStore";
 
@@ -17,6 +18,10 @@ export function ProfilePage() {
     setIsSaving(true);
     setError(null);
     try {
+      const liveProfile = await getCurrentFacebookProfile();
+      if (liveProfile.id !== currentUser.facebookId) {
+        throw new Error("Identity verification failed");
+      }
       const updated = await updateUser(currentUser.id, currentUser.facebookId, {
         name,
         phone,
