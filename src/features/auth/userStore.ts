@@ -71,6 +71,9 @@ export function linkFacebookToExistingUser(
 ): User {
   const users = readUsers();
   const index = users.findIndex((user) => user.id === userId);
+  if (index === -1) {
+    throw new Error(`Cannot link Facebook account: user ${userId} not found`);
+  }
   const updated: User = { ...users[index], facebookId: profile.id };
   users[index] = updated;
   writeUsers(users);
@@ -80,6 +83,9 @@ export function linkFacebookToExistingUser(
 export function linkOtpToExistingUser(userId: string, identifier: string): User {
   const users = readUsers();
   const index = users.findIndex((user) => user.id === userId);
+  if (index === -1) {
+    throw new Error(`Cannot link OTP identifier: user ${userId} not found`);
+  }
   const updated: User = { ...users[index], otpIdentifier: identifier };
   users[index] = updated;
   writeUsers(users);

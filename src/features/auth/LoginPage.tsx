@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { loginWithFacebook } from "./facebookAuth";
 import { LinkAccountsPrompt } from "./LinkAccountsPrompt";
+import { requestOtpLogin } from "./otpAuth";
 import { setCurrentUser } from "./session";
 import {
   authenticateFacebookUser,
@@ -38,15 +39,26 @@ export function LoginPage() {
     }
   }
 
-  function handleConfirmLink() {
+  async function handleConfirmLink() {
     if (!pendingCollision) return;
-    const linkedUser = linkFacebookToExistingUser(
-      pendingCollision.user.id,
-      pendingCollision.profile,
-    );
-    setCurrentUser(linkedUser);
-    setPendingCollision(null);
-    setMessage("Logged in successfully.");
+    const { user: collidingUser, profile } = pendingCollision;
+    try {
+      const verifiedIdentifier = await requestOtpLogin(
+        collidingUser.otpIdentifier ?? "",
+      );
+      if (verifiedIdentifier !== collidingUser.otpIdentifier) {
+        setPendingCollision(null);
+        setMessage("Unable to verify ownership of the linked account. Please try again.");
+        return;
+      }
+      const linkedUser = linkFacebookToExistingUser(collidingUser.id, profile);
+      setCurrentUser(linkedUser);
+      setPendingCollision(null);
+      setMessage("Logged in successfully.");
+    } catch {
+      setPendingCollision(null);
+      setMessage("Unable to verify ownership of the linked account. Please try again.");
+    }
   }
 
   function handleDeclineLink() {

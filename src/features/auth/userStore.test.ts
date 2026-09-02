@@ -203,6 +203,25 @@ describe("userStore", () => {
       expect(stored).toHaveLength(1);
       expect(stored[0]).toEqual(linked);
     });
+
+    it("throws and leaves storage untouched when the user id does not exist", () => {
+      createUserFromOtpProfile({
+        identifier: "jane@example.com",
+        name: "Jane Doe",
+      });
+
+      expect(() =>
+        linkFacebookToExistingUser("missing-user", {
+          id: "fb-1",
+          name: "Jane Doe",
+          email: "jane@example.com",
+        }),
+      ).toThrow();
+
+      const stored = JSON.parse(localStorage.getItem("users") ?? "[]");
+      expect(stored).toHaveLength(1);
+      expect(stored[0].facebookId).toBeUndefined();
+    });
   });
 
   describe("linkOtpToExistingUser", () => {
@@ -223,6 +242,22 @@ describe("userStore", () => {
       const stored = JSON.parse(localStorage.getItem("users") ?? "[]");
       expect(stored).toHaveLength(1);
       expect(stored[0]).toEqual(linked);
+    });
+
+    it("throws and leaves storage untouched when the user id does not exist", () => {
+      createUserFromFacebookProfile({
+        id: "fb-1",
+        name: "Jane Doe",
+        email: "jane@example.com",
+      });
+
+      expect(() =>
+        linkOtpToExistingUser("missing-user", "jane@example.com"),
+      ).toThrow();
+
+      const stored = JSON.parse(localStorage.getItem("users") ?? "[]");
+      expect(stored).toHaveLength(1);
+      expect(stored[0].otpIdentifier).toBeUndefined();
     });
   });
 

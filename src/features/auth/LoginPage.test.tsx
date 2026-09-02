@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { LoginPage } from "./LoginPage";
 import { loginWithFacebook } from "./facebookAuth";
+import { requestOtpLogin } from "./otpAuth";
 import { setCurrentUser } from "./session";
 import {
   authenticateFacebookUser,
@@ -12,12 +13,14 @@ import {
 } from "./userStore";
 
 vi.mock("./facebookAuth");
+vi.mock("./otpAuth");
 vi.mock("./userStore");
 vi.mock("./session");
 
 describe("LoginPage", () => {
   beforeEach(() => {
     vi.mocked(loginWithFacebook).mockReset();
+    vi.mocked(requestOtpLogin).mockReset();
     vi.mocked(authenticateFacebookUser).mockReset();
     vi.mocked(findFacebookCollision).mockReset();
     vi.mocked(linkFacebookToExistingUser).mockReset();
@@ -131,13 +134,15 @@ describe("LoginPage", () => {
       expect(setCurrentUser).not.toHaveBeenCalled();
     });
 
-    it("links both methods to the same account and authenticates when confirmed", async () => {
+    it("re-verifies ownership of the colliding OTP identifier, links both methods, and authenticates when confirmed", async () => {
       const linkedUser = { ...collidingUser, facebookId: "fb-1" };
+      vi.mocked(requestOtpLogin).mockResolvedValue(collidingUser.otpIdentifier);
       vi.mocked(linkFacebookToExistingUser).mockReturnValue(linkedUser);
       const user = await loginAndReachPrompt();
 
       await user.click(screen.getByRole("button", { name: /link accounts/i }));
 
+      expect(requestOtpLogin).toHaveBeenCalledWith(collidingUser.otpIdentifier);
       expect(linkFacebookToExistingUser).toHaveBeenCalledTimes(1);
       expect(linkFacebookToExistingUser).toHaveBeenCalledWith(
         collidingUser.id,
@@ -145,6 +150,20 @@ describe("LoginPage", () => {
       );
       expect(setCurrentUser).toHaveBeenCalledWith(linkedUser);
       expect(await screen.findByText(/logged in/i)).toBeInTheDocument();
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+
+    it("does not link or authenticate when ownership of the colliding OTP identifier cannot be re-verified", async () => {
+      vi.mocked(requestOtpLogin).mockResolvedValue("someone-else@example.com");
+      const user = await loginAndReachPrompt();
+
+      await user.click(screen.getByRole("button", { name: /link accounts/i }));
+
+      expect(
+        await screen.findByText(/unable to verify ownership/i),
+      ).toBeInTheDocument();
+      expect(linkFacebookToExistingUser).not.toHaveBeenCalled();
+      expect(setCurrentUser).not.toHaveBeenCalled();
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
